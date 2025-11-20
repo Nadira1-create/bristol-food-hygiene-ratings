@@ -24,7 +24,7 @@ Improved Public Health (This app aims to helps consumers make safer decisions wh
 1) Open data bristol   - Open data is available, but it’s in raw formats, which isn’t easy for users to understand.
 2) Goverment websites  -  These sites have the data, but they’re hard to navigate and not mobile-friendly. Users most of the time can’t filter the results easily and may need to download large files or search through complex pages, making it tough to quickly find ratings.
 3) third party reviews - These apps sometimes show hygiene ratings, but the ratings might not always be up-to-date, accurate or unclear.
-4) create my own application - Building our own app gives us full control to design a simple straightforward user-friendly platform, that shows up-to-date hygiene ratings and makes it easy for people to find the info they need.
+4) create my own application - Building my own app gives me full control to design a simple straightforward user-friendly platform, that shows up-to-date hygiene ratings and makes it easy for people to find the info they need.
 
 
 ### Expected Risks
