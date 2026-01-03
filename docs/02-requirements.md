@@ -59,6 +59,10 @@ The following actors interact directly or indirectly with the system:
 
 ## 4. Use-Cases
 
+<img width="1006" height="646" alt="Screenshot 2026-01-03 at 10 33 43" src="https://github.com/user-attachments/assets/f20f8845-fda7-4eff-aadb-66c6bd1a6726" />
+*Figure X: UML Use Case Diagram for the Bristol Food Hygiene Ratings Web Application.*
+
+
 Each use-case describes structured system behaviour using an academically recognised format.
 
 ---
