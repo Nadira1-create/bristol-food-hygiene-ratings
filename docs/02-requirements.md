@@ -202,9 +202,6 @@ Technical staff responsible for maintaining the application, updating data feeds
 **NFR6:** The system shall provide intuitive error messages and guidance when search returns no results.  
 **Source:** UC1  
 
-**NFR7:** The system shall present the report submission form with clear labels and help text for each field.  
-**Source:** UC2  
-
 ---
 
 ### Compatibility (Quality Attribute: Portability)
@@ -224,22 +221,6 @@ Technical staff responsible for maintaining the application, updating data feeds
 
 **NFR11:** The system shall maintain a minimum text contrast ratio of 4.5:1 for readability (WCAG AA standard).  
 **Source:** UC1  
-
----
-
-### Security (Quality Attribute: Security)
-
-**NFR12:** The system shall encrypt all report submissions both in transit (HTTPS) and at rest (encrypted database storage).  
-**Source:** UC2  
-
-**NFR13:** The system shall protect user privacy by not publicly displaying personal information from reports without consent.  
-**Source:** UC2  
-
-**NFR14:** The system shall store all reports with a complete audit trail including submission timestamp, user ID, and administrator actions.  
-**Source:** UC2  
-
-**NFR15:** The system shall implement rate limiting on report submissions to prevent spam and abuse (maximum 5 reports per user per day).  
-**Source:** UC2  
 
 ---
 
