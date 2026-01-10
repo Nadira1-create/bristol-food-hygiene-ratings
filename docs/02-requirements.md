@@ -21,18 +21,6 @@
 
 ---
 
-### Food Business Owners
-
-- **As a restaurant owner**, I want customers to easily find my high hygiene rating so that I can attract more health-conscious diners.
-- **As a café manager**, I want to monitor my establishment’s rating so that I can address any issues promptly.
-
----
-
-### Local Authority Inspectors
-
-- **As a food safety inspector**, I want the public to access current ratings easily so that businesses are motivated to maintain high hygiene standards.
-- **As an environmental health officer**, I want inspection data to be displayed accurately so that the public can make informed decisions.
-
 # Actors
 
 ## General Public User (Primary Actor)
