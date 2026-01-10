@@ -33,12 +33,6 @@
 - **As a food safety inspector**, I want the public to access current ratings easily so that businesses are motivated to maintain high hygiene standards.
 - **As an environmental health officer**, I want inspection data to be displayed accurately so that the public can make informed decisions.
 
----
-
-### Public Health Advocates
-
-- **As a health researcher**, I want to analyse hygiene rating trends across Bristol so that I can identify areas that need improvement.
-
 # Actors
 
 ## General Public User (Primary Actor)
@@ -51,17 +45,6 @@ Members of the public seeking food hygiene information for Bristol establishment
 
 Members of the public who create accounts to access enhanced features such as saving favourites, reporting concerns, and receiving notifications. They are regular users who want greater engagement with the platform.
 
----
-
-## Food Business Owner / Manager (Secondary Actor)
-
-Owners or managers of food establishments in Bristol who have a business interest in their hygiene ratings. They use the system to monitor their ratings and respond to customer feedback, aiming to showcase good hygiene standards.
-
----
-
-## Local Authority Inspector (Secondary Actor)
-
-Environmental health officers from Bristol City Council who conduct hygiene inspections. They ensure the accuracy of published ratings and use the platform’s visibility to encourage businesses to maintain high standards.
 
 ---
 
