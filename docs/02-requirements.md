@@ -186,5 +186,5 @@ Government officials who conduct food hygiene inspections and maintain the sourc
 *Source: UC1, UC2*
 
 # Use Case Diagram
+<img width="1014" height="682" alt="Screenshot 2026-01-12 at 03 23 46" src="https://github.com/user-attachments/assets/102df3d8-b92e-457c-8e54-70ccdaf959b5" />
 
-![Bristol Food Hygiene Ratings Web App Use Case Diagram showing actors (General Public User, Registered User, Food Business Owner, Local Authority/Food Safety Inspector, Parent/Guardian, and System Administrator) and two main use cases (UC1: Search and View Food Hygiene Ratings, UC2: Report Hygiene Concern) within the Bristol Food Hygiene Ratings Web App system boundary]
