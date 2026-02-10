@@ -1,190 +1,170 @@
-# User Stories
+# Requirements
 
-**US1:** As a member of the public, I want to search for food businesses by name or location so that I can quickly find hygiene ratings for restaurants I'm interested in visiting.
+## User Needs
 
-**US2:** As a health-conscious consumer, I want to filter food businesses by hygiene rating score so that I can easily identify establishments with excellent hygiene standards.
+### User Stories
 
-**US3:** As a concerned diner, I want to view detailed inspection results including the date of the last inspection so that I can make informed decisions about food safety.
+**US1:** As a member of the public, I want to search for food businesses by name, postcode, or address so that I can quickly find hygiene ratings for places I am interested in visiting.
 
-**US4:** As a registered user, I want to create and manage my account so that I can save my favourite businesses and receive updates about their ratings.
+**US2:** As a health-conscious consumer, I want to filter food businesses by their hygiene rating score (0 to 5) so that I can easily identify establishments with high hygiene standards.
 
-**US5:** As a consumer, I want to report hygiene concerns or issues at food establishments so that authorities can be alerted to potential health risks.
+**US3:** As a concerned diner, I want to view detailed information about a food business including its rating date and whether a new rating is pending so that I can judge how current and reliable the displayed rating is.
 
-**US6:** As a food business owner, I want to view my business's hygiene rating as displayed to the public so that I can understand how my establishment is perceived and identify areas for improvement.
+**US4:** As a parent, I want to filter businesses by their type (for example, restaurants, takeaways, schools, pubs) so that I can find appropriate and safe dining options for my family.
 
-**US7:** As a parent, I want to filter businesses by category (e.g., schools, cafes, restaurants) so that I can find appropriate and safe dining options for my family.
+**US5:** As a public user, I want to access and view all hygiene ratings without needing to create an account or log in so that I can get important health information immediately with no barriers.
 
-**US8:** As a public user, I want to view hygiene ratings without creating an account so that I can access important health information immediately without barriers.
+**US6:** As a first-time visitor to Bristol, I want to browse food businesses in a specific area by entering a postcode so that I can find hygienic places to eat near where I am staying.
 
-**US9:** As a business owner, I want to see feedback submitted about my establishment so that I can address customer concerns and maintain high hygiene standards.
+**US7:** As a consumer unfamiliar with food hygiene ratings, I want to understand what each rating score from 0 to 5 means so that I can properly interpret the information and make informed choices about where to eat.
 
-# Actors
+**US8:** As a user on my mobile phone, I want the web application to display properly on smaller screens so that I can check hygiene ratings while I am out and about.
 
-## 1. General Public User (Unregistered)
-A member of the public who accesses the application without creating an account to view food hygiene ratings and make informed dining decisions. This user has view-only access to browse, search, and filter food businesses but cannot save preferences or submit reports.
+**US9:** As a member of the public, I want to see whether a business is awaiting inspection or has a new rating pending so that I know if the displayed rating might not reflect the current state of the business.
 
-## 2. Registered User
-A consumer who creates an account to access enhanced features. This user can save favourite businesses, receive notifications about rating changes, report hygiene concerns, and manage their personal account settings.
+**US10:** As a regular user, I want to see the official food hygiene rating graphic for each business so that I can recognise the same rating format that is displayed on the doors of food establishments.
 
-## 3. Food Business Owner
-An owner or manager of a food establishment (restaurant, takeaway, cafe, etc.) who uses the platform to monitor their publicly displayed hygiene rating and review customer feedback about their business.
+### Actors
 
-## 4. Parent/Guardian
-A consumer specifically focused on finding safe and hygienic dining options suitable for children and families. This actor prioritises filtering by family-friendly categories and establishments with high hygiene standards.
+**1. General Public User**
+Any member of the public who visits the web application to look up food hygiene ratings for businesses in Bristol. This is the primary actor and represents the widest audience. It includes local residents, tourists, students, and anyone who wants to make a more informed choice about where to eat. The general public user does not need to create an account or log in. They have full access to all search, filter, and viewing features provided by the application.
 
-## 5. System Administrator
-Technical personnel responsible for maintaining the application, synchronising data from Open Bristol datasets, managing user accounts, ensuring system security, and handling technical issues.
+**2. Parent or Guardian**
+A specific type of general public user who is particularly focused on finding safe and hygienic food options suitable for children and families. This actor places importance on being able to filter by business categories such as schools, cafes, and restaurants, and tends to look for establishments with the highest hygiene ratings. While they use the same features as the general public user, their goals and priorities are distinct enough to be considered separately.
 
-## 6. Local Authority / Food Safety Inspector
-Government officials who conduct food hygiene inspections and maintain the source data. They interact indirectly with the system as data providers through the Open Bristol datasets.
+**3. System (Web Application)**
+The Bristol Food Hygiene Ratings web application itself. This is not a human actor, but it plays an active role in the use cases by retrieving data from the Open Bristol dataset, processing search queries and filters, and presenting the results to the user. The system fetches data that includes business name, address, business type, rating, rating status, new rating pending, rating date, postcode, and rating graphic URL.
 
-# UC2 Report Hygiene Concern
+**4. Open Bristol Data API (External System)**
+The external data source that supplies all food hygiene rating information used by the application. This is an external actor that the system depends on. It provides a publicly accessible API through which the application retrieves up-to-date records about food businesses in Bristol. The data fields provided include: business name, address, business type, rating, rating status, new rating pending, rating date, postcode, and rating graphic URL.
 
-| Element | Details |
-|---------|---------|
-| **Description** | Allow users to submit hygiene concern reports about food establishments, creating an interactive feedback mechanism that promotes accountability and alerts authorities to health risks. This supports business benefits of "user engagement and feedback" and "encourages hygiene improvements." |
-| **Sources** | US5, US9; Business Benefits 4 & 6; Expected Risk 1. |
-| **Actors** | **Primary:** Registered User, General Public User (Unregistered)<br>**Secondary:** System, Food Business Owner, System Administrator |
-| **Assumptions** | |
-| **Pre-conditions** | • Establishment exists in database<br>• User has viewed establishment details<br>• Report submission functional |
-| **Post-conditions** | • Report stored in database<br>• User receives confirmation<br>• Business owner notified (if registered)<br>• User identity anonymised |
+### Use Cases
 
-## Steps
-1. User viewing establishment details clicks "Report Hygiene Concern"
-2. System displays form: concern category (dropdown), visit date (datepicker), description (500 chars), optional email, confirmation checkbox
-3. User selects category
-4. User enters visit date
-5. User provides description
-6. User provides email (optional if unregistered)
-7. User checks confirmation
-8. User submits report
-9. System validates fields
-10. System performs content moderation
-11. System assigns Report ID and timestamp
-12. System stores report as "Pending Review"
-13. System anonymises user identity
-14. System displays confirmation with Report ID
-15. System emails business owner (if registered)
-16. System flags report for administrator review
+#### UC1: Search and Filter Food Hygiene Ratings
 
-# UC1 Search and View Food Hygiene Ratings
+| UC1 | Search and Filter Food Hygiene Ratings |
+| -------------------------------------- | ------------------- |
+| **Description** | Allow users to search for food businesses in Bristol by entering a business name, postcode, or address, and optionally filter the results by hygiene rating score and business type. This use case addresses the core problem identified in the business case, which is that members of the public struggle to find easy-to-understand food hygiene ratings. It delivers the key business benefits of providing a user-friendly interface and real-time access to data. Sources: US1, US2, US4, US5, US6, US8. |
+| **Actors** | Primary: General Public User, Parent or Guardian. Secondary: System, Open Bristol Data API. |
+| **Assumptions** | The Open Bristol Data API is available and returns data in the expected format. The user has access to a modern web browser on a desktop, tablet, or mobile device. The dataset contains records for food businesses in Bristol with the relevant data fields (business name, address, business type, rating, rating status, new rating pending, rating date, postcode, rating graphic URL). |
+| **Steps** | 1. The user opens the web application in their browser and arrives at the homepage. 2. The user enters a search term into the search bar. This could be a business name, a postcode, or part of an address. 3. The system validates the input to check it is not empty or invalid. 4. The system queries the Open Bristol dataset using the search term. 5. The system retrieves matching food businesses and displays them in a results list. Each result shows the business name, address, business type, hygiene rating (displayed as a number from 0 to 5, or as "Awaiting Inspection" if no rating exists), and the rating date. 6. The user optionally applies one or more filters to narrow the results. Available filters include hygiene rating score (0 to 5) and business type category (for example, restaurant, takeaway, cafe, pub or bar, school, hotel). 7. The system updates the displayed results to show only the businesses that match all active filters. 8. The user browses the filtered results and selects a business to view in more detail (this leads to UC2). |
+| **Variations** | 3a. If the user submits an empty or clearly invalid search term, the system displays a prompt asking them to enter a valid search. 5a. If no businesses match the search term, the system displays a message saying no results were found and suggests the user try a different or broader search. 6a. The user may choose to use filters without first performing a text search, in which case the system displays all businesses in the dataset that match the selected filter criteria. |
+| **Non-functional** | NFR1 (Usability: three-click access), NFR2 (Responsive design), NFR4 (Performance: results within two seconds), NFR5 (Capacity: concurrent users), NFR8 (Security: input validation). |
+| **Issues** | Over 42,000 newly registered food premises have not yet received their first inspection, so a significant number of businesses in the dataset may have no rating. The application needs to handle and clearly communicate this, rather than showing blank or confusing data for these entries. |
 
-| Element | Details |
-|---------|---------|
-| **Description** | Enable users to search for food establishments by name, location, or category, apply filters by hygiene rating, and view detailed inspection information. This addresses the problem that "members of the public struggle to find easy-to-understand food hygiene ratings" and fulfils business benefits of a "user-friendly interface" with "real time data access." |
-| **Sources** | US1, US2, US3, US7, US8; Business Case Problem Statement; Business Benefits 1 & 5. |
-| **Actors** | **Primary:** General Public User (Unregistered), Registered User, Parent/Guardian<br>**Secondary:** System |
-| **Assumptions** | |
-| **Pre-conditions** | • System has synchronised data from Open Bristol dataset<br>• Database contains current ratings<br>• Application is accessible |
-| **Post-conditions** | • Search results displayed<br>• User viewed hygiene information<br>• Search query logged (anonymised) |
+#### UC2: View Detailed Business Information and Understand Ratings
 
-## Steps
-1. User navigates to homepage
-2. User enters search criteria (name, postcode, address) OR selects category filter
-3. System validates input and queries database
-4. System retrieves and displays matching establishments with: name, address, rating (0-5), date
-5. User applies optional filters: rating range, distance, business type
-6. System refines results
-7. User selects establishment
-8. System displays: business name/address, hygiene rating (0-5 or "Awaiting Inspection"), inspection date, breakdown scores (food handling, cleanliness, management), business type, local authority
-9. User reviews information
+| UC2 | View Detailed Business Information and Understand Ratings |
+| -------------------------------------- | ------------------- |
+| **Description** | Allow users to select a specific food business from the search results and view its full details. The detail view should display all available data fields for that business, including the official rating graphic, rating status, and whether a new rating is pending. The application should also help users understand what the rating scores from 0 to 5 actually mean in practice. This use case supports the business benefits of data transparency and improved public health by giving users all the information they need in one place. Sources: US3, US5, US7, US9, US10. |
+| **Actors** | Primary: General Public User, Parent or Guardian. Secondary: System, Open Bristol Data API. |
+| **Assumptions** | The user has already performed a search or applied filters using UC1 and is viewing a list of results. The data for the selected business is available in the dataset. The rating graphic URL provided by the dataset points to a valid and accessible image. |
+| **Steps** | 1. The user selects (clicks or taps on) a food business from the search results list. 2. The system retrieves the full data record for the selected business from the dataset. 3. The system displays a detailed view for the selected business, showing: business name, full address, postcode, business type, hygiene rating (0 to 5), rating date, rating status (for example, whether the business has been rated, is exempt, or is awaiting inspection), new rating pending indicator (yes or no), and the official food hygiene rating graphic (loaded from the rating graphic URL in the dataset). 4. Below or alongside the business details, the system displays an information section explaining what each rating score means. For example, a score of 5 means hygiene standards are very good, while a score of 0 means urgent improvement is necessary. 5. The user reads the information and uses it to make a decision about whether to visit the business. 6. The user navigates back to the search results to continue browsing other businesses. |
+| **Variations** | 3a. If the business has no rating and is marked as "Awaiting Inspection", the system displays a clear notice explaining that the business has not yet been inspected and no rating is currently available. 3b. If the new rating pending field indicates that a new rating is pending, the system shows a notice telling the user that the displayed rating may change soon. 3c. If the rating graphic URL is missing or the image fails to load, the system displays the numeric rating value as a fallback so the user can still see the score. 3d. If the rating status indicates the business is exempt from the rating scheme, the system displays this clearly with a brief explanation of what it means. |
+| **Non-functional** | NFR1 (Usability), NFR2 (Responsive design), NFR3 (Accessibility), NFR4 (Performance), NFR7 (Reliability: graceful error handling). |
+| **Issues** | The "rating status" field in the Open Bristol dataset can contain several different values beyond just a numeric rating. Some businesses may be exempt from ratings entirely, and others may be awaiting their first inspection. The application needs to handle each of these statuses clearly so that users are not confused by unexpected values. |
 
-# Software Requirements Specification
+### Use Case Diagram
 
-## Functional Requirements
+![Use Case Diagram](images/use-case.png)
 
-### UC1: Search and View Food Hygiene Ratings
+## Software Requirements Specification
 
-**FR1:** The system shall allow users to search for food establishments by name, postcode, or address.  
+### Functional Requirements
+
+#### UC1: Search and Filter Food Hygiene Ratings
+
+**FR1:** The system shall provide a search bar on the homepage that allows users to enter a business name, postcode, or address to search for food businesses.
+*Source: UC1, US1, US6*
+
+**FR2:** The system shall query the Open Bristol Data API using the user's search term and retrieve matching food business records.
+*Source: UC1*
+
+**FR3:** The system shall display search results in a list format, with each result showing the business name, address, business type, hygiene rating (0 to 5), and rating date.
 *Source: UC1, US1*
 
-**FR2:** The system shall enable users to filter establishments by hygiene rating score (0-5).  
+**FR4:** The system shall display "Awaiting Inspection" in place of a numeric rating for any business that has not yet been inspected.
+*Source: UC1, US9*
+
+**FR5:** The system shall allow users to filter the displayed results by hygiene rating score, enabling the user to select one or more values from 0 to 5.
 *Source: UC1, US2*
 
-**FR3:** The system shall enable users to filter establishments by business category (restaurant, café, takeaway, school, pub/bar, hotel).  
-*Source: UC1, US7*
-
-**FR4:** The system shall display search results showing business name, address, hygiene rating, and inspection date.  
-*Source: UC1*
-
-**FR5:** The system shall display detailed establishment information including rating breakdown scores for food handling, cleanliness, and management.  
-*Source: UC1, US3*
-
-**FR6:** The system shall indicate establishments with "Awaiting Inspection" status when no rating is available.  
-*Source: UC1*
-
-**FR7:** The system shall allow unregistered users to view all hygiene information without creating an account.  
-*Source: UC1, US8*
-
-**FR8:** The system shall allow registered users to save favourite establishments and receive notifications for rating updates.  
+**FR6:** The system shall allow users to filter the displayed results by business type category (for example, restaurant, takeaway, cafe, pub or bar, school, hotel).
 *Source: UC1, US4*
 
-**FR9:** The system shall enable users to create accounts with email and password, and manage account settings.  
-*Source: UC1, US4*
+**FR7:** The system shall allow users to apply both a rating filter and a business type filter at the same time, with the results updating to reflect all active filters.
+*Source: UC1, US2, US4*
 
-### UC2: Report Hygiene Concern
+**FR8:** The system shall display a clear message when no results match the user's search or filter criteria, suggesting the user broadens their search.
+*Source: UC1*
 
-**FR10:** The system shall provide a "Report Hygiene Concern" button on establishment detail pages.  
-*Source: UC2, US5*
+**FR9:** The system shall validate the search input and display a prompt if the user submits an empty or invalid search term.
+*Source: UC1*
 
-**FR11:** The system shall display a report form with fields for concern category, visit date, description (500 characters max), and optional email.  
-*Source: UC2*
+**FR10:** The system shall allow all users to access the search, filter, and viewing features without requiring any form of login, registration, or account creation.
+*Source: UC1, UC2, US5*
 
-**FR12:** The system shall validate all required fields before accepting report submission.  
-*Source: UC2*
+#### UC2: View Detailed Business Information and Understand Ratings
 
-**FR13:** The system shall assign a unique Report ID and store reports with "Pending Review" status.  
-*Source: UC2*
+**FR11:** The system shall display a detailed information page when the user selects a business from the search results, showing the following fields from the dataset: business name, full address, postcode, business type, hygiene rating, rating date, rating status, and new rating pending indicator.
+*Source: UC2, US3, US9*
 
-**FR14:** The system shall anonymise user identity in all stored reports.  
-*Source: UC2*
+**FR12:** The system shall load and display the official food hygiene rating graphic for each business using the rating graphic URL provided by the Open Bristol dataset.
+*Source: UC2, US10*
 
-**FR15:** The system shall send email notification to registered business owners when a report is submitted about their establishment.  
+**FR13:** The system shall display the numeric rating value as a fallback if the rating graphic URL is missing or the image fails to load.
+*Source: UC2, US10*
+
+**FR14:** The system shall display a clear notice when a business is marked as "Awaiting Inspection", explaining that no rating is available because the business has not yet been inspected.
 *Source: UC2, US9*
 
-**FR16:** The system shall automatically synchronise data from Open Bristol datasets at regular intervals.  
+**FR15:** The system shall display a notice when the new rating pending field indicates that a new rating is pending, informing the user that the currently displayed rating may change soon.
+*Source: UC2, US9*
+
+**FR16:** The system shall display the rating status for each business (for example, rated, exempt, or awaiting inspection) in plain language that is easy for any user to understand.
+*Source: UC2, US3*
+
+**FR17:** The system shall include an information section (either on the detail page or accessible from it) that explains what each hygiene rating score from 0 to 5 means in practice, so that users can interpret the ratings correctly.
+*Source: UC2, US7*
+
+### Non-Functional Requirements
+
+#### Usability (ISO/IEC 9126)
+
+**NFR1:** The system shall provide a clear and intuitive layout that allows users to complete a search and view a business's rating within three clicks or taps from the homepage.
 *Source: UC1, UC2*
 
-## Non-Functional Requirements
+**NFR2:** The system shall be fully responsive and work correctly on mobile phones, tablets, and desktop computers, using responsive design techniques (such as CSS media queries or a flexible grid layout) to adapt to different screen sizes.
+*Source: UC1, UC2, US8*
 
-### Usability (ISO/IEC 9126)
+**NFR3:** The system shall meet WCAG 2.1 Level AA accessibility standards. This includes ensuring all text has sufficient colour contrast, all images have descriptive alternative text, and all interactive elements can be operated using a keyboard.
+*Source: UC2, US5*
 
-**NFR1:** The system shall provide an intuitive interface enabling users to complete searches within 3 clicks from the homepage.  
+#### Performance (ISO/IEC 9126)
+
+**NFR4:** The system shall return search results within two seconds for at least 95 percent of queries under normal network conditions.
 *Source: UC1*
 
-**NFR2:** The system shall be fully functional on mobile, tablet, and desktop devices with responsive design.  
+**NFR5:** The system shall be capable of supporting at least 100 concurrent users without any noticeable slowdown or loss of functionality.
 *Source: UC1*
 
-**NFR3:** The system shall comply with WCAG 2.1 Level AA accessibility standards.  
-*Source: UC1*
+#### Reliability (ISO/IEC 9126)
 
-### Performance (ISO/IEC 9126)
-
-**NFR4:** The system shall return search results within 2 seconds for 95% of queries.  
-*Source: UC1*
-
-**NFR5:** The system shall support at least 500 concurrent users without performance degradation.  
-*Source: UC1*
-
-### Security (ISO/IEC 9126)
-
-**NFR6:** The system shall encrypt all user passwords using bcrypt before storage and use HTTPS for all data transmission.  
-*Source: UC2*
-
-**NFR7:** The system shall anonymise user identity in hygiene reports to protect privacy.  
-*Source: UC2*
-
-**NFR8:** The system shall validate and sanitise all user inputs to prevent SQL injection and XSS attacks.  
+**NFR6:** The system shall remain available and functional at least 99 percent of the time during normal operating hours (06:00 to 23:00 GMT).
 *Source: UC1, UC2*
 
-### Reliability (ISO/IEC 9126)
-
-**NFR9:** The system shall maintain 99% uptime during operational hours (6:00 AM - 11:00 PM).  
-*Source: UC1*
-
-**NFR10:** The system shall implement automated daily database backups.  
+**NFR7:** The system shall handle failures from the Open Bristol Data API gracefully. If data cannot be retrieved, the system shall display a user-friendly error message rather than showing a blank page, broken layout, or technical error details.
 *Source: UC1, UC2*
 
-# Use Case Diagram
-<img width="1014" height="682" alt="Screenshot 2026-01-12 at 03 23 46" src="https://github.com/user-attachments/assets/102df3d8-b92e-457c-8e54-70ccdaf959b5" />
+#### Security (ISO/IEC 9126)
 
+**NFR8:** The system shall validate and sanitise all user inputs (including search terms and filter selections) to prevent cross-site scripting (XSS) attacks and other injection vulnerabilities.
+*Source: UC1*
+
+**NFR9:** The system shall serve all pages over HTTPS to make sure that data transmitted between the user's browser and the server is encrypted.
+*Source: UC1, UC2*
+
+#### Maintainability (ISO/IEC 9126)
+
+**NFR10:** The system shall be built using modular, well-organised, and clearly commented HTML, CSS, and JavaScript code, so that future developers can understand and extend the application without difficulty.
+*Source: UC1, UC2*
