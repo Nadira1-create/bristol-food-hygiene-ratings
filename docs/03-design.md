@@ -1,18 +1,154 @@
+# 03 Design
+
+## 3.1 User Interface Wireframes
+
+Wireframes were created during the design phase of the project to plan the layout and structure of the Bristol Food Hygiene Ratings web application before development began.
+
+Wireframes are low-fidelity representations of the interface. Their purpose is to illustrate the position of interface elements and the overall structure of each page without focusing on visual styling such as colours or typography. This allows the development team to focus on functionality and user interaction at an early stage of the Software Development Life Cycle.
+
+The wireframes were designed based on the user requirements and use cases identified earlier in the project. In particular, they support the key tasks of searching for food businesses, filtering results, and viewing detailed hygiene rating information.
 
 
-<img width="733" height="767" alt="Homepage" src="https://github.com/user-attachments/assets/d1e0e21d-043f-4cfa-8a0b-5eab2d041f6f" />
 
-<img width="621" height="660" alt="Hygiene report page 1" src="https://github.com/user-attachments/assets/260097e0-fbef-44c6-9233-08e5f2ca0b66" />
-<img width="730" height="665" alt="Hygiene report page 2" src="https://github.com/user-attachments/assets/7b6f4f7d-6b9b-4785-b1fd-fc63ea0830cd" />
-<img width="573" height="756" alt="login:register part 1" src="https://github.com/user-attachments/assets/c9023838-58bb-4e33-9253-98a10cfc1000" />
-<img width="596" height="468" alt="login:register part 2" src="https://github.com/user-attachments/assets/8f5e06c8-17f7-487a-8ea3-d536d3317f66" />
-<img width="556" height="762" alt="report success 1 " src="https://github.com/user-attachments/assets/00d8ab5c-db22-439b-9311-6bdf188115fc" />
-<img width="556" height="277" alt="report success 2" src="https://github.com/user-attachments/assets/f7894b4b-7a40-47b7-b5b0-46ad290249e6" />
-<img width="697" height="660" alt="result page part 1" src="https://github.com/user-attachments/assets/998551db-f077-41a5-9ec6-a16fb3511165" />
-<img width="726" height="748" alt="result page part 2" src="https://github.com/user-attachments/assets/83ea062f-4f16-480a-8abc-47f13baee09b" />
-<img width="870" height="745" alt="Search Page part 1" src="https://github.com/user-attachments/assets/edad3fbc-652e-447e-874c-d09040ebfcb2" />
-<img width="847" height="675" alt="Search Page Part 2" src="https://github.com/user-attachments/assets/42bf82fa-ed51-4a55-a857-3b245ffbf545" /><img width="928" height="421" alt="Search page 3" src="https://github.com/user-attachments/assets/376eec6c-7de0-4bae-89d2-b4ae7e057609" />
-<img width="820" height="762" alt="uderdashboard 1" src="https://github.com/user-attachments/assets/bf99a0bc-776e-49d8-9974-3fbfe0<img width="875" height="762" alt="uderdashboard 2" src="https://github.com/user-attachments/assets/b092191d-1400-4e41-bbef-cec88b8b8e12" />
-e8ecc4" />
-<img width="875" height="194" alt="uderdashboard 3" src="https://github.com/user-attachments/assets/541f11e2-0b7e-4393-a2ba-cada77e1046b" />
 
+Each wireframe represents a major screen within the application and demonstrates how users move through the system when performing these tasks.
+
+---
+
+## 3.2 Homepage Wireframe
+
+### Description
+
+The homepage acts as the starting point of the application. Its primary purpose is to allow users to quickly search for food hygiene ratings within Bristol.
+
+The layout is intentionally simple so that users can immediately understand how to use the system.
+
+### Key Interface Components
+
+#### Header Navigation
+
+The header contains the application logo and navigation links to the main sections of the site:
+
+- Home  
+- Search  
+- Details  
+- Rating Guide  
+
+This navigation structure remains consistent across all pages so that users can move through the system easily.
+
+#### Search Bar
+
+The search bar is the main interaction element on the homepage. Users can enter a business name, address, or postcode in order to search for food businesses within the dataset.
+
+The search bar supports the main user task identified in the requirements specification, which is to quickly find hygiene ratings for specific businesses.
+
+#### Search Button
+
+The search button submits the user's query and directs the user to the search results page where matching businesses are displayed.
+
+#### Information Section
+
+An information section is included on the homepage to introduce the purpose of the application and provide a brief explanation of food hygiene ratings.
+<img width="442" height="744" alt="Screenshot 2026-03-04 at 20 41 06" src="https://github.com/user-attachments/assets/94c37793-b5ca-4de4-b47a-1907eb1e39ed" />
+
+
+---
+
+## 3.3 Search Results Wireframe
+
+### Description
+
+The search results page displays the businesses that match the user’s search query. This page allows users to browse results and apply filters to narrow the results.
+
+The design prioritises clarity so that users can quickly identify businesses with suitable hygiene ratings.
+
+### Key Interface Components
+
+#### Search Bar
+
+The search bar remains visible at the top of the page so that users can quickly change their search query if required.
+
+#### Filter Panel
+
+A filter section allows users to refine the displayed results using the following criteria:
+
+- Hygiene rating score from 0 to 5  
+- Business type such as restaurant, takeaway, café, pub, or school  
+
+These filters support the requirement that users should be able to identify businesses with higher hygiene standards more easily.
+
+#### Results List
+
+Each result is displayed as an individual item within a list. Each item includes:
+
+- Business name  
+- Address  
+- Business type  
+- Hygiene rating  
+- Rating date  
+
+Selecting a result takes the user to the detailed information page for that business.
+<img width="324" height="643" alt="Screenshot 2026-03-04 at 20 42 15" src="https://github.com/user-attachments/assets/c5944241-68e4-4449-8a76-29800498752b" />
+
+---
+
+## 3.4 Business Details Wireframe
+
+### Description
+
+The business details page presents the full inspection information for a selected food business. This page provides a more detailed view of the data returned from the dataset.
+
+The layout focuses on presenting information clearly so that users can understand the hygiene rating and inspection details.
+
+### Key Interface Components
+
+#### Business Information Section
+
+This section displays the main information about the business, including:
+
+- Business name  
+- Address and postcode  
+- Business type  
+- Hygiene rating  
+- Rating date  
+
+#### Rating Display
+
+The hygiene rating is shown clearly so that users can immediately recognise the score assigned to the business.
+
+#### Inspection Status Information
+
+Additional information may include:
+
+- Rating status  
+- Whether a new rating is pending  
+- Whether the business is awaiting inspection  
+
+Displaying this information ensures that users understand whether the rating reflects the current inspection status.
+<img width="324" height="640" alt="Screenshot 2026-03-04 at 20 43 55" src="https://github.com/user-attachments/assets/d39d94e2-1911-4845-a9b3-a66cb51ff80a" />
+
+
+---
+
+## 3.5 Rating Guide Wireframe
+
+### Description
+
+The rating guide page explains the meaning of each food hygiene rating score. This page helps users understand how to interpret the ratings displayed within the application.
+
+Providing this information supports users who may not be familiar with the rating system.
+
+### Rating Scale
+
+| Rating | Meaning |
+|------|------|
+| 5 | Very Good |
+| 4 | Good |
+| 3 | Generally Satisfactory |
+| 2 | Improvement Necessary |
+| 1 | Major Improvement Necessary |
+| 0 | Urgent Improvement Required |
+
+<img width="318" height="765" alt="Screenshot 2026-03-04 at 20 44 56" src="https://github.com/user-attachments/assets/749022a8-0c89-4160-b224-922c7bd414bd" />
+
+This information allows users to better understand the inspection results and make informed decisions when selecting a place to eat.
