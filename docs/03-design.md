@@ -49,6 +49,7 @@ The search button submits the user's query and directs the user to the search re
 #### Information Section
 
 An information section is included on the homepage to introduce the purpose of the application and provide a brief explanation of food hygiene ratings.
+
 <img width="442" height="744" alt="Screenshot 2026-03-04 at 20 41 06" src="https://github.com/user-attachments/assets/94c37793-b5ca-4de4-b47a-1907eb1e39ed" />
 
 
@@ -88,6 +89,7 @@ Each result is displayed as an individual item within a list. Each item includes
 - Rating date  
 
 Selecting a result takes the user to the detailed information page for that business.
+
 <img width="324" height="643" alt="Screenshot 2026-03-04 at 20 42 15" src="https://github.com/user-attachments/assets/c5944241-68e4-4449-8a76-29800498752b" />
 
 ---
