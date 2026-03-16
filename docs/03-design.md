@@ -2,19 +2,6 @@
 
 ## Phase 3 — Design Document
 
-### UFCF9F-30-1 Software Engineering Portfolio
-
-| Field | Details |
-|------|--------|
-| Module | UFCF9F-30-1 — Software Engineering Portfolio |
-| Phase | Phase 3 — Design |
-| Application | Bristol Food Hygiene Ratings Web Application |
-| Data Source | Open Bristol / Food Standards Agency |
-| Document Date | March 2026 |
-| Design Tool | Figma (Wireframes and High-Fidelity Mockups) |
-
----
-
 # 3.1 Introduction to the Design Phase
 
 The design phase of the Bristol Food Hygiene Ratings web application bridges the gap between the requirements specification produced in Phase 2 and the implementation work that follows in Phase 4. The purpose of this phase is to translate the functional and non-functional requirements into a clear, structured, and professionally presented visual blueprint for the application before any code is written.
@@ -92,7 +79,8 @@ A red arrow illustrates the validation path where the user submits an empty sear
 
 Green arrows also show that clicking any category tile on the Homepage navigates to the Search Results Page with that business type filter pre-applied.
 
-**Show Image**
+
+<img width="990" height="737" alt="Screenshot 2026-03-16 at 13 54 06" src="https://github.com/user-attachments/assets/72526793-562a-471b-98a3-a5ec80cf12ed" />
 
 ---
 
@@ -104,6 +92,8 @@ This view focuses on the connection between the Search Results Page and the Busi
 - Grey dashed arrow: Back to Results navigation
 
 The Back to Results link returns the user to the results list without resetting their search query or applied filters.
+
+<img width="990" height="737" alt="Screenshot 2026-03-16 at 13 56 13" src="https://github.com/user-attachments/assets/f310391b-4de6-4099-a577-dd8043f5d3ea" />
 
 ---
 
@@ -121,6 +111,8 @@ This view maps to:
 
 - Use Case: **UC2**
 - Functional Requirements: **FR14, FR15, FR16**
+  
+<img width="990" height="737" alt="Screenshot 2026-03-16 at 13 57 20" src="https://github.com/user-attachments/assets/c6f22642-adbd-4ab2-97b2-a145b9c3231e" />
 
 ---
 
@@ -143,6 +135,8 @@ It also shows the footer including:
 - Certification logos
 - Quick Links column
 - Legal column
+  
+<img width="990" height="737" alt="Screenshot 2026-03-16 at 13 58 05" src="https://github.com/user-attachments/assets/dd03e23b-353c-4684-959c-734a543a9e44" />
 
 ---
 
