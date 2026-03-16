@@ -251,7 +251,7 @@ All four pages share a single design system defined below.
 
 | Category | Value | Usage |
 |---|---|---|
-| Primary colour | `#1B5E20` (dark green) | Hero section backgrounds, header |
+| Primary colour | `#1B5E20` and and `#1D8A4F` (dark green) | Hero section backgrounds, header |
 | Secondary colour | `#2E7D32` | Buttons, active navigation states |
 | Accent colour | `#81C784` | Highlights, hover states |
 | Warning colour | `#F57F17` | Rating badge 2, New Rating Pending notice |
