@@ -1,217 +1,402 @@
-# 03 Design
+# Bristol Food Hygiene Ratings Web Application
 
-## 3.1 User Interface Wireframes and Mockups
+## Phase 3 — Design Document
 
-Wireframes were created during the design phase of the project to plan the layout and structure of the Bristol Food Hygiene Ratings web application before development began. Wireframes are low-fidelity representations of the interface whose purpose is to illustrate the position of interface elements and the overall structure of each page without focusing on visual styling such as colours or typography. This approach allows the development team to focus on functionality and user interaction at an early stage of the Software Development Life Cycle, before committing to a visual design direction.
+### UFCF9F-30-1 Software Engineering Portfolio
 
-The wireframes were designed based on the user requirements and use cases identified earlier in the project. In particular, they support the key tasks of searching for food businesses, filtering results, and viewing detailed hygiene rating information. Each wireframe represents a major screen within the application and demonstrates how users navigate through the system when performing these tasks.
-
-Following the wireframe stage, high-fidelity desktop mockups were produced to demonstrate the intended visual design of the application. These mockups present the final colour scheme, typography, layout, and interface components as they would appear to the end user in a desktop browser. The mockups were used to validate design decisions prior to development and to confirm that the interface met the user requirements identified in the requirements specification. By progressing from low-fidelity wireframes to high-fidelity mockups, the design process followed an iterative approach that reduced the risk of costly changes during the implementation stage.
-
----
-
-# 3.2 Homepage
-
-## 3.2.1 Wireframe
-
-The homepage acts as the entry point of the application. Its primary purpose is to allow users to quickly search for food hygiene ratings within Bristol. The layout is intentionally simple so that users can immediately understand how to use the system upon arrival.
-
-### Header Navigation
-
-The header contains the application logo alongside navigation links to the four main sections of the site: Home, Search, Details, and Rating Guide. This navigation structure is consistent across all pages, allowing users to move through the system at any point without needing to return to a previous page.
-
-### Search Bar
-
-The search bar is the primary interaction element on the homepage. Users can enter a business name, address, or postcode to search for food businesses within the dataset. The search bar directly supports the main user requirement identified in the requirements specification, which is to quickly locate hygiene ratings for a specific business. A validation message is displayed beneath the field if the form is submitted without any input.
-
-### Search Button
-
-The search button submits the query and navigates the user to the search results page, where matching businesses are displayed.
-
-### Information Section
-
-An information section is included on the homepage to introduce the purpose of the application and provide a brief explanation of the food hygiene rating system, ensuring new users understand the platform before they begin searching.
-
-<img width="423" height="741" alt="Wireframe_Homepage" src="https://github.com/user-attachments/assets/ec9d7f41-3d08-417c-8a33-31d1ac7f0adf" />
-
-
+| Field | Details |
+|------|--------|
+| Module | UFCF9F-30-1 — Software Engineering Portfolio |
+| Phase | Phase 3 — Design |
+| Application | Bristol Food Hygiene Ratings Web Application |
+| Data Source | Open Bristol / Food Standards Agency |
+| Document Date | March 2026 |
+| Design Tool | Figma (Wireframes and High-Fidelity Mockups) |
 
 ---
 
-## 3.2.2 High-Fidelity Desktop Mockup
+# 3.1 Introduction to the Design Phase
 
-The high-fidelity mockup for the homepage builds upon the wireframe structure and presents the complete visual design of the page as it would appear in a desktop browser.
+The design phase of the Bristol Food Hygiene Ratings web application bridges the gap between the requirements specification produced in Phase 2 and the implementation work that follows in Phase 4. The purpose of this phase is to translate the functional and non-functional requirements into a clear, structured, and professionally presented visual blueprint for the application before any code is written.
 
-### Colour Scheme and Visual Identity
+This document presents three interconnected design artefacts.
 
-A green colour scheme was selected throughout the application to reflect cleanliness, health, and safety, which are the core values of the platform. The hero banner uses a dark green gradient background with the main headline and search bar positioned centrally, ensuring the primary user task is the first element users encounter on the page.
+First, a wireflow diagram maps out every screen in the application alongside all navigation paths, user interactions, and edge-case states.
 
-### Statistics Bar
+Second, high-fidelity desktop mockups present the final visual design including colour scheme, typography, spacing, and all interface components.
 
-A statistics bar positioned immediately below the hero section displays four key figures at a glance: 3,268 rated businesses, 443 premises awaiting inspection or unrated, Open Data powered by Open Bristol as the data source, and Free Access with no account required. This section builds user confidence in the platform by demonstrating the scale and accessibility of the data available through the application.
+Third, the overall user interface architecture is described in terms of grid layout, component structure, and design rationale.
 
-### Browse by Business Type
+The design process followed an iterative and user-centred approach. Low-fidelity wireframes were produced first to plan the structure and navigation of each page. These were then connected into a full wireflow diagram to validate every user journey before any visual styling decisions were made.
 
-A category section beneath the statistics bar presents six icon-based tiles for Restaurants, Takeaways, Cafes, Pubs and Bars, Schools, and Hotels. This allows users to filter results by business type directly from the homepage, providing an alternative route into the search results without requiring users to type a query.
+Once the structure and navigation were confirmed, high-fidelity mockups were produced applying the full design system. This progression from structure to style reduced the risk of costly changes at the implementation stage.
 
-### Ratings Summary
+All design artefacts were produced in Figma. The complete wireflow diagram and all high-fidelity mockups are available in full resolution at the following link:
 
-A ratings summary section provides colour-coded badges representing each rating level from 0 to 5, alongside a link to the full Rating Guide page. This section helps users understand the rating system before they begin exploring businesses, which is particularly useful for first-time visitors.
+**Figma Design File:**  
+https://www.figma.com/design/cDzHoE1BvKaEpMsooiBrOb/High-Fidelity-MockUp?node-id=2071-507&t=36W43D7d1QbB3XwJ-1
+
+---
+
+# 3.2 Wireflow Diagram
+
+## 3.2.1 What is a Wireflow and Why Was One Produced?
+
+A wireflow is a design technique that combines wireframes with a user flow diagram. A wireframe is a low-fidelity structural representation of a single screen, showing the position of interface elements without any visual styling. A user flow diagram shows how a user navigates between screens through their actions and decisions.
+
+By combining both into a single wireflow, it is possible to understand the entire application as a connected system rather than as a collection of isolated pages.
+
+Unlike a simple wireframe, a wireflow makes it possible to see every navigation path, every error and edge-case state, and every same-page interaction in one unified view. This is particularly valuable for validating that the design addresses all of the use cases and functional requirements identified in the requirements specification before implementation begins.
+
+The wireflow for this application was produced in Figma and covers all four pages:
+
+- Homepage
+- Search Results Page
+- Business Details Page
+- Rating Guide Page
+
+Every connection between pages is annotated to explain what user action triggers it, ensuring that the diagram is self-explanatory and can be read without prior knowledge of the application.
+
+---
+
+## 3.2.2 Wireflow Legend and Visual Notation
+
+The wireflow uses a consistent visual notation system to distinguish between different types of interactions and navigation paths.
+
+| Arrow / Annotation Type | Colour | Meaning |
+|---|---|---|
+| Primary navigation arrow | Green solid | The user clicks an interactive element and moves to a new page |
+| Navigation bar link arrow | Blue dashed | A navigation bar link available from every page at any time |
+| Back / return arrow | Grey dashed | The user returns to the previous page without losing their current state |
+| Validation or error arrow | Red solid | The user stays on the same page and a validation message or error notice is displayed |
+| Same-page interaction arrow | Black solid | The user stays on the current page but the content updates |
+| Annotation box | Yellow filled rectangle | Informational note highlighting behaviour or design decisions |
+
+---
+
+## 3.2.3 Wireflow Diagram Screenshots
+
+The following screenshots present the complete wireflow diagram as captured from Figma.
+
+### View 1 — Homepage and Search Results Page
+
+This view shows the Homepage and Search Results Page positioned side by side, with all navigation connections between them annotated.
+
+The green arrows trace the primary user journey:
+
+- User arrives on the Homepage
+- User enters a search query
+- User arrives at the Search Results Page
+
+A red arrow illustrates the validation path where the user submits an empty search field and remains on the Homepage with a validation message.
+
+Green arrows also show that clicking any category tile on the Homepage navigates to the Search Results Page with that business type filter pre-applied.
+
+**Show Image**
+
+---
+
+### View 2 — Search Results Page and Business Details Page
+
+This view focuses on the connection between the Search Results Page and the Business Details Page.
+
+- Green arrow: clicking a result card opens the Business Details Page
+- Grey dashed arrow: Back to Results navigation
+
+The Back to Results link returns the user to the results list without resetting their search query or applied filters.
+
+---
+
+### View 3 — Business Details Page (Detailed View)
+
+This view presents the Business Details Page in isolation with all conditional status notices visible for documentation purposes.
+
+The notices shown are:
+
+- New Rating Pending
+- Awaiting Inspection
+- Exempt from Rating
+
+This view maps to:
+
+- Use Case: **UC2**
+- Functional Requirements: **FR14, FR15, FR16**
+
+---
+
+### View 4 — Rating Guide Page and Wireflow Legend
+
+The Rating Guide is reachable from three entry points:
+
+- Navigation bar on every page
+- View Full Guide button on the Homepage
+- Full Guide link on the Business Details Page
+
+---
+
+### View 5 — Rating Guide Page and Legend (Close-up)
+
+This view presents the Rating Guide Page content and the full wireflow legend in greater detail.
+
+It also shows the footer including:
+
+- Certification logos
+- Quick Links column
+- Legal column
+
+---
+
+## 3.2.4 Complete Navigation Map
+
+| From Page | User Action | To Page / State |
+|---|---|---|
+| Homepage | Submits valid search query | Search Results Page |
+| Homepage | Submits empty search field | Validation message |
+| Homepage | Clicks a category tile | Search Results Page (filtered) |
+| Homepage | Clicks View Full Guide | Rating Guide Page |
+| Homepage | Clicks Search in navigation bar | Search Results Page |
+| Homepage | Clicks Detail in navigation bar | Business Details Page |
+| Homepage | Clicks Rating Guide in navigation bar | Rating Guide Page |
+| Search Results | Clicks a result card | Business Details Page |
+| Search Results | Applies a filter checkbox | Results update in place |
+| Search Results | Clicks Retry | Data reload attempted |
+| Search Results | Clicks View Full Guide | Rating Guide Page |
+| Search Results | Clicks Logo or Home | Homepage |
+| Business Details | Clicks Back to Results | Search Results (state preserved) |
+| Business Details | Clicks Full Guide link | Rating Guide Page |
+| Rating Guide | Clicks navigation link | Corresponding page |
+| Any page | Clicks Logo | Homepage |
+
+---
+
+## 3.2.5 Wireflow to Use Case Mapping
+
+| Use Case | Screens Involved | User Journey | Functional Requirements |
+|---|---|---|---|
+| UC1 — Search | Homepage, Search Results | User enters query → results page | FR1, FR2, FR3, FR4 |
+| UC1 — Filter | Search Results | Filters update results | FR5, FR6, FR7 |
+| UC1 — No Results | Search Results | No results message | FR8 |
+| UC1 — Error State | Search Results | Retry button reloads data | NFR7 |
+| UC2 — View Detail | Results → Detail | Result card opens detail | FR11, FR12 |
+| UC2 — Status Notices | Business Details | Conditional notice panels | FR14, FR15, FR16 |
+| UC2 — Rating Context | Detail → Guide | Full guide link | FR17 |
+
+---
+
+# 3.3 User Interface Architecture
+
+## 3.3.1 Page Structure and Navigation Model
+
+The application consists of four pages.
+
+| Page | Route | Primary Purpose |
+|---|---|---|
+| Homepage | / | Entry point with search and category tiles |
+| Search Results | /search | Displays matching businesses |
+| Business Details | /detail/:id | Inspection record |
+| Rating Guide | /guide | Explains rating system |
+
+---
+
+## 3.3.2 Grid Layout and Responsive Design
+
+The application is built on a **twelve-column CSS grid layout**.
+
+| Breakpoint | Grid Configuration | Content Behaviour |
+|---|---|---|
+| Desktop (1024px+) | 12-column grid | Multi-column layouts |
+| Tablet (768–1023px) | 6-column grid | Reduced layout |
+| Mobile (<768px) | Single column | Stacked layout |
+
+---
+
+## 3.3.3 Shared Components
+
+### Navigation Bar
+
+Present on all pages with logo and navigation links.
 
 ### Footer
 
-The footer contains certification logos from CIEH, RoSPA, and ISO 22000 to reinforce the credibility of the platform. It also includes a Quick Links column, a Legal column containing Privacy Policy, Cookie Policy, Terms of Use, Disclaimer, and Accessibility links, and full contact information for the organisation.
+Three-column layout containing:
 
-<img width="394" height="687" alt="High_Fidelity_Mockup_HomaPage" src="https://github.com/user-attachments/assets/251b1eb3-298e-4951-9740-3c57a718b490" />
+- Contact information
+- Quick links
+- Legal links
 
+### Hygiene Rating Badge
 
----
+Colour-coded rating badge:
 
-# 3.3 Search Results Page
+| Rating | Colour |
+|---|---|
+| 5 | Dark green |
+| 4 | Mid green |
+| 3 | Yellow-green |
+| 2 | Amber |
+| 1 | Orange-red |
+| 0 | Dark red |
 
-## 3.3.1 Wireframe
+### Status Badge
 
-The search results page displays the businesses that match the user's search query. This page allows users to browse results and apply filters to narrow them down. The design prioritises clarity so that users can quickly identify businesses with suitable hygiene ratings.
+Possible values:
 
-### Search Bar
-
-The search bar remains visible at the top of the page so that users can modify their query without navigating away from the results.
-
-### Filter Panel
-
-A filter section allows users to refine the displayed results by two criteria. The first is the hygiene rating score, which can be filtered by any combination of the values 0 to 5. The second is the business type, which includes options such as restaurant, takeaway, cafe, pub or bar, school, and hotel. These filters support the user requirement that individuals should be able to identify businesses with higher hygiene standards quickly and easily.
-
-### Results List
-
-Each result is displayed as an individual card within the list. Each card includes the business name, address, business type, hygiene rating, and rating date. Selecting a card navigates the user to the business details page for that specific business.
-
-<img width="318" height="741" alt="Wireframe_SearchPage" src="https://github.com/user-attachments/assets/e049a0f2-9daf-45d0-b557-c5c7406c54de" />
-
-
----
-
-## 3.3.2 High-Fidelity Desktop Mockup
-
-The high-fidelity mockup for the search results page demonstrates how the wireframe layout translates into a fully styled and functional interface.
-
-### Active Filter Tags
-
-Applied filters are displayed as removable tags directly above the results list. This gives users clear and immediate visibility of how the results are currently being filtered, and allows them to remove individual filters without having to return to the filter panel.
-
-### Filter Sidebar
-
-Each filter option in the sidebar is presented with a checkbox and a count showing the number of matching results for that option. This helps users understand the distribution of the data before applying a filter and avoids situations where a filter would return zero results. A Clear All Filters button is included at the bottom of the panel for convenience.
-
-### Result Cards
-
-Each result card uses a prominent colour-coded hygiene rating badge on the left side of the card. The right side displays the business name, business type label, address, rating date, and a status badge. Status badges such as Rated, New Rating Pending, and Awaiting Inspection use distinct colour styles, allowing users to identify the current inspection status of a business at a glance without needing to open the detail page.
-
-### No Results State
-
-A dedicated empty state is shown when no businesses match the search query. This state includes a clear message and guidance encouraging the user to broaden their search term or adjust their filters.
-
-### Error State
-
-An error notice with a Retry button is displayed when data cannot be retrieved from the source. This ensures users are informed of the issue and are given a clear action to take rather than being presented with a blank page.
-
-### Pagination
-
-Navigation controls at the bottom of the page allow users to move across multiple pages of results, with page numbers and next and previous buttons clearly visible.
-
-<img width="314" height="727" alt="High_Fidelity_Mockup_SearchPage" src="https://github.com/user-attachments/assets/f310df1e-8296-44ef-9a60-a2c9f30e86e7" />
-
+- Rated
+- New Rating Pending
+- Awaiting Inspection
+- Exempt
 
 ---
 
-# 3.4 Business Details Page
+# 3.4 High-Fidelity Mockups
 
-## 3.4.1 Wireframe
-
-The business details page presents the full inspection information for a selected food business. This page provides a more detailed view of the data returned from the dataset. The layout focuses on presenting information clearly so that users can understand the hygiene rating and inspection details for the specific business they have selected.
-
-### Business Information Section
-
-This section displays the core information about the business, including the business name, address and postcode, business type, hygiene rating, and rating date.
-
-### Rating Display
-
-The hygiene rating is displayed prominently so that users can immediately identify the score assigned to the business without needing to read through the full detail table.
-
-### Inspection Status Information
-
-Additional information is displayed to indicate the current status of the inspection record. This includes the rating status, whether a new rating is pending following a recent inspection, and whether the business is currently awaiting its first inspection. Displaying this information ensures users understand whether the rating shown reflects the most current assessment of the business.
-
-<img width="369" height="727" alt="WireFrame_Business details" src="https://github.com/user-attachments/assets/d7d4907a-6f8b-4516-93ad-bcb4d198bb4a" />
-
+High-fidelity desktop mockups were produced for all four pages.
 
 ---
 
-## 3.4.2 High-Fidelity Desktop Mockup
+## 3.4.1 Visual Design System
 
-The high-fidelity mockup for the business details page demonstrates how the full inspection data is presented in a structured two-column layout.
-
-### Back to Results Button
-
-A clearly labelled Back to Results button is positioned at the top of the content area. This allows users to return to their previous search results without losing their query or their applied filters, supporting a smooth and efficient navigation experience.
-
-### Business Information Card
-
-The left column opens with a business information card that displays the rating badge, business name, business type, rating status badge, and full address in a structured layout. Below this card, a full detail table lists every available data field: Business Name, Full Address, Postcode, Business Type, Hygiene Rating with its descriptive label, Rating Date, Rating Status, and New Rating Pending.
-
-### Rating Explanation Panel
-
-The right column contains a contextual rating explanation panel that presents the full scale from 5 down to 0 with colour-coded badges and a short description for each level. This panel allows users to immediately understand what the displayed rating means without having to navigate away to the Rating Guide page, improving the overall usability of the application.
-
-### Conditional Status Notices
-
-Three conditional notices are displayed at the bottom of the page depending on the specific business's inspection record. A yellow notice reading A New Rating is Pending indicates that a recent inspection has been carried out and the updated rating may change soon. A purple notice reading Awaiting Inspection indicates the business has not yet been inspected and no rating is currently available. A blue notice reading Exempt from Rating indicates the business is not required to participate in the food hygiene rating scheme. Each notice is only shown when it is relevant to the business being viewed, avoiding unnecessary information being presented to the user.
-
-<img width="369" height="727" alt="High_Fidelity_Mockup_BusinessDetails" src="https://github.com/user-attachments/assets/2670a9fc-da80-4916-9e3b-9eee869d0b08" />
-
+| Category | Value | Usage |
+|---|---|---|
+| Primary Colour | #1B5E20 | Hero sections |
+| Secondary Colour | #2E7D32 | Hover states |
+| Accent Colour | #81C784 | Highlights |
+| Warning Colour | #F57F17 | Rating badge 2 |
+| Danger Colour | #B71C1C | Rating badge 0 |
+| Page Background | #FFFFFF | Main page background |
+| Surface Background | #F5F5F5 | Panels |
+| Typography | Inter | Body text |
+| Border Radius | 8px / 4px / 24px | Cards and buttons |
+| Card Shadow | 0 2px 8px rgba(0,0,0,0.1) | Cards |
 
 ---
 
-# 3.5 Rating Guide Page
+## 3.4.2 Homepage Layout
 
-## 3.5.1 Wireframe
+Sections include:
 
-The rating guide page explains the meaning of each food hygiene rating score. This page helps users understand how to interpret the ratings displayed throughout the application. Providing this information supports users who may not be familiar with the national food hygiene rating system operated by the Food Standards Agency.
-
-| Rating | Meaning |
-|------|------|
-| 5 | Very Good |
-| 4 | Good |
-| 3 | Generally Satisfactory |
-| 2 | Improvement Necessary |
-| 1 | Major Improvement Necessary |
-| 0 | Urgent Improvement Required |
-
-This information allows users to better understand inspection results and make informed decisions when selecting a place to eat.
-
-<img width="308" height="727" alt="WireFrame Results page" src="https://github.com/user-attachments/assets/7ad99d0c-e228-4605-907c-5e32cb2b2ac3" />
-
+- Navigation bar
+- Hero search section
+- Statistics bar
+- Category tiles
+- Ratings summary
+- Footer
 
 ---
 
-## 3.5.2 High-Fidelity Desktop Mockup
+## 3.4.3 Search Results Page Layout
 
-The high-fidelity mockup for the rating guide page presents the rating information in a structured, visually engaging format that is consistent with the overall design of the application.
+Two-column layout.
 
-### Page Header Banner
+| Column | Content |
+|---|---|
+| Left | Filters |
+| Right | Results list |
 
-A green hero banner at the top of the page carries the title Rating Guide and the subtitle Understanding Food Hygiene Ratings. This maintains visual consistency with the homepage hero section and clearly communicates the purpose of the page to the user.
+Includes:
 
-### Introduction Panel
+- Filter panel
+- Active filter tags
+- Result cards
+- No results state
+- Error state
 
-A brief introductory paragraph beneath the banner explains that food hygiene ratings are issued by local authorities in the United Kingdom following inspections of food businesses. The paragraph clarifies that scores range from 0, which indicates urgent improvement is required, to 5, which indicates very good hygiene standards.
+---
 
-### Rating Cards
+## 3.4.4 Business Details Page Layout
 
-Each rating level is presented in its own card. Every card contains a colour-coded score badge, the rating label, a short description of what that rating means in terms of the business's hygiene standards, and a What This Means section that provides practical guidance to the user about how the rating should influence their decision to visit the establishment. The badges use a colour progression from dark green for a rating of 5, through yellow-green for 4, light green for 3, amber for 2, orange-red for 1, and dark red for 0, making the scale immediately understandable at a glance.
+Two-column grid.
 
-### Special Statuses Section
+| Column | Content |
+|---|---|
+| Left | Business information |
+| Right | Rating graphic |
 
-A Special Statuses section at the bottom of the page contains three additional cards explaining Awaiting Inspection, New Rating Pending, and Exempt. The Awaiting Inspection card explains that the business is newly registered and has not yet been inspected by the local authority, meaning no rating is currently available. The New Rating Pending card explains that a recent inspection has taken place and the displayed rating may not yet reflect the latest findings. The Exempt card explains that certain premises are not required to participate in the food hygiene rating scheme. These cards ensure users understand statuses that are not represented by a numeric rating, which is particularly relevant given that 443 premises in the Bristol dataset are currently awaiting inspection.
+Includes:
 
-<img width="308" height="697" alt="High_Fidelity_Mockup_ResultsPage" src="https://github.com/user-attachments/assets/d2d4d37d-9134-45d1-b52d-f0aa744f375b" />
+- Back to results button
+- Rating explanation panel
+- Conditional notices
 
+---
+
+## 3.4.5 Rating Guide Page
+
+Displays all rating levels.
+
+| Score | Label | Description |
+|---|---|---|
+| 5 | Very Good | Very good hygiene standards |
+| 4 | Good | Good hygiene overall |
+| 3 | Generally Satisfactory | Acceptable standards |
+| 2 | Improvement Necessary | Hygiene issues |
+| 1 | Major Improvement Necessary | Poor hygiene standards |
+| 0 | Urgent Improvement Required | Serious concerns |
+
+Special statuses explained:
+
+- Awaiting Inspection
+- New Rating Pending
+- Exempt
+
+---
+
+# 3.5 Design Decisions and Justifications
+
+| Design Decision | Rationale | Requirement |
+|---|---|---|
+| Green colour scheme | Associated with safety and hygiene | NFR3 |
+| Hero search bar | Reduces steps to search | FR1 |
+| Category tiles | Faster filtering | FR6 |
+| Colour-coded badges | Quick recognition | US7 |
+| Sidebar filters | Better comparison | FR5 |
+| Filter chips | Clear filter visibility | FR7 |
+| Conditional notices | Reduces clutter | FR14 |
+| Rating explanation panel | Reduces navigation | FR17 |
+| No login required | Public information | FR10 |
+| Retry button | Error recovery | NFR7 |
+| Official rating graphic | Familiar reference | FR12 |
+| Back to results state preserved | Better UX | UC2 |
+
+---
+
+# 3.6 Accessibility Considerations (WCAG 2.1 Level AA)
+
+Accessibility considerations include:
+
+- Colour contrast ratios meeting WCAG requirements
+- Colour never used as sole indicator
+- Alternative text for images
+- Keyboard navigation support
+- Form labels and accessible error messages
+- Skip navigation link
+- Fully responsive layouts
+
+---
+
+# 3.7 Design Tools and Process
+
+All wireframes, wireflow diagrams, and high-fidelity mockups were created using **Figma**.
+
+Figma was selected because it:
+
+- Supports component-based design
+- Enables interactive prototypes
+- Allows shareable links for design review
+
+---
+
+## 3.7.1 Design Process Steps
+
+1. Requirements Review  
+2. Low-Fidelity Wireframes  
+3. Figma Wireframes  
+4. Wireflow Connections  
+5. Design System Definition  
+6. High-Fidelity Mockups  
+7. Design Validation  
+
+---
+
+**Figma Design File:**  
+https://www.figma.com/design/cDzHoE1BvKaEpMsooiBrOb/High-Fidelity-MockUp?node-id=2071-507&t=36W43D7d1QbB3XwJ-1
