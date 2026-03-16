@@ -56,25 +56,30 @@ This view shows the Homepage and Search Results Page positioned side by side, wi
 
 The green arrows trace the primary user journey: the user arrives on the Homepage, enters a search query, and arrives at the Search Results Page. A red arrow illustrates the validation path where the user submits an empty search field and remains on the Homepage with a validation message displayed beneath the input. Green arrows also show that clicking any category tile on the Homepage navigates to the Search Results Page with that business type filter pre-applied, providing an alternative entry point that does not require the user to type a query.
 
-> *(See wireflow screenshot 1 — uploaded images)*
+<img width="986" height="733" alt="Screenshot 2026-03-16 at 14 46 27" src="https://github.com/user-attachments/assets/f155d48f-cef6-4b41-a7c4-d94acb742e65" />
+
 
 #### View 2 — Search Results Page and Business Details Page
 
 This view focuses on the connection between the Search Results Page and the Business Details Page. A green arrow represents the primary action of clicking a result card to open the Business Details Page. A grey dashed arrow represents the Back to Results navigation, which returns the user to the results list without resetting their search query or applied filters, preserving the user's state across the navigation.
 
-> *(See wireflow screenshot 2 — uploaded images)*
+<img width="986" height="733" alt="Screenshot 2026-03-16 at 14 47 02" src="https://github.com/user-attachments/assets/72aa7cb3-313b-4b1a-8f5a-c6eab00c98ae" />
+
 
 #### View 3 — Rating Guide Page and Wireflow Legend
 
 This view shows the Rating Guide Page and the full wireflow legend. The Rating Guide is reachable from three entry points: the navigation bar on every page, the View Full Guide button on the Homepage, and the Full Guide link on the Business Details Page. The legend panel documents all arrow types and the annotation box convention used throughout the diagram.
 
-> *(See wireflow screenshot 3 — uploaded images)*
+<img width="986" height="733" alt="Screenshot 2026-03-16 at 14 48 07" src="https://github.com/user-attachments/assets/faf0f8d9-b3c1-490d-8d98-9951a249a562" />
+
 
 #### View 4 — Rating Guide Detail and Full Legend (Close-up)
 
 This view presents the Rating Guide Page content and the complete wireflow legend at greater detail. It also shows the footer structure including the certification logos, Quick Links column, and Legal column that are consistent across all pages.
 
-> *(See wireflow screenshot 4 — uploaded images)*
+<img width="665" height="733" alt="Screenshot 2026-03-16 at 14 49 01" src="https://github.com/user-attachments/assets/9095ca72-13eb-4921-82fa-77a87b0a6414" />
+
+<img width="987" height="738" alt="Screenshot 2026-03-16 at 14 50 02" src="https://github.com/user-attachments/assets/8774058e-973e-4983-bd54-d41fcd441ee8" />
 
 ---
 
@@ -197,7 +202,8 @@ Below the hero, the Browse by Business Type section contains six icon-based cate
 
 The wireframe deliberately omits all colour and iconography to focus the design review on structure and hierarchy alone.
 
-> *(See Figure 5 — Homepage Wireframe image)*
+<img width="400" height="715" alt="Screenshot 2026-03-16 at 14 51 51" src="https://github.com/user-attachments/assets/528a9377-d15c-4456-b4b7-2ae548844129" />
+
 
 ---
 
@@ -209,7 +215,7 @@ Each result card is a horizontal row showing a rating badge placeholder on the l
 
 Below the results list, two additional states are shown as separate panels: the No Results state with a message and the Error state with a Retry button. This ensures both states are documented within the wireframe rather than being left implicit.
 
-> *(See Figure 7 — Search Results Wireframe image)*
+<img width="323" height="732" alt="Screenshot 2026-03-16 at 14 52 39" src="https://github.com/user-attachments/assets/59c94d74-c479-44f3-8aa6-540776b26963" />
 
 ---
 
@@ -219,7 +225,7 @@ The business details wireframe uses a two-column layout. The Back to Results lin
 
 Below the two-column grid, the wireframe documents three conditional status notices as separate labelled panels: A new rating is pending, Awaiting Inspection, and Exempt from Rating. The label "(shown conditionally)" confirms that these are not always displayed simultaneously.
 
-> *(See Figure 9 — Business Details Wireframe image)*
+<img width="372" height="732" alt="Screenshot 2026-03-16 at 14 53 23" src="https://github.com/user-attachments/assets/0a7bdb35-8be8-44d8-87a9-362d021434c4" />
 
 ---
 
@@ -227,7 +233,7 @@ Below the two-column grid, the wireframe documents three conditional status noti
 
 The rating guide wireframe presents a single-column, scroll-based layout. A page heading and brief introduction paragraph are followed by six rating entry rows, each displaying a numeric score badge on the left and the rating label with description on the right. Below the six numeric ratings, a Special Statuses section presents three side-by-side cards for Awaiting Inspection, New Rating Pending, and Exempt.
 
-> *(See Figure 11 — Rating Guide Wireframe image)*
+<img width="304" height="732" alt="Screenshot 2026-03-16 at 14 55 06" src="https://github.com/user-attachments/assets/a2122fc8-235e-47cf-9a19-b96e82764119" />
 
 ---
 
@@ -270,7 +276,8 @@ The six category tiles in the Browse by Business Type section each display a foo
 
 The footer uses a dark near-black background with white text, the CIEH, RoSPA, and ISO 22000 certification logos in the upper zone, and the three-column layout below.
 
-> *(See Figure 6 — Homepage High-Fidelity Mockup image)*
+<img width="425" height="732" alt="Screenshot 2026-03-16 at 14 56 31" src="https://github.com/user-attachments/assets/bf8dac3a-c32f-4794-b1bb-fa7b1e604abf" />
+
 
 ---
 
@@ -284,7 +291,8 @@ Each result card in the right column uses a prominent colour-coded rating badge 
 
 The No Results state panel displays a magnifying glass icon, the message "No results found", and guidance to broaden the search or adjust the filters. The error state panel displays a warning triangle icon, the message "Unable to load data", a brief explanatory sentence, and a Retry button. Pagination controls at the bottom of the results list show page number buttons and forward and backward arrow buttons.
 
-> *(See Figure 8 — Search Results High-Fidelity Mockup image)*
+<img width="316" height="718" alt="Screenshot 2026-03-16 at 14 56 56" src="https://github.com/user-attachments/assets/aaa77179-62b1-4836-b804-e24658203aaf" />
+
 
 ---
 
@@ -296,7 +304,8 @@ The right column displays the official Food Hygiene Rating sticker graphic, whic
 
 Below the two-column grid, the conditional status notice panels are shown. The "A new rating is pending" notice uses a yellow background with a hourglass icon. The "Awaiting Inspection" notice uses a light purple background with a magnifying glass icon. The "Exempt from Rating" notice uses a light blue background with an information icon. Each notice is rendered only when the relevant condition is true for the business being viewed.
 
-> *(See Figure 10 — Business Details High-Fidelity Mockup image)*
+<img width="380" height="737" alt="Screenshot 2026-03-16 at 14 57 40" src="https://github.com/user-attachments/assets/2c603dc8-77d7-45ea-ac91-9ec53db407ea" />
+
 
 ---
 
@@ -310,7 +319,8 @@ Each of the six numeric rating levels is presented in its own card. Every card c
 
 The Special Statuses section at the bottom of the page contains three side-by-side cards for Awaiting Inspection, New Rating Pending, and Exempt. Each card uses a title, an icon, and a short explanation. These cards are particularly relevant given that 443 premises in the Bristol dataset are currently awaiting their first inspection, meaning a significant proportion of search results may carry one of these statuses rather than a numeric rating.
 
-> *(See Figure 12 — Rating Guide High-Fidelity Mockup image)*
+<img width="314" height="737" alt="Screenshot 2026-03-16 at 14 58 19" src="https://github.com/user-attachments/assets/0ece60a3-982d-4b2f-910d-28f5216c522f" />
+
 
 ---
 
@@ -318,12 +328,32 @@ The Special Statuses section at the bottom of the page contains three side-by-si
 
 The side-by-side comparisons below illustrate how each page evolved from the low-fidelity wireframe stage to the final high-fidelity mockup. The structural layout, element positioning, and content hierarchy established in each wireframe are preserved in the corresponding mockup without exception. The mockup stage adds colour, typography, iconography, and spacing to produce the final intended appearance, but does not alter the structural decisions made at the wireframe stage. This confirms that the two stages of the design process functioned correctly as intended.
 
-- **Homepage:** Wireframe establishes the hero-search-category-ratings-footer hierarchy. Mockup adds dark green hero, statistics bar, illustrated category icons, and colour-coded rating badges.
+- **Homepage:** Wireframe establishes the hero-search-category-ratings-footer hierarchy. Mockup adds dark green hero, statistics bar, illustrated category
+icons, and colour-coded rating badges.
+
+  <img width="425" height="732" alt="Screenshot 2026-03-16 at 14 56 31" src="https://github.com/user-attachments/assets/1afbfb98-0847-4c61-bd21-7360827c8600" />
+
+  <img width="400" height="715" alt="Screenshot 2026-03-16 at 14 51 51" src="https://github.com/user-attachments/assets/99044e23-01d3-4932-80cf-b6567c1b2e3f" />
+
+
 - **Search Results:** Wireframe establishes the two-column filter-plus-results layout with documented empty and error states. Mockup adds colour-coded result cards, active filter tags, a result count per filter option, and styled empty and error state panels.
+  
+<img width="316" height="718" alt="Screenshot 2026-03-16 at 14 56 56" src="https://github.com/user-attachments/assets/a51b90c0-cd9e-49c8-8cc0-e4de18b8e59e" />
+
+<img width="323" height="732" alt="Screenshot 2026-03-16 at 14 52 39" src="https://github.com/user-attachments/assets/98b8ae5d-3185-42af-af70-f53361c4fca7" />
+
+  
 - **Business Details:** Wireframe establishes the two-column business-data-plus-rating-panel layout with conditional notices documented below. Mockup adds the official Food Hygiene Rating sticker graphic, colour-coded status badges, and the styled conditional notice panels.
+
+<img width="380" height="737" alt="Screenshot 2026-03-16 at 14 57 40" src="https://github.com/user-attachments/assets/d5b60db4-d36a-42a8-bbb7-1cf21e7e02a4" />
+
+<img width="372" height="732" alt="Screenshot 2026-03-16 at 14 53 23" src="https://github.com/user-attachments/assets/3d855d80-8a5a-4542-a518-dfc3ea918eb2" />
+
 - **Rating Guide:** Wireframe establishes the linear scroll-based rating list with a special statuses section below. Mockup adds colour-coded rating cards with "What This Means" sub-panels, a hero banner, and an introductory panel.
 
-> *(See Figures 13 to 16 — side-by-side comparison images)*
+<img width="314" height="737" alt="Screenshot 2026-03-16 at 14 58 19" src="https://github.com/user-attachments/assets/18f2aa1a-6bbc-4921-99fb-1377059c01d6" />
+
+<img width="304" height="732" alt="Screenshot 2026-03-16 at 14 55 06" src="https://github.com/user-attachments/assets/d0388156-222b-46f9-8adc-30ed02a5e2f8" />
 
 ---
 
