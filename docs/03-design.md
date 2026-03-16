@@ -32,6 +32,8 @@ The search button submits the query and navigates the user to the search results
 
 An information section is included on the homepage to introduce the purpose of the application and provide a brief explanation of the food hygiene rating system, ensuring new users understand the platform before they begin searching.
 
+<img width="423" height="741" alt="Wireframe_Homepage" src="https://github.com/user-attachments/assets/ec9d7f41-3d08-417c-8a33-31d1ac7f0adf" />
+
 
 
 ---
@@ -60,7 +62,8 @@ A ratings summary section provides colour-coded badges representing each rating 
 
 The footer contains certification logos from CIEH, RoSPA, and ISO 22000 to reinforce the credibility of the platform. It also includes a Quick Links column, a Legal column containing Privacy Policy, Cookie Policy, Terms of Use, Disclaimer, and Accessibility links, and full contact information for the organisation.
 
-[Homepage mockup image]
+<img width="394" height="687" alt="High_Fidelity_Mockup_HomaPage" src="https://github.com/user-attachments/assets/251b1eb3-298e-4951-9740-3c57a718b490" />
+
 
 ---
 
@@ -82,7 +85,8 @@ A filter section allows users to refine the displayed results by two criteria. T
 
 Each result is displayed as an individual card within the list. Each card includes the business name, address, business type, hygiene rating, and rating date. Selecting a card navigates the user to the business details page for that specific business.
 
-[Search results wireframe image]
+<img width="318" height="741" alt="Wireframe_SearchPage" src="https://github.com/user-attachments/assets/e049a0f2-9daf-45d0-b557-c5c7406c54de" />
+
 
 ---
 
@@ -114,7 +118,8 @@ An error notice with a Retry button is displayed when data cannot be retrieved f
 
 Navigation controls at the bottom of the page allow users to move across multiple pages of results, with page numbers and next and previous buttons clearly visible.
 
-[Search results mockup image]
+<img width="314" height="727" alt="High_Fidelity_Mockup_SearchPage" src="https://github.com/user-attachments/assets/f310df1e-8296-44ef-9a60-a2c9f30e86e7" />
+
 
 ---
 
@@ -136,7 +141,8 @@ The hygiene rating is displayed prominently so that users can immediately identi
 
 Additional information is displayed to indicate the current status of the inspection record. This includes the rating status, whether a new rating is pending following a recent inspection, and whether the business is currently awaiting its first inspection. Displaying this information ensures users understand whether the rating shown reflects the most current assessment of the business.
 
-[Business details wireframe image]
+<img width="369" height="727" alt="WireFrame_Business details" src="https://github.com/user-attachments/assets/d7d4907a-6f8b-4516-93ad-bcb4d198bb4a" />
+
 
 ---
 
@@ -160,7 +166,8 @@ The right column contains a contextual rating explanation panel that presents th
 
 Three conditional notices are displayed at the bottom of the page depending on the specific business's inspection record. A yellow notice reading A New Rating is Pending indicates that a recent inspection has been carried out and the updated rating may change soon. A purple notice reading Awaiting Inspection indicates the business has not yet been inspected and no rating is currently available. A blue notice reading Exempt from Rating indicates the business is not required to participate in the food hygiene rating scheme. Each notice is only shown when it is relevant to the business being viewed, avoiding unnecessary information being presented to the user.
 
-[Business details mockup image]
+<img width="369" height="727" alt="High_Fidelity_Mockup_BusinessDetails" src="https://github.com/user-attachments/assets/2670a9fc-da80-4916-9e3b-9eee869d0b08" />
+
 
 ---
 
@@ -181,7 +188,8 @@ The rating guide page explains the meaning of each food hygiene rating score. Th
 
 This information allows users to better understand inspection results and make informed decisions when selecting a place to eat.
 
-[Rating guide wireframe image]
+<img width="308" height="727" alt="WireFrame Results page" src="https://github.com/user-attachments/assets/7ad99d0c-e228-4605-907c-5e32cb2b2ac3" />
+
 
 ---
 
@@ -205,4 +213,5 @@ Each rating level is presented in its own card. Every card contains a colour-cod
 
 A Special Statuses section at the bottom of the page contains three additional cards explaining Awaiting Inspection, New Rating Pending, and Exempt. The Awaiting Inspection card explains that the business is newly registered and has not yet been inspected by the local authority, meaning no rating is currently available. The New Rating Pending card explains that a recent inspection has taken place and the displayed rating may not yet reflect the latest findings. The Exempt card explains that certain premises are not required to participate in the food hygiene rating scheme. These cards ensure users understand statuses that are not represented by a numeric rating, which is particularly relevant given that 443 premises in the Bristol dataset are currently awaiting inspection.
 
-[Rating guide mockup image]
+<img width="308" height="697" alt="High_Fidelity_Mockup_ResultsPage" src="https://github.com/user-attachments/assets/d2d4d37d-9134-45d1-b52d-f0aa744f375b" />
+
