@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<!--
+  File: search.html
+  Project: Bristol Food Hygiene Ratings
+  Version: 1.4.0
+  Author: Nadira Ali Robleh
+  Last updated: 11/03/2026
+
+  About this file:
+  This page is the main search results page for my Bristol Food Hygiene web app.
+  I used it to let users search for food businesses, apply filters, sort results,
+  and move through the results more easily. It acts as the main results interface
+  between the homepage and the business detail page.
+
+  Semantic versioning:
+  - MAJOR version = major structural or functional changes
+  - MINOR version = new features added without breaking the page
+  - PATCH version = small fixes, accessibility improvements or documentation updates
+
+  Version history:
+  - 1.0.0 = initial search page layout created
+  - 1.1.0 = added filters, sorting and results layout
+  - 1.2.0 = added empty state, error banner and pagination area
+  - 1.3.0 = improved accessibility and navigation menu behaviour
+  - 1.4.0 = added implementation notes, clearer documentation and code quality comments
+
+  Implementation notes:
+  - I used semantic HTML5 to keep the layout clear and easier to maintain
+  - The page is split into logical sections such as the search bar, filters,
+    results, pagination and footer
+  - CSS is mostly kept in the external stylesheet, with a small inline block
+    used for result card click behaviour
+  - JavaScript is used for small interactive features such as the nav menu
+    and updating the search query in the URL
+  - Search data and dynamic results are handled through data.js, which keeps
+    the HTML page cleaner and separates structure from logic
+
+  Code quality notes:
+  - I used reusable class names so the layout stays organised
+  - Accessibility was considered using labels, ARIA attributes, live regions
+    and keyboard support
+  - Defensive checks are used in JavaScript to reduce the chance of errors
+  - Comments have been added to explain the purpose of each main part of the page
+-->
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Basic SEO metadata for search engines and page previews -->
+  <meta
+    name="description"
+    content="Search food hygiene ratings for restaurants, takeaways, cafés and other food businesses in Bristol. Filter by rating score and business type."
+  />
+  <meta name="author" content="Bristol Food Hygiene Insights" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:title" content="Search Results – Bristol Food Hygiene" />
+  <meta
+    property="og:description"
+    content="Find and filter food hygiene ratings for businesses in Bristol."
+  />
+  <title>Search Results – Bristol Food Hygiene</title>
+
+  <!--
+    Performance improvement:
+    preconnect helps the browser prepare earlier for loading Google Fonts.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Main external stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+
+  <style>
+    /*
+      Small page-specific styling:
+      I kept this here because it only affects the clickable result card behaviour
+      on this page. This makes the whole result area easier to interact with.
+    */
+
+    /* Make entire result card clickable */
+    .result-card { position: relative; }
+    .result-card__link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      border-radius: inherit;
+    }
+    .result-card__link:hover .rc-name,
+    .result-card__link:focus .rc-name { text-decoration: underline; }
+    .result-card__link:hover,
+    .result-card__link:focus { outline: none; }
+    .result-card:has(.result-card__link:focus) { outline: 2px solid var(--ink-600, #2d5a27); outline-offset: 2px; }
+    .result-card__link article { display: block; }
+  </style>
+</head>
+<body>
+  <!-- Skip link improves keyboard accessibility -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Site header with branding and navigation -->
+  <header class="site-header">
+    <section class="site-header__inner" aria-label="Site header">
+      <a class="site-header__brand" href="index.html" aria-label="Bristol Food Hygiene go to homepage">
+        <img
+          class="site-header__logo"
+          src="assets/icons/logo.png"
+          alt=""
+          aria-hidden="true"
+          width="38"
+          height="38"
+        />
+        <span class="site-header__name">Bristol Food Hygiene</span>
+      </a>
+
+      <!--
+        Mobile navigation button.
+        The ARIA attributes help screen readers understand whether the menu is open.
+      -->
+      <button
+        class="nav-toggle"
+        type="button"
+        id="nav-toggle"
+        aria-controls="primary-nav"
+        aria-expanded="false"
+        aria-label="Open navigation menu"
+      >
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+      </button>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+        <ul class="primary-nav__list">
+          <li><a class="primary-nav__link" href="index.html">Home</a></li>
+          <li><a class="primary-nav__link primary-nav__link--active" href="search.html" aria-current="page">Search</a></li>
+          <li><a class="primary-nav__link" href="business-detail.html">Business Detail</a></li>
+          <li><a class="primary-nav__link" href="rating-guide.html">Rating Guide</a></li>
+        </ul>
+      </nav>
+    </section>
+  </header>
+
+  <!-- Main content for the search page -->
+  <main id="main-content" class="search-page-wrap">
+    <h1 class="page-title">Search Results</h1>
+
+    <!--
+      Search bar section:
+      This gives users a clear starting point to search by business name,
+      postcode or address.
+    -->
+    <section class="search-bar-wrap" aria-labelledby="search-section-title">
+      <h2 id="search-section-title" class="visually-hidden">Search for food businesses</h2>
+
+      <form
+        class="search-bar"
+        method="get"
+        action="search.html"
+        role="search"
+        aria-label="Search for food businesses"
+        novalidate
+      >
+        <label class="visually-hidden" for="search-input">
+          Search by business name, postcode or address
+        </label>
+
+        <span class="search-bar__icon" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            focusable="false"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"></circle>
+            <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+          </svg>
+        </span>
+
+        <input
+          class="search-bar__input"
+          id="search-input"
+          type="search"
+          name="q"
+          value=""
+          placeholder="Search by name, postcode or address&hellip;"
+          maxlength="200"
+          autocomplete="off"
+          spellcheck="false"
+          aria-describedby="search-hint"
+        />
+
+        <span class="visually-hidden" id="search-hint">
+          Enter a business name, postcode, or part of an address then press Search.
+        </span>
+
+        <button class="search-bar__btn" type="submit">Search</button>
+      </form>
+
+      <!--
+        Live region:
+        This allows screen readers to announce changes to the search summary.
+      -->
+      <p class="results-summary" aria-live="polite" aria-atomic="true">
+        Enter a search term above to find businesses.
+      </p>
+    </section>
+
+    <!--
+      Main two-column results layout:
+      Left side = filters
+      Right side = results, sorting, pagination and feedback states
+    -->
+    <section class="results-layout" aria-label="Filters and search results">
+      <aside class="filter-panel" aria-label="Refine results">
+        <h2 class="filter-panel__head">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            focusable="false"
+            aria-hidden="true"
+          >
+            <path d="M3 4h18l-7 9v6l-4-2v-4L3 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+          </svg>
+          Filters
+        </h2>
+
+        <!--
+          Filter form:
+          Hidden q field keeps the search term when filters are changed.
+          This helps preserve the user’s current search context.
+        -->
+        <form class="filter-form" id="filter-form" method="get" action="search.html" aria-label="Filter search results">
+          <input type="hidden" name="q" value="" />
+
+          <fieldset class="filter-fieldset">
+            <legend class="filter-fieldset__legend">Hygiene Rating</legend>
+            <ul class="filter-list">
+              <li class="filter-list__item">
+                <label class="filter-label" for="r5">
+                  <input class="filter-checkbox" type="checkbox" id="r5" name="rating" value="5" />
+                  <span class="r-badge r-badge--5" aria-hidden="true">5</span>
+                  <span class="filter-label__text">Very Good</span>
+                </label>
+              </li>
+              <li class="filter-list__item">
+                <label class="filter-label" for="r4">
+                  <input class="filter-checkbox" type="checkbox" id="r4" name="rating" value="4" />
+                  <span class="r-badge r-badge--4" aria-hidden="true">4</span>
+                  <span class="filter-label__text">Good</span>
+                </label>
+              </li>
+              <li class="filter-list__item">
+                <label class="filter-label" for="r3">
+                  <input class="filter-checkbox" type="checkbox" id="r3" name="rating" value="3" />
+                  <span class="r-badge r-badge--3" aria-hidden="true">3</span>
+                  <span class="filter-label__text">Generally Satisfactory</span>
+                </label>
+              </li>
+              <li class="filter-list__item">
+                <label class="filter-label" for="r2">
+                  <input class="filter-checkbox" type="checkbox" id="r2" name="rating" value="2" />
+                  <span class="r-badge r-badge--2" aria-hidden="true">2</span>
+                  <span class="filter-label__text">Improvement Necessary</span>
+                </label>
+              </li>
+              <li class="filter-list__item">
+                <label class="filter-label" for="r1">
+                  <input class="filter-checkbox" type="checkbox" id="r1" name="rating" value="1" />
+                  <span class="r-badge r-badge--1" aria-hidden="true">1</span>
+                  <span class="filter-label__text">Major Improvement</span>
+                </label>
+              </li>
+              <li class="filter-list__item">
+                <label class="filter-label" for="r0">
+                  <input class="filter-checkbox" type="checkbox" id="r0" name="rating" value="0" />
+                  <span class="r-badge r-badge--0" aria-hidden="true">0</span>
+                  <span class="filter-label__text">Urgent Improvement</span>
+                </label>
+              </li>
+            </ul>
+          </fieldset>
+
+          <fieldset class="filter-fieldset">
+            <legend class="filter-fieldset__legend">Business Type</legend>
+            <ul class="filter-list">
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-restaurant">
+                  <input class="filter-checkbox" type="checkbox" id="t-restaurant" name="type" value="restaurant" />
+                  <span class="filter-label__text">Restaurant / Café</span>
+                </label>
+              </li>
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-takeaway">
+                  <input class="filter-checkbox" type="checkbox" id="t-takeaway" name="type" value="takeaway" />
+                  <span class="filter-label__text">Takeaway</span>
+                </label>
+              </li>
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-pub-bar">
+                  <input class="filter-checkbox" type="checkbox" id="t-pub-bar" name="type" value="pub-bar" />
+                  <span class="filter-label__text">Pub / Bar</span>
+                </label>
+              </li>
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-school">
+                  <input class="filter-checkbox" type="checkbox" id="t-school" name="type" value="school" />
+                  <span class="filter-label__text">School</span>
+                </label>
+              </li>
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-hotel">
+                  <input class="filter-checkbox" type="checkbox" id="t-hotel" name="type" value="hotel" />
+                  <span class="filter-label__text">Hotel</span>
+                </label>
+              </li>
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-other">
+                  <input class="filter-checkbox" type="checkbox" id="t-other" name="type" value="other" />
+                  <span class="filter-label__text">Other</span>
+                </label>
+              </li>
+            </ul>
+          </fieldset>
+
+          <!-- Reset button to clear active filters -->
+          <button class="clear-btn" type="reset" aria-label="Clear all active filters">Clear All Filters</button>
+        </form>
+      </aside>
+
+      <section class="results-column" aria-label="Search results">
+        <section class="results-toolbar" aria-label="Active filters and sort options">
+          <h2 class="visually-hidden">Results controls</h2>
+
+          <!-- Active filter chips are inserted dynamically by data.js -->
+          <ul class="active-filters" aria-label="Currently applied filters"></ul>
+
+          <p>
+            <label class="sort-lbl" for="sort-select">Sort by:</label>
+            <select class="sort-sel" id="sort-select" name="sort" aria-label="Sort results">
+              <option value="rating-desc" selected>Highest Rating</option>
+              <option value="rating-asc">Lowest Rating</option>
+              <option value="name-asc">Name A–Z</option>
+              <option value="name-desc">Name Z–A</option>
+              <option value="date-desc">Most Recently Rated</option>
+            </select>
+          </p>
+        </section>
+
+        <!--
+          Results list:
+          This starts empty and is filled with live Bristol records by data.js.
+        -->
+        <ol class="results-list" aria-label="Food business search results" aria-live="polite" aria-atomic="false">
+        </ol>
+
+        <!--
+          Empty state:
+          This is shown only when the current search/filter combination returns nothing.
+        -->
+        <section class="no-results" id="no-results" aria-live="polite" aria-atomic="true" aria-label="No search results" hidden>
+          <figure class="no-results__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="56" height="56" focusable="false">
+              <circle cx="26" cy="26" r="17" fill="none" stroke="currentColor" stroke-width="3.5"></circle>
+              <line x1="37" y1="37" x2="57" y2="57" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"></line>
+            </svg>
+          </figure>
+          <h2 class="no-results__heading">No results found</h2>
+          <p class="no-results__msg">Try a different search term or broaden your filters to see more results.</p>
+        </section>
+
+        <!--
+          Error banner:
+          This is hidden by default and shown if the data cannot be loaded properly.
+        -->
+        <section class="error-banner" id="error-banner" role="alert" aria-live="assertive" aria-label="Error loading data" hidden>
+          <svg class="error-banner__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+            <line x1="12" y1="9" x2="12" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+          </svg>
+          <p class="error-banner__body">
+            <strong class="error-banner__title">Unable to load data</strong>
+            Something went wrong. Please try again shortly.
+          </p>
+          <button class="error-banner__retry" type="button" id="retry-btn" aria-label="Retry loading search results">Retry</button>
+        </section>
+
+        <!-- Pagination area, also handled by data.js -->
+        <nav class="pagination" aria-label="Search results pages">
+          <ol class="pagination__list"></ol>
+        </nav>
+      </section>
+    </section>
+  </main>
+
+  <!--
+    Footer:
+    This adds trust signals, contact details, legal links and data attribution.
+    I wanted the page to feel complete and realistic rather than just functional.
+  -->
+  <footer class="site-footer">
+    <section class="footer-certs" aria-label="Certifications and compliance">
+      <article class="footer-certs__inner">
+        <img
+          class="footer-certs__fhrs"
+          src="assets/icons/fhrs-rating-5.png"
+          alt="Food Hygiene Rating Scheme – rated 5 Very Good"
+          loading="lazy"
+        />
+
+        <ul class="footer-certs__logos" aria-label="Certification badges">
+          <li class="footer-cert-badge">
+            <img src="assets/icons/cieh.png" alt="CIEH Member" loading="lazy" />
+            <span>CIEH Member</span>
+          </li>
+          <li class="footer-cert-badge">
+            <img src="assets/icons/rspa.png" alt="R·SPA Member" loading="lazy" />
+            <span>R·SPA Member</span>
+          </li>
+          <li class="footer-cert-badge">
+            <img src="assets/icons/iso22000.png" alt="ISO 22000 Certified" loading="lazy" />
+            <span>ISO 22000</span>
+          </li>
+        </ul>
+
+        <nav class="footer-certs__links" aria-label="Compliance links">
+          <a href="https://bristolfoodhygieneratings.substack.com/p/what-you-need-to-know-about-allergen" rel="noopener noreferrer" target="_blank">
+            Allergen Information
+          </a>
+          <span aria-hidden="true">|</span>
+          <a href="https://bristolfoodhygieneratings.substack.com/p/safe-food-handling-what-it-looks" rel="noopener noreferrer" target="_blank">
+            Safe Food Handling
+          </a>
+          <span aria-hidden="true">|</span>
+          <a href="https://bristolfoodhygieneratings.substack.com/p/haccp-certified-what-it-means-and" rel="noopener noreferrer" target="_blank">
+            HACCP Certified
+          </a>
+        </nav>
+      </article>
+    </section>
+
+    <section class="footer-main" aria-label="Footer content">
+      <section class="footer-brand" aria-label="Brand information">
+        <a class="footer-brand__link" href="index.html" aria-label="Bristol Food Hygiene home">
+          <img class="footer-brand__logo" src="assets/icons/logo.png" alt="" aria-hidden="true" width="34" height="34" />
+          <span class="footer-brand__name">Bristol Food Hygiene</span>
+        </a>
+
+        <address class="footer-brand__addr">
+          FoodSafe Training Ltd &middot; 123 Health St, Bristol, <abbr title="Postcode">BS1</abbr> 4AB<br />
+          Mon–Fri: 9:00 AM – 5:00 PM &middot; Sat–Sun: Closed<br /><br />
+          Phone: <a href="tel:+441171234567">0117 123 4567</a> &middot;
+          Email: <a href="/cdn-cgi/l/email-protection#c3a0acadb7a2a0b783a1b1aab0b7acafa5acaca7abbaa4aaa6ada6eda0acedb6a8"><span class="__cf_email__" data-cfemail="7f1c10110b1e1c0b3f1d0d160c0b10131910101b170618161a111a511c10510a14">[email&#160;protected]</span></a>
+        </address>
+      </section>
+
+      <nav class="footer-nav" aria-label="Quick links">
+        <h2 class="footer-nav__heading">Quick Links</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/about-bristol-food-hygiene-ratings" rel="noopener noreferrer" target="_blank">About Us</a></li>
+          <li><a class="footer-nav__link" href="https://www.linkedin.com/in/bristol-food-hygiene-" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+          <li><a class="footer-nav__link" href="https://twitter.com/FoodRating" rel="noopener noreferrer" target="_blank">Twitter</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-nav" aria-label="Legal information">
+        <h2 class="footer-nav__heading">Legal</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/privacy-policy" rel="noopener noreferrer" target="_blank">Privacy Policy</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/cookie-policy" rel="noopener noreferrer" target="_blank">Cookie Policy</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/terms-of-use" rel="noopener noreferrer" target="_blank">Terms of Use</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/disclaimer" rel="noopener noreferrer" target="_blank">Disclaimer</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/accessibility" rel="noopener noreferrer" target="_blank">Accessibility</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <section class="footer-copy" aria-label="Copyright information">
+      <p>&copy; <time datetime="2026">2026</time> Bristol Food Hygiene Insights. All rights reserved.</p>
+      <p>
+        Food hygiene data &copy;
+        <a href="https://www.food.gov.uk/" rel="noopener noreferrer" target="_blank">Food Standards Agency</a>
+        and
+        <a href="https://opendata.bristol.gov.uk/datasets/7d0994dded2348d5aff6d419b0c76bb9_0/explore" rel="noopener noreferrer" target="_blank">Bristol City Council Open Data</a>.
+      </p>
+    </section>
+  </footer>
+
+  <!--
+    Cloudflare email decode script:
+    This is kept because it is part of how the protected email address is shown.
+  -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+  <!--
+    Navigation script:
+    I used a small helper function here to keep the menu state logic in one place
+    instead of repeating the same code.
+  -->
+  <script>
+    (function () {
+      var toggle = document.getElementById('nav-toggle');
+      var nav = document.getElementById('primary-nav');
+
+      // Defensive check so the script stops safely if the elements are missing
+      if (!toggle || !nav) return;
+
+      function setNavState(isOpen) {
+        nav.classList.toggle('is-open', isOpen);
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        toggle.setAttribute(
+          'aria-label',
+          isOpen ? 'Close navigation menu' : 'Open navigation menu'
+        );
+      }
+
+      // Toggle the mobile menu when the button is clicked
+      toggle.addEventListener('click', function () {
+        var isOpen = nav.classList.contains('is-open');
+        setNavState(!isOpen);
+      });
+
+      // Allow the user to close the menu with the Escape key
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+          setNavState(false);
+          toggle.focus();
+        }
+      });
+    })();
+  </script>
+
+  <!--
+    Main data and results script:
+    This handles the actual search results, filters, active chips and pagination.
+  -->
+  <script src="data.js"></script>
+
+  <!--
+    Search form enhancement:
+    This updates the URL with the current search and preferred sort order, then
+    reruns the page logic without a full page refresh where possible.
+  -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.querySelector('form.search-bar');
+
+      // Defensive check in case the search form is not found
+      if (!form) return;
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var q = (document.getElementById('search-input') || {}).value || '';
+        var qs = '?q=' + encodeURIComponent(q) + '&sort=rating-desc';
+
+        history.pushState(null, '', 'search.html' + qs);
+
+        // Re-run the main app logic if the BFH namespace is available
+        if (window.BFH && window.BFH.run) window.BFH.run();
+      });
+    });
+  </script>
+</body>
+</html>
