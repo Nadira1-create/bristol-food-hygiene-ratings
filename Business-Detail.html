@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<!--
+  File: Business-Detail.html
+  Project: Bristol Food Hygiene Ratings
+  Version: 1.3.0
+  Author: Nadira Ali Robleh
+  Last updated: 11/03/2026
+
+  About this file:
+  This page shows the detailed view for one selected food business. I used it to
+  display the main information for a single premises, including its hygiene rating,
+  rating date, address, business type, official rating graphic, and any special
+  status notices such as awaiting inspection or a new rating pending.
+
+  Semantic versioning:
+  - MAJOR version = major structural or functional changes to the page
+  - MINOR version = new features added without breaking existing behaviour
+  - PATCH version = small fixes, accessibility updates or documentation improvements
+
+  Version history:
+  - 1.0.0 = first business detail page structure created
+  - 1.1.0 = added rating graphic, notices and sidebar guide
+  - 1.2.0 = improved accessibility and dynamic placeholders for loaded data
+  - 1.3.0 = added implementation notes, semantic versioning and code quality comments
+
+  Implementation notes:
+  - I used semantic HTML5 elements to make the page easier to read and maintain
+  - The page is split into clear sections such as breadcrumb navigation, business
+    information, notices, official rating graphic, sidebar guidance and footer
+  - Dynamic content is loaded through JavaScript using the URL parameter so the same
+    page structure can be reused for different businesses
+  - Styling is handled through the external stylesheet to keep presentation separate
+    from the content
+  - Placeholder values are shown first so the layout still exists before the data loads
+
+  Code quality notes:
+  - The page structure is organised into reusable sections with clear class names
+  - Accessibility was considered through headings, landmarks, ARIA labels and a skip link
+  - Fallback behaviour has been included for the rating image if it fails to load
+  - The layout separates static structure from dynamic data, which makes the page
+    easier to maintain and update later
+-->
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Basic SEO metadata for the business detail view -->
+  <meta
+    name="description"
+    content="View detailed food hygiene rating information for a specific business in Bristol."
+  />
+  <meta name="author" content="Bristol Food Hygiene Insights" />
+  <title>Business Detail – Bristol Food Hygiene</title>
+
+  <!--
+    Performance improvement:
+    preconnect helps the browser prepare earlier for the font resources.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Main stylesheet for layout, colour, spacing and responsive behaviour -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+</head>
+<body>
+  <!-- Skip link helps keyboard users move past repeated navigation -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Main site header and top navigation -->
+  <header class="site-header">
+    <section class="site-header__inner" aria-label="Site header">
+      <a class="site-header__brand" href="index.html" aria-label="Bristol Food Hygiene home">
+        <img
+          class="site-header__logo"
+          src="assets/icons/logo.png"
+          alt=""
+          aria-hidden="true"
+          width="38"
+          height="38"
+        />
+        <span class="site-header__name">Bristol Food Hygiene</span>
+      </a>
+
+      <!--
+        Mobile navigation button.
+        ARIA attributes are used so assistive technology can understand the menu state.
+      -->
+      <button
+        class="nav-toggle"
+        type="button"
+        id="nav-toggle"
+        aria-controls="primary-nav"
+        aria-expanded="false"
+        aria-label="Open navigation menu"
+      >
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+      </button>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+        <ul class="primary-nav__list">
+          <li><a class="primary-nav__link" href="index.html">Home</a></li>
+          <li><a class="primary-nav__link" href="Search.html">Search</a></li>
+          <li><a class="primary-nav__link primary-nav__link--active" href="Business-Detail.html" aria-current="page">Business Detail</a></li>
+          <li><a class="primary-nav__link" href="Rating-Guide.html">Rating Guide</a></li>
+        </ul>
+      </nav>
+    </section>
+  </header>
+
+  <!--
+    Breadcrumb navigation:
+    This helps the user understand where they are in the site and gives a quick way
+    back to the previous page.
+  -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol class="breadcrumb__list">
+      <li class="breadcrumb__item"><a class="breadcrumb__link" href="index.html">Home</a></li>
+      <li class="breadcrumb__item"><a class="breadcrumb__link" href="Search.html">Back to results</a></li>
+      <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">Business Detail</li>
+    </ol>
+  </nav>
+
+  <!-- Main content area for the selected business -->
+  <main id="main-content" class="detail-layout">
+    <section class="detail-col" aria-label="Business information">
+      <h1 class="detail-heading">Business Detail</h1>
+
+      <!-- Back button for easier navigation -->
+      <p>
+        <a class="btn-back" href="Search.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Back to results
+        </a>
+      </p>
+
+      <!--
+        Main business card:
+        data.js fills in all of these placeholders using the ?id= parameter in the URL.
+        Starting with placeholder values helps keep the layout stable before data loads.
+      -->
+      <article class="biz-card" aria-labelledby="business-name">
+        <header class="biz-card__header">
+          <span class="biz-rating-badge biz-rating-badge--5" aria-label="Hygiene rating">–</span>
+
+          <section class="biz-card__title-group" aria-label="Business summary">
+            <h2 class="biz-card__name" id="business-name">Loading…</h2>
+
+            <ul class="biz-card__tags" aria-label="Business tags">
+              <li>
+                <span class="tag tag--type">–</span>
+              </li>
+            </ul>
+
+            <p class="biz-card__addr">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span>–</span>
+            </p>
+          </section>
+        </header>
+
+        <hr class="biz-divider" />
+
+        <!--
+          Definition list:
+          I used a definition list here because it suits label/value information well.
+        -->
+        <dl class="biz-table">
+          <section class="biz-row">
+            <dt class="biz-label">Business Name</dt>
+            <dd class="biz-value">–</dd>
+          </section>
+
+          <section class="biz-row">
+            <dt class="biz-label">Full Address</dt>
+            <dd class="biz-value">–</dd>
+          </section>
+
+          <section class="biz-row">
+            <dt class="biz-label">Postcode</dt>
+            <dd class="biz-value">–</dd>
+          </section>
+
+          <section class="biz-row">
+            <dt class="biz-label">Business Type</dt>
+            <dd class="biz-value">–</dd>
+          </section>
+
+          <section class="biz-row">
+            <dt class="biz-label">Hygiene Rating</dt>
+            <dd class="biz-value">–</dd>
+          </section>
+
+          <section class="biz-row">
+            <dt class="biz-label">Rating Date</dt>
+            <dd class="biz-value">–</dd>
+          </section>
+
+          <section class="biz-row">
+            <dt class="biz-label">Rating Status</dt>
+            <dd class="biz-value">–</dd>
+          </section>
+
+          <section class="biz-row">
+            <dt class="biz-label">New Rating Pending</dt>
+            <dd class="biz-value">–</dd>
+          </section>
+        </dl>
+      </article>
+
+      <!--
+        Official rating graphic:
+        This section shows the FHRS image where available.
+        A fallback has been included in case the image does not load properly.
+      -->
+      <section class="detail-section" aria-labelledby="graphic-title">
+        <h2 class="detail-section-title" id="graphic-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          Official Rating Graphic
+        </h2>
+
+        <figure class="fhrs-graphic-wrap">
+          <!-- data.js sets the src on this image -->
+          <img
+            class="fhrs-img"
+            src=""
+            alt="Official Food Hygiene Rating graphic"
+            onerror="this.style.display='none'; document.getElementById('fhrs-fb').style.display='flex';"
+          />
+
+          <figcaption class="fhrs-fallback-col">
+            <p class="fhrs-fallback-lbl">Fallback if image fails to load</p>
+            <span id="fhrs-fb" class="fhrs-fallback-box" aria-label="Food Hygiene Rating" style="display:none;">–</span>
+            <p class="fhrs-fallback-desc">
+              This is the official food hygiene rating as displayed at the premises.
+            </p>
+            <a class="fhrs-link" href="https://www.food.gov.uk" target="_blank" rel="noopener noreferrer">
+              food.gov.uk &rarr;
+            </a>
+          </figcaption>
+        </figure>
+      </section>
+
+      <!--
+        Status notices:
+        These are hidden by default and shown only when relevant for the current business.
+      -->
+      <section class="detail-section" aria-labelledby="status-title">
+        <h2 class="detail-section-title" id="status-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Status Notices
+        </h2>
+
+        <ul class="notices-wrap">
+          <!-- All notices start hidden and data.js reveals the correct one if needed -->
+          <li class="notice notice--pending" role="status" style="display:none;">
+            <span class="notice__icon" aria-hidden="true">⏳</span>
+            <p>
+              <strong class="notice__title">A new rating is pending</strong>
+              <span class="notice__desc"> A new inspection has been carried out. The rating shown may change soon.</span>
+            </p>
+          </li>
+
+          <li class="notice notice--awaiting" role="status" style="display:none;">
+            <span class="notice__icon" aria-hidden="true">🕐</span>
+            <p>
+              <strong class="notice__title">Awaiting Inspection</strong>
+              <span class="notice__desc"> This business has not yet been inspected. No rating is currently available.</span>
+            </p>
+          </li>
+
+          <li class="notice notice--exempt" role="status" style="display:none;">
+            <span class="notice__icon" aria-hidden="true">ℹ️</span>
+            <p>
+              <strong class="notice__title">Exempt from Rating</strong>
+              <span class="notice__desc"> This business is exempt from the food hygiene rating scheme.</span>
+            </p>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <!--
+      Sidebar:
+      I added this to help users understand what the rating means without needing
+      to leave the page.
+    -->
+    <aside class="detail-sidebar" aria-label="Rating guide">
+      <section class="sidebar-card">
+        <h2 class="sidebar-card__title">What Does This Rating Mean?</h2>
+        <p class="sidebar-card__intro">
+          Ratings are awarded following an inspection by local food safety officers and range from 0 (urgent improvement required) to 5 (very good).
+        </p>
+
+        <ul class="rating-guide-list" aria-label="Rating guide">
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--5" aria-label="Rating 5">5</span>
+            <p><strong class="rg-title">Very Good</strong><span class="rg-desc"> All aspects of food hygiene meet or exceed requirements.</span></p>
+          </li>
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--4" aria-label="Rating 4">4</span>
+            <p><strong class="rg-title">Good</strong><span class="rg-desc"> Good hygiene overall with only minor issues.</span></p>
+          </li>
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--3" aria-label="Rating 3">3</span>
+            <p><strong class="rg-title">Generally Satisfactory</strong><span class="rg-desc"> Basic requirements met, some areas need attention.</span></p>
+          </li>
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--2" aria-label="Rating 2">2</span>
+            <p><strong class="rg-title">Improvement Necessary</strong><span class="rg-desc"> Notable issues found. Action is required.</span></p>
+          </li>
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--1" aria-label="Rating 1">1</span>
+            <p><strong class="rg-title">Major Improvement Necessary</strong><span class="rg-desc"> Poor standards. Significant changes required.</span></p>
+          </li>
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--0" aria-label="Rating 0">0</span>
+            <p><strong class="rg-title">Urgent Improvement Required</strong><span class="rg-desc"> Serious concerns. Enforcement may be taken.</span></p>
+          </li>
+        </ul>
+
+        <p class="sidebar-card__sub">Special Statuses</p>
+        <ul class="sp-list" aria-label="Special statuses">
+          <li class="sp-item sp-item--awaiting">
+            <strong>⏳ Awaiting Inspection</strong>
+            <p>Newly registered, not yet inspected. No rating is available.</p>
+          </li>
+          <li class="sp-item sp-item--pending">
+            <strong>🔄 New Rating Pending</strong>
+            <p>Inspection completed. Displayed rating may change soon.</p>
+          </li>
+          <li class="sp-item sp-item--exempt">
+            <strong>ℹ️ Exempt</strong>
+            <p>This premises is not required to hold a rating.</p>
+          </li>
+        </ul>
+
+        <p>
+          <a class="btn-full-guide" href="Rating-Guide.html">Full Rating Guide &rarr;</a>
+        </p>
+      </section>
+    </aside>
+  </main>
+
+  <!--
+    Footer:
+    This helps the page feel complete and trustworthy by including contact details,
+    legal links and source attribution.
+  -->
+  <footer class="site-footer">
+    <section class="footer-certs" aria-label="Certifications and compliance">
+      <article class="footer-certs__inner">
+        <img
+          class="footer-certs__fhrs"
+          src="assets/icons/fhrs-rating-5.png"
+          alt="Food Hygiene Rating Scheme – rated 5 Very Good"
+          loading="lazy"
+        />
+
+        <ul class="footer-certs__logos" aria-label="Certification badges">
+          <li class="footer-cert-badge">
+            <img src="assets/icons/cieh.png" alt="CIEH Member" loading="lazy" />
+            <span>CIEH Member</span>
+          </li>
+          <li class="footer-cert-badge">
+            <img src="assets/icons/rspa.png" alt="R·SPA Member" loading="lazy" />
+            <span>R·SPA Member</span>
+          </li>
+          <li class="footer-cert-badge">
+            <img src="assets/icons/iso22000.png" alt="ISO 22000 Certified" loading="lazy" />
+            <span>ISO 22000</span>
+          </li>
+        </ul>
+
+        <nav class="footer-certs__links" aria-label="Compliance links">
+          <a href="https://bristolfoodhygieneratings.substack.com/p/what-you-need-to-know-about-allergen" rel="noopener noreferrer" target="_blank">Allergen Information</a>
+          <span aria-hidden="true">|</span>
+          <a href="https://bristolfoodhygieneratings.substack.com/p/safe-food-handling-what-it-looks" rel="noopener noreferrer" target="_blank">Safe Food Handling</a>
+          <span aria-hidden="true">|</span>
+          <a href="https://bristolfoodhygieneratings.substack.com/p/haccp-certified-what-it-means-and" rel="noopener noreferrer" target="_blank">HACCP Certified</a>
+        </nav>
+      </article>
+    </section>
+
+    <section class="footer-main" aria-label="Footer content">
+      <section class="footer-brand" aria-label="Brand information">
+        <a class="footer-brand__link" href="index.html" aria-label="Bristol Food Hygiene home">
+          <img class="footer-brand__logo" src="assets/icons/logo.png" alt="" aria-hidden="true" width="34" height="34" />
+          <span class="footer-brand__name">Bristol Food Hygiene</span>
+        </a>
+
+        <address class="footer-brand__addr">
+          FoodSafe Training Ltd &middot; 123 Health St, Bristol, <abbr title="Postcode">BS1</abbr> 4AB<br />
+          Mon–Fri: 9:00 AM – 5:00 PM &middot; Sat–Sun: Closed<br /><br />
+          Phone: <a href="tel:+441171234567">0117 123 4567</a> &middot;
+          Email: <a href="mailto:contact@bristolfoodhygiene.co.uk">contact@bristolfoodhygiene.co.uk</a>
+        </address>
+      </section>
+
+      <nav class="footer-nav" aria-label="Quick links">
+        <h2 class="footer-nav__heading">Quick Links</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/about-bristol-food-hygiene-ratings" rel="noopener noreferrer" target="_blank">About Us</a></li>
+          <li><a class="footer-nav__link" href="https://www.linkedin.com/in/bristol-food-hygiene-" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+          <li><a class="footer-nav__link" href="https://twitter.com/FoodRating" rel="noopener noreferrer" target="_blank">Twitter</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-nav" aria-label="Legal information">
+        <h2 class="footer-nav__heading">Legal</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/privacy-policy" rel="noopener noreferrer" target="_blank">Privacy Policy</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/cookie-policy" rel="noopener noreferrer" target="_blank">Cookie Policy</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/terms-of-use" rel="noopener noreferrer" target="_blank">Terms of Use</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/disclaimer" rel="noopener noreferrer" target="_blank">Disclaimer</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/accessibility" rel="noopener noreferrer" target="_blank">Accessibility</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <section class="footer-copy" aria-label="Copyright information">
+      <p>&copy; <time datetime="2026">2026</time> Bristol Food Hygiene Insights. All rights reserved.</p>
+      <p>
+        Food hygiene data &copy;
+        <a href="https://www.food.gov.uk/" rel="noopener noreferrer" target="_blank">Food Standards Agency</a>
+        and
+        <a href="https://opendata.bristol.gov.uk/datasets/7d0994dded2348d5aff6d419b0c76bb9_0/explore" rel="noopener noreferrer" target="_blank">Bristol City Council Open Data</a>.
+      </p>
+    </section>
+  </footer>
+
+  <!--
+    External scripts:
+    data.js handles the business data and populates the placeholders on this page.
+    main.js is likely used for shared site behaviour such as the navigation menu.
+  -->
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<!--
+  File: index.html
+  Project: Bristol Food Hygiene Ratings
+  Version: 1.3.0
+  Author: Nadira Ali Robleh
+  Last updated: 11/03/2026
+
+  About this file:
+  This is the homepage for my Bristol Food Hygiene web app. I have used this page
+  as the main entry point for users, so it introduces the purpose of the site,
+  gives a quick search option, and links people to the main areas of the system.
+
+  Semantic versioning:
+  - MAJOR version = big changes that affect the structure or behaviour of the page
+  - MINOR version = new features added without breaking existing parts
+  - PATCH version = small fixes, documentation updates, accessibility improvements
+
+  Version history:
+  - 1.0.0 = first homepage structure created
+  - 1.1.0 = added search area and navigation
+  - 1.2.0 = improved accessibility and responsive menu behaviour
+  - 1.3.0 = added implementation notes, code quality comments and clearer documentation
+
+  Implementation notes:
+  - I used semantic HTML5 elements to make the structure clearer and easier to maintain
+  - Styling is kept in Style.css so the presentation is separate from the content
+  - JavaScript is only used for small interactive features such as the mobile menu
+    and basic search validation
+  - I kept the homepage focused on usability, so users can search quickly or browse
+    by business type or rating
+
+  Code quality notes:
+  - I used clear class names to keep the layout organised
+  - I added defensive checks in JavaScript so the page does not break if an element
+    is missing
+  - Accessibility has been considered using labels, ARIA attributes, keyboard support
+    and a skip link
+-->
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Basic SEO and page metadata -->
+  <meta
+    name="description"
+    content="Bristol Food Hygiene Ratings – search for restaurants, takeaways, cafés and more to check their official Food Standards Agency hygiene rating before you visit."
+  />
+  <meta name="author" content="Bristol Food Hygiene Insights" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph tags help the page preview properly if shared online -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Bristol Food Hygiene Ratings" />
+  <meta
+    property="og:description"
+    content="Search restaurants, takeaways, cafés and more across Bristol. Powered by Open Bristol open data."
+  />
+  <meta property="og:locale" content="en_GB" />
+
+  <title>Bristol Food Hygiene Ratings | Find Safe Places to Eat in Bristol</title>
+
+  <!--
+    Preconnect is used here as a small performance improvement so the browser can
+    connect to Google Fonts earlier.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Main stylesheet for layout, colours, spacing and responsive design -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/logo.png" />
+</head>
+<body>
+  <!-- Skip link improves keyboard accessibility -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Site header with branding and primary navigation -->
+  <header class="site-header">
+    <section class="site-header__inner" aria-label="Site header">
+      <a class="site-header__brand" href="index.html" aria-label="Bristol Food Hygiene home">
+        <img
+          class="site-header__logo"
+          src="assets/icons/logo.png"
+          alt=""
+          aria-hidden="true"
+          width="38"
+          height="38"
+        />
+        <span class="site-header__name">Bristol Food Hygiene</span>
+      </a>
+
+      <!--
+        Mobile navigation button.
+        ARIA attributes are used here so screen readers can understand whether the
+        menu is open or closed.
+      -->
+      <button
+        class="nav-toggle"
+        type="button"
+        id="nav-toggle"
+        aria-controls="primary-nav"
+        aria-expanded="false"
+        aria-label="Open navigation menu"
+      >
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+      </button>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+        <ul class="primary-nav__list">
+          <li><a class="primary-nav__link primary-nav__link--active" href="index.html" aria-current="page">Home</a></li>
+          <li><a class="primary-nav__link" href="Search.html">Search</a></li>
+          <li><a class="primary-nav__link" href="Business-Detail.html">Business Detail</a></li>
+          <li><a class="primary-nav__link" href="Rating-Guide.html">Rating Guide</a></li>
+        </ul>
+      </nav>
+    </section>
+  </header>
+
+  <!-- Main page content starts here -->
+  <main id="main-content">
+    <!--
+      Hero section:
+      This is the first thing users see, so I used it to clearly explain the purpose
+      of the site and give them a direct search option.
+    -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <p class="hero__pill">
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path>
+          <circle cx="12" cy="9" r="2.5"></circle>
+        </svg>
+        <span>Bristol, United Kingdom &middot; Open Data</span>
+      </p>
+
+      <h1 class="hero__title" id="hero-heading">
+        Find Food Hygiene<br />
+        Ratings in <mark>Bristol</mark>
+      </h1>
+
+      <p class="hero__sub">
+        Search for restaurants, takeaways, cafés and more to check their hygiene rating before you visit.
+      </p>
+
+      <!--
+        Search form:
+        I used the GET method so the search query can be passed into Search.html
+        through the URL. This makes it simple and suitable for a search feature.
+      -->
+      <form
+        class="hero-form"
+        action="Search.html"
+        method="get"
+        role="search"
+        aria-label="Search for food businesses"
+        novalidate
+      >
+        <label class="visually-hidden" for="hero-search">
+          Search by business name, postcode, or address
+        </label>
+
+        <input
+          class="hero-form__input"
+          type="search"
+          id="hero-search"
+          name="q"
+          placeholder="Business name, postcode, or address…"
+          autocomplete="off"
+          spellcheck="false"
+          aria-describedby="hero-hint"
+          maxlength="200"
+          required
+        />
+
+        <button class="hero-form__btn" type="submit">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>Search</span>
+        </button>
+
+        <!-- Live feedback area for validation messages -->
+        <p class="hero-form__hint" id="hero-hint" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!--
+      Stats section:
+      This gives users a quick overview and helps the page feel more informative
+      and trustworthy.
+    -->
+    <section class="stats-bar" aria-labelledby="stats-heading">
+      <h2 id="stats-heading" class="visually-hidden">Key statistics</h2>
+      <ul class="stats-bar__grid">
+        <li class="stats-bar__item">
+          <img
+            class="stats-bar__icon"
+            src="assets/icons/stat-rated.png"
+            alt=""
+            aria-hidden="true"
+            width="40"
+            height="40"
+            loading="lazy"
+          />
+          <p>
+            <strong class="stats-bar__num">3,015+</strong>
+            <span class="stats-bar__label">Rated businesses</span>
+          </p>
+        </li>
+
+        <li class="stats-bar__item">
+          <img
+            class="stats-bar__icon"
+            src="assets/icons/stat-new.png"
+            alt=""
+            aria-hidden="true"
+            width="40"
+            height="40"
+            loading="lazy"
+          />
+          <p>
+            <strong class="stats-bar__num">3,868</strong>
+            <span class="stats-bar__label">Registered premises</span>
+          </p>
+        </li>
+
+        <li class="stats-bar__item">
+          <img
+            class="stats-bar__icon"
+            src="assets/icons/stat-opendata.png"
+            alt=""
+            aria-hidden="true"
+            width="40"
+            height="40"
+            loading="lazy"
+          />
+          <p>
+            <strong class="stats-bar__num">Open Data</strong>
+            <span class="stats-bar__label">Powered by Open Bristol</span>
+          </p>
+        </li>
+
+        <li class="stats-bar__item">
+          <img
+            class="stats-bar__icon"
+            src="assets/icons/stat-free.png"
+            alt=""
+            aria-hidden="true"
+            width="40"
+            height="40"
+            loading="lazy"
+          />
+          <p>
+            <strong class="stats-bar__num">Free Access</strong>
+            <span class="stats-bar__label">No account required</span>
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <!--
+      Browse section:
+      This gives people another way into the system without needing to type a search.
+      I included common business categories to make browsing easier.
+    -->
+    <section class="browse-section" aria-labelledby="browse-heading">
+      <article class="browse-section__inner">
+        <p class="section-label">Explore</p>
+        <h2 class="section-title" id="browse-heading">Browse by Business Type</h2>
+        <p class="section-sub">Select a category to explore food businesses across Bristol</p>
+
+        <ul class="type-grid" aria-label="Business type categories">
+          <li>
+            <a class="type-card" href="Search.html?type=restaurant" aria-label="Browse restaurants and cafés">
+              <img class="type-card__icon" src="assets/icons/type-restaurant.png" alt="" aria-hidden="true" loading="lazy" />
+              <span class="type-card__name">Restaurants</span>
+              <span class="type-card__count">Restaurants &amp; Cafés</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="type-card" href="Search.html?type=takeaway" aria-label="Browse takeaways">
+              <img class="type-card__icon" src="assets/icons/type-takeaway.png" alt="" aria-hidden="true" loading="lazy" />
+              <span class="type-card__name">Takeaways</span>
+              <span class="type-card__count">Takeaway &amp; Sandwich</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="type-card" href="Search.html?type=restaurant" aria-label="Browse cafés">
+              <img class="type-card__icon" src="assets/icons/type-cafe.png" alt="" aria-hidden="true" loading="lazy" />
+              <span class="type-card__name">Cafés</span>
+              <span class="type-card__count">Cafés &amp; Canteens</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="type-card" href="Search.html?type=pub-bar" aria-label="Browse pubs and bars">
+              <img class="type-card__icon" src="assets/icons/type-pub.png" alt="" aria-hidden="true" loading="lazy" />
+              <span class="type-card__name">Pubs &amp; Bars</span>
+              <span class="type-card__count">Pubs, Bars &amp; Nightclubs</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="type-card" href="Search.html?type=school" aria-label="Browse schools">
+              <img class="type-card__icon" src="assets/icons/type-school.png" alt="" aria-hidden="true" loading="lazy" />
+              <span class="type-card__name">Schools</span>
+              <span class="type-card__count">Schools &amp; Colleges</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="type-card" href="Search.html?type=hotel" aria-label="Browse hotels">
+              <img class="type-card__icon" src="assets/icons/type-hotel.png" alt="" aria-hidden="true" loading="lazy" />
+              <span class="type-card__name">Hotels</span>
+              <span class="type-card__count">Hotels &amp; B&amp;Bs</span>
+            </a>
+          </li>
+        </ul>
+      </article>
+    </section>
+
+    <!--
+      Ratings section:
+      This helps users understand the meaning of the hygiene score and also gives
+      them quick links to filter by rating.
+    -->
+    <section class="ratings-section" aria-labelledby="ratings-heading">
+      <article class="ratings-section__inner">
+        <p class="section-label">Reference</p>
+        <h2 class="section-title" id="ratings-heading">What Do the Ratings Mean?</h2>
+        <p class="section-sub">
+          Ratings range from 0 (urgent improvement required) to 5 (very good).
+          <a href="Rating-Guide.html">View full guide &rarr;</a>
+        </p>
+
+        <ul class="rating-pills" aria-label="Hygiene rating score key">
+          <li><a class="rating-pill-link" href="Search.html?rating=5" aria-label="Rating 5 – Very Good"><span class="rp-num rp-5" aria-hidden="true">5</span> Very Good</a></li>
+          <li><a class="rating-pill-link" href="Search.html?rating=4" aria-label="Rating 4 – Good"><span class="rp-num rp-4" aria-hidden="true">4</span> Good</a></li>
+          <li><a class="rating-pill-link" href="Search.html?rating=3" aria-label="Rating 3 – Generally Satisfactory"><span class="rp-num rp-3" aria-hidden="true">3</span> Generally Satisfactory</a></li>
+          <li><a class="rating-pill-link" href="Search.html?rating=2" aria-label="Rating 2 – Improvement Necessary"><span class="rp-num rp-2" aria-hidden="true">2</span> Improvement Necessary</a></li>
+          <li><a class="rating-pill-link" href="Search.html?rating=1" aria-label="Rating 1 – Major Improvement Necessary"><span class="rp-num rp-1" aria-hidden="true">1</span> Major Improvement Necessary</a></li>
+          <li><a class="rating-pill-link" href="Search.html?rating=0" aria-label="Rating 0 – Urgent Improvement Required"><span class="rp-num rp-0" aria-hidden="true">0</span> Urgent Improvement Required</a></li>
+        </ul>
+
+        <p>
+          <a class="btn-guide" href="Rating-Guide.html">View Full Guide <span aria-hidden="true">›</span></a>
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <!--
+    Footer:
+    I used the footer to add trust signals, contact details, legal links and data
+    attribution so the site feels more complete and professional.
+  -->
+  <footer class="site-footer">
+    <section class="footer-certs" aria-label="Certifications and compliance">
+      <article class="footer-certs__inner">
+        <img
+          class="footer-certs__fhrs"
+          src="assets/icons/fhrs-rating-5.png"
+          alt="Official Food Hygiene Rating sticker – score of 5, Very Good"
+          loading="lazy"
+        />
+
+        <ul class="footer-certs__logos" aria-label="Certification badges">
+          <li class="footer-cert-badge">
+            <img src="assets/icons/cieh.png" alt="CIEH Member – Chartered Institute of Environmental Health" loading="lazy" />
+            <span>CIEH Member</span>
+          </li>
+          <li class="footer-cert-badge">
+            <img src="assets/icons/rspa.png" alt="R·SPA Member – Royal Society for Public Health" loading="lazy" />
+            <span>R·SPA Member</span>
+          </li>
+          <li class="footer-cert-badge">
+            <img src="assets/icons/iso22000.png" alt="ISO 22000 Certified – Food Safety Management" loading="lazy" />
+            <span>ISO 22000</span>
+          </li>
+        </ul>
+
+        <nav class="footer-certs__links" aria-label="Compliance links">
+          <a href="https://bristolfoodhygieneratings.substack.com/p/what-you-need-to-know-about-allergen" rel="noopener noreferrer" target="_blank">
+            Allergen Information <span class="visually-hidden">(opens in new tab)</span>
+          </a>
+          <span aria-hidden="true">|</span>
+          <a href="https://bristolfoodhygieneratings.substack.com/p/safe-food-handling-what-it-looks" rel="noopener noreferrer" target="_blank">
+            Safe Food Handling <span class="visually-hidden">(opens in new tab)</span>
+          </a>
+          <span aria-hidden="true">|</span>
+          <a href="https://bristolfoodhygieneratings.substack.com/p/haccp-certified-what-it-means-and" rel="noopener noreferrer" target="_blank">
+            HACCP Certified <span class="visually-hidden">(opens in new tab)</span>
+          </a>
+        </nav>
+      </article>
+    </section>
+
+    <section class="footer-main" aria-label="Footer content">
+      <section class="footer-brand" aria-label="Brand information">
+        <a class="footer-brand__link" href="index.html" aria-label="Bristol Food Hygiene return to home">
+          <img
+            class="footer-brand__logo"
+            src="assets/icons/logo.png"
+            alt=""
+            aria-hidden="true"
+            width="34"
+            height="34"
+          />
+          <span class="footer-brand__name">Bristol Food Hygiene</span>
+        </a>
+
+        <address class="footer-brand__addr">
+          FoodSafe Training Ltd<br />
+          123 Health St, Bristol, <abbr title="Postcode">BS1</abbr> 4AB<br />
+          Mon–Fri: 9:00 AM – 5:00 PM &middot; Sat–Sun: Closed<br /><br />
+          Phone: <a href="tel:+441171234567">0117 123 4567</a><br />
+          Email: <a href="mailto:contact@bristolfoodhygiene.co.uk">contact@bristolfoodhygiene.co.uk</a><br />
+          Based in Bristol, United Kingdom
+        </address>
+      </section>
+
+      <nav class="footer-nav" aria-label="Quick links">
+        <h2 class="footer-nav__heading">Quick Links</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/about-bristol-food-hygiene-ratings" rel="noopener noreferrer" target="_blank">About Us <span class="visually-hidden">(opens in new tab)</span></a></li>
+          <li><a class="footer-nav__link" href="https://www.linkedin.com/in/bristol-food-hygiene-" rel="noopener noreferrer" target="_blank">LinkedIn <span class="visually-hidden">(opens in new tab)</span></a></li>
+          <li><a class="footer-nav__link" href="https://twitter.com/FoodRating" rel="noopener noreferrer" target="_blank">Twitter <span class="visually-hidden">(opens in new tab)</span></a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-nav" aria-label="Legal information">
+        <h2 class="footer-nav__heading">Legal</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/privacy-policy" rel="noopener noreferrer" target="_blank">Privacy Policy <span class="visually-hidden">(opens in new tab)</span></a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/cookie-policy" rel="noopener noreferrer" target="_blank">Cookie Policy <span class="visually-hidden">(opens in new tab)</span></a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/terms-of-use" rel="noopener noreferrer" target="_blank">Terms of Use <span class="visually-hidden">(opens in new tab)</span></a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/disclaimer" rel="noopener noreferrer" target="_blank">Disclaimer <span class="visually-hidden">(opens in new tab)</span></a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/accessibility" rel="noopener noreferrer" target="_blank">Accessibility <span class="visually-hidden">(opens in new tab)</span></a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <section class="footer-copy" aria-label="Copyright information">
+      <p>&copy; <time datetime="2026">2026</time> Bristol Food Hygiene Insights. All rights reserved.</p>
+      <p>
+        Food hygiene data &copy;
+        <a href="https://www.food.gov.uk/" rel="noopener noreferrer" target="_blank">
+          Food Standards Agency <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+        and
+        <a href="https://opendata.bristol.gov.uk/datasets/7d0994dded2348d5aff6d419b0c76bb9_0/explore" rel="noopener noreferrer" target="_blank">
+          Bristol City Council Open Data <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+      </p>
+    </section>
+  </footer>
+
+  <!--
+    JavaScript for small interactive features on the homepage.
+    I wrapped this in an IIFE so the variables do not leak into the global scope.
+    That helps keep the code cleaner.
+  -->
+  <script>
+    (function () {
+      // Get the menu button and navigation element once so they can be reused
+      var toggle = document.getElementById('nav-toggle');
+      var nav = document.getElementById('primary-nav');
+
+      // Defensive check so the script stops safely if the elements are not found
+      if (!toggle || !nav) return;
+
+      // Open and close the mobile navigation menu
+      toggle.addEventListener('click', function () {
+        var open = nav.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      });
+
+      // Close the menu if keyboard focus moves outside the header
+      document.addEventListener('focusin', function (e) {
+        var header = document.querySelector('.site-header');
+        if (header && !header.contains(e.target)) {
+          nav.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open navigation menu');
+        }
+      });
+
+      // Let users close the mobile menu using the Escape key
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+          nav.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open navigation menu');
+          toggle.focus();
+        }
+      });
+
+      // Basic validation for the homepage search form
+      var form = document.querySelector('.hero-form');
+      var input = document.getElementById('hero-search');
+      var hint = document.getElementById('hero-hint');
+
+      if (form && input && hint) {
+        form.addEventListener('submit', function (e) {
+          if (!input.value.trim()) {
+            e.preventDefault();
+            hint.textContent = 'Please enter a business name, postcode, or address';
+            input.focus();
+          } else {
+            hint.textContent = '';
+          }
+        });
+
+        // Clear the hint message as soon as the user starts typing
+        input.addEventListener('input', function () {
+          if (input.value.trim()) {
+            hint.textContent = '';
+          }
+        });
+      }
+    }());
+  </script>-e 
+</body>
+</html>
