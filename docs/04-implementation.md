@@ -375,7 +375,8 @@ function getRecordById(data, id) {
 
 ### UML Class Diagram
 
-*(Insert UML class diagram here)*
+<img width="1121" height="363" alt="Screenshot 2026-03-25 at 10 55 12" src="https://github.com/user-attachments/assets/a7b666b1-047c-43d6-b385-cb4cf314fb16" />
+
 
 The UML class diagram above represents the structure of the JavaScript data objects used throughout the application. The `DataLoader` class encapsulates the embedded dataset and all query logic, and the `AppController` class (represented by `main.js`) coordinates with `DataLoader` to retrieve and render records. Each `FoodBusinessRecord` object conforms to the twelve-field structure documented in the Dataset Description section.
 
