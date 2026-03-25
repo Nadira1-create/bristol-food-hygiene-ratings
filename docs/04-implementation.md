@@ -229,7 +229,8 @@ The configuration layer consists of two JSON files that configure the local deve
 
 ### Component Diagram
 
-*(Insert component diagram here)*
+<img width="1470" height="487" alt="Screenshot 2026-03-25 at 00 24 34" src="https://github.com/user-attachments/assets/381b8237-1e0c-4e0d-8d6e-4385a497f984" />
+Here is a link aswell: https://www.figma.com/board/dgB3ASTaaUlMJOzYjqT7Zp/Bristol-Food-Hygiene-Ratings-%E2%80%94-Component-Diagram?node-id=1-32&t=wxooYZ87ZipmGeC9-1
 
 The diagram above illustrates the five major components and how they relate to one another at runtime. The HTML pages sit at the top of the hierarchy as the view layer. Each page loads `data.js` and `main.js` via `<script>` tags. At runtime, `main.js` calls `window.BFH.run()` which is the public entry point exposed by `data.js`. `data.js` reads from the embedded `ALL_BUSINESSES` array and writes rendered HTML back into the DOM containers provided by the HTML pages. `style.css` is linked by all four pages and applies presentation rules to every element rendered by both the static HTML and the dynamically generated content from `data.js`. The configuration layer (`serve.json` and `launch.json`) sits outside the runtime flow and is used only during local development to ensure the HTTP server is set up correctly.
 
