@@ -125,7 +125,8 @@ The following are explicitly outside the scope of this project:
 
 ## Context Diagram
 
-![Context Diagram](images/context.png)
+<img width="770" height="522" alt="Screenshot 2026-03-30 at 14 48 33" src="https://github.com/user-attachments/assets/e5cecdae-54c4-47d3-82b4-66d4f48560f2" />
+
 
 The context diagram above defines the system boundary of the Bristol Food Hygiene Ratings web application and identifies all actors, external systems, and data flows that cross that boundary. Each element is described below.
 
