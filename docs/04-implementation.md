@@ -777,7 +777,9 @@ The application requires no account creation or login. All features are accessib
 
 Open your browser and navigate to the application. The homepage (`index.html`) loads and displays the hero search section at the top of the page, containing the main search bar with the placeholder text `"Search by business name, postcode or address..."`. Below the hero, the statistics bar shows live counts of rated businesses and those awaiting inspection, followed by the Browse by Business Type category tiles and the rating summary section.
 
-*(Insert screenshot of homepage here)*
+<img width="1470" height="951" alt="Screenshot 2026-04-04 at 13 15 02" src="https://github.com/user-attachments/assets/d6c1414b-b765-4c8d-9c2b-270bde31c945" />
+
+<img width="1470" height="951" alt="Screenshot 2026-04-04 at 13 23 12" src="https://github.com/user-attachments/assets/112281d9-d370-4bde-a9ab-321292ae91b1" />
 
 **What is shown:** The full homepage with the hero search bar, statistics bar, six category tiles, and the rating summary section.
 
