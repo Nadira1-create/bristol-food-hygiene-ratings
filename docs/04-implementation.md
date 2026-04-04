@@ -787,7 +787,8 @@ Open your browser and navigate to the application. The homepage (`index.html`) l
 
 Click inside the search bar and type `clifton`. Then click the Search button or press Enter.
 
-*(Insert screenshot of search bar with "clifton" typed)*
+<img width="1470" height="951" alt="Screenshot 2026-04-04 at 13 26 16" src="https://github.com/user-attachments/assets/661c5a95-2710-4af8-b25c-ababf2ed7c66" />
+
 
 **What happens:** The application validates that the input is not empty, then navigates to `Search.html` with the query parameter `?q=clifton` appended to the URL. `initSearchPage()` in `data.js` immediately filters `ALL_BUSINESSES` to find all records whose name, address, postcode, or rating label contains the string `"clifton"` (case-insensitive).
 
