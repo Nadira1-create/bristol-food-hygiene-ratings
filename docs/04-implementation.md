@@ -796,7 +796,8 @@ Click inside the search bar and type `clifton`. Then click the Search button or 
 
 The Search Results page displays all businesses matching the search term `"clifton"`. The results count label at the top of the results list shows the total number of matching records. Each result card displays the business name in bold, a colour-coded hygiene rating badge, the business type label, the full address, the rating date, and a status badge.
 
-*(Insert screenshot of search results page showing unfiltered results for "clifton")*
+<img width="1470" height="951" alt="Screenshot 2026-04-04 at 13 29 09" src="https://github.com/user-attachments/assets/ed708d45-7488-408e-96ce-99116995a19a" />
+
 
 **What is shown:** The full results list with the filter panel visible on the left and the paginated result cards on the right.
 
@@ -804,7 +805,7 @@ The Search Results page displays all businesses matching the search term `"clift
 
 In the filter panel on the left, locate the Hygiene Rating section. Tick the checkbox labelled `5 — Very Good`. The results list updates immediately without reloading the page, and the results count label updates to reflect the smaller filtered set. An active filter chip labelled `"Rating: 5"` appears above the results list, confirming the filter is applied.
 
-*(Insert screenshot showing the Rating: 5 checkbox ticked and the filter chip visible above the results)*
+<img width="1470" height="951" alt="Screenshot 2026-04-04 at 13 30 37" src="https://github.com/user-attachments/assets/dd746dca-bc75-4c81-97b8-9f73dfeea79c" />
 
 **What happens:** `data.js` re-runs the filter logic against `ALL_BUSINESSES`, applying both the text search (`"clifton"`) and the rating filter (`5`) simultaneously, satisfying FR7.
 
@@ -812,7 +813,7 @@ In the filter panel on the left, locate the Hygiene Rating section. Tick the che
 
 In the filter panel, locate the Business Type section. Tick the checkbox labelled `Restaurant / Café`. The results list updates again immediately, and a second active filter chip labelled `"Type: Restaurant / Café"` appears alongside the first chip. The results count decreases further to reflect the combined filters.
 
-*(Insert screenshot showing both filter chips active and the narrowed results list)*
+<img width="1470" height="951" alt="Screenshot 2026-04-04 at 13 31 25" src="https://github.com/user-attachments/assets/2cacc8cd-f9a1-4e36-a3e7-cab3e7954146" />
 
 **What is shown:** Only businesses in Clifton that are classified as Restaurant/Cafe/Canteen and hold a rating of 5 are displayed.
 
@@ -820,7 +821,7 @@ In the filter panel, locate the Business Type section. Tick the checkbox labelle
 
 If the combination of filters produces no matching records, the results list is replaced by the no-results state panel. This panel displays a message informing the user that no results were found and suggests broadening the search or adjusting the filters. The filter panel remains visible so the user can modify their selections without returning to the homepage.
 
-*(Insert screenshot of the no-results state panel)*
+<img width="1470" height="951" alt="Screenshot 2026-04-04 at 13 32 39" src="https://github.com/user-attachments/assets/6da5f819-828a-4268-89e7-497898772d8b" />
 
 **Requirement satisfied:** FR8.
 
@@ -828,13 +829,14 @@ If the combination of filters produces no matching records, the results list is 
 
 Click the `×` icon on the `"Type: Restaurant / Café"` filter chip. The type filter is removed immediately, the chip disappears, and the results list expands to show all Clifton businesses rated 5 regardless of business type.
 
-*(Insert screenshot showing the type chip removed and the results list updated)*
+<img width="1470" height="951" alt="Screenshot 2026-04-04 at 13 33 46" src="https://github.com/user-attachments/assets/5b281dab-43ef-4ebf-8ae7-0602d886e9cd" />
 
 #### Step 8: Error State (Variation)
 
 If `initSearchPage()` encounters an unexpected runtime error, the results container is replaced by the error state panel. This panel displays a warning message and a Retry button. Clicking Retry reloads the page cleanly, re-triggering the full initialisation sequence.
 
-*(Insert screenshot of the error state panel with the Retry button)*
+<img width="649" height="144" alt="Screenshot 2026-04-01 at 00 37 22" src="https://github.com/user-attachments/assets/11bb3d97-9f6a-4a4e-a4bc-3738152c9125" />
+
 
 **Requirement satisfied:** NFR7.
 
