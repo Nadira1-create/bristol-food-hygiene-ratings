@@ -678,7 +678,17 @@ The active filter chips above the results list are styled as pill-shaped `<butto
 
 ### Business Details Page
 
-*(Insert screenshot of business details page here)*
+<img width="1470" height="867" alt="Screenshot 2026-04-06 at 19 45 54" src="https://github.com/user-attachments/assets/262ebda5-36fc-4f33-a9b6-1b0f208c2548" />
+
+<img width="1470" height="867" alt="Screenshot 2026-04-06 at 19 46 20" src="https://github.com/user-attachments/assets/4ec7a629-ae91-40c8-a66d-604a7edc7245" />
+<img width="1470" height="867" alt="Screenshot 2026-04-06 at 19 46 12" src="https://github.com/user-attachments/assets/b0a7d68f-80b2-4412-904f-340b794524be" />
+
+<img width="1470" height="867" alt="Screenshot 2026-04-06 at 19 46 32" src="https://github.com/user-attachments/assets/bcc719a5-c989-4932-b874-146044e7bc23" />
+
+<img width="1470" height="867" alt="Screenshot 2026-04-06 at 19 46 32" src="https://github.com/user-attachments/assets/eccb6f35-3002-462f-9856-607c1b32957f" />
+<img width="1470" height="867" alt="Screenshot 2026-04-06 at 19 46 39" src="https://github.com/user-attachments/assets/dcef4743-c7fc-47cf-8b28-a1cbad503999" />
+
+
 
 The business details page uses the two-column grid layout. The left column contains an `<article>` card with the business name, the colour-coded rating badge rendered at a larger display size, the business type badge, the full address, and a structured `<dl>` of all dataset fields with `<dt>` labels and `<dd>` values. The right column displays the official FSA rating graphic loaded from the external URL, followed by a rating explanation panel listing all six levels with plain-language descriptions.
 
