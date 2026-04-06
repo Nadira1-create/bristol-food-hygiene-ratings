@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<!--
+  File:         index.html
+  Project:      Bristol Food Hygiene Ratings
+  Description:  Homepage. Includes the hero search form, key statistics bar,
+                business-type browse grid, and the rating-level pill navigation.
+  Author:       Nadira Ali Robleh
+  Last updated: 03/04/2026
+
+  Sections (in order):
+    1. <head>        - Meta tags, font links, stylesheet and favicon
+    2. skip-link     - Keyboard accessibility: jumps straight to #main-content
+    3. <header>      - Site branding, hamburger toggle, primary nav
+    4. hero          - Full-width search introduction with inline search form
+    5. stats-bar     - Four key statistics displayed in a horizontal grid
+    6. browse-section- Business-type category cards (restaurants, cafes, etc.)
+    7. ratings-section- Visual pill navigation for each rating level (0 to 5)
+    8. <footer>      - Certification badges, contact info, quick links, legal
+    9. <script>      - data.js then Main.js loaded in dependency order
+-->
+<html lang="en-GB">
+<head>
+  <!-- Standard character encoding and responsive viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO meta tags: description used by search engines, author attribution -->
+  <meta name="description" content="Bristol Food Hygiene Ratings – search for restaurants, takeaways, cafés and more to check their official Food Standards Agency hygiene rating before you visit.">
+  <meta name="author" content="Bristol Food Hygiene Insights">
+
+  <!-- Tells search engines to index this page and follow its links -->
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph tags: control how the page looks when shared on social media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Bristol Food Hygiene Ratings">
+  <meta property="og:description" content="Search restaurants, takeaways, cafés and more across Bristol. Powered by Open Bristol open data.">
+  <meta property="og:locale" content="en_GB">
+
+  <!-- Browser tab title, written for both SEO and clarity -->
+  <title>Bristol Food Hygiene Ratings | Find Safe Places to Eat in Bristol</title>
+
+  <!-- Google Fonts: Fraunces for headings, DM Sans for body text.
+       preconnect hints let the browser open the connection early
+       before the actual font request fires. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+
+  <!-- Main stylesheet for the entire site -->
+  <link rel="stylesheet" href="css/Style.css">
+
+  <!-- Favicon: the small icon shown in the browser tab -->
+  <link rel="icon" type="image/png" href="Assets/Icons/Logo.png">
+</head>
+<body>
+
+  <!-- Skip link: renders off-screen but becomes visible on keyboard focus.
+       Lets keyboard and screen-reader users jump straight past the header
+       to the main content without tabbing through every nav link. -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ================================================================
+       SITE HEADER
+       Contains the brand logo link, hamburger toggle button, and the
+       primary navigation list.
+       aria-label="Site header" gives assistive technology a clear
+       landmark description.
+  ================================================================ -->
+  <header class="site-header" aria-label="Site header">
+
+    <!-- Brand link: wraps the logo image and site name together.
+         aria-label provides a meaningful description for screen readers
+         instead of reading out the image alt and span text separately. -->
+    <a class="site-header__brand" href="index.html" aria-label="Bristol Food Hygiene – go to homepage">
+      <!-- aria-hidden="true" prevents the logo image from being
+           announced by screen readers because the aria-label on the
+           parent <a> already describes the link destination. -->
+      <img class="site-header__logo" src="Assets/Icons/Logo.png" alt="" aria-hidden="true" width="38" height="38">
+      <span class="site-header__name">Bristol Food Hygiene</span>
+    </a>
+
+    <!-- Hamburger menu button: visible only on smaller screens.
+         aria-expanded is toggled between "true" and "false" by Main.js
+         to keep assistive technology informed of the menu state.
+         aria-controls references the nav element by its id. -->
+    <button class="nav-toggle" type="button" id="nav-toggle"
+            aria-controls="primary-nav" aria-expanded="false"
+            aria-label="Open navigation menu">
+      <!-- Three decorative bars form the hamburger icon visually.
+           aria-hidden="true" stops screen readers from announcing them. -->
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+    </button>
+
+    <!-- Primary navigation: the four main page links.
+         id="primary-nav" is referenced by the hamburger button's
+         aria-controls attribute above.
+         aria-current="page" marks the active link for screen readers. -->
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <ul class="primary-nav__list">
+        <li><a class="primary-nav__link primary-nav__link--active" href="index.html" aria-current="page">Home</a></li>
+        <li><a class="primary-nav__link" href="Search.html">Search</a></li>
+        <li><a class="primary-nav__link" href="Business-Detail.html">Detail</a></li>
+        <li><a class="primary-nav__link" href="Rating-Guide.html">Rating Guide</a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <!-- ================================================================
+       MAIN CONTENT
+       id="main-content" is the target for the skip-link at the top
+       of the page.
+  ================================================================ -->
+  <main id="main-content">
+
+    <!-- ============================================================
+         HERO SECTION
+         Full-width introductory section with a location pill, a
+         headline, a short strapline, and an inline search form.
+         aria-labelledby ties the section to its visible heading.
+    ============================================================ -->
+    <section class="hero" aria-labelledby="hero-heading">
+
+      <!-- Decorative pill showing the geographical context of the data.
+           The SVG map-pin icon is purely decorative so it is hidden
+           from assistive technology with aria-hidden. -->
+      <p class="hero__pill">
+        <svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Map pin path: teardrop shape pointing downwards -->
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path>
+          <!-- Small circle inside the pin to indicate the point of interest -->
+          <circle cx="12" cy="9" r="2.5"></circle>
+        </svg>
+        <span>Bristol, United Kingdom &middot; Open Data</span>
+      </p>
+
+      <!-- hgroup wraps the main heading and its subheading together as
+           a single semantic unit, which is correct HTML usage here. -->
+      <hgroup>
+        <!-- id="hero-heading" is referenced by the section's
+             aria-labelledby so screen readers announce the section
+             name correctly when navigating by landmarks. -->
+        <h1 class="hero__title" id="hero-heading">
+          Find Food Hygiene Ratings<br>in <mark>Bristol</mark>
+        </h1>
+        <p class="hero__sub">
+          Search for restaurants, takeaways, cafés and more to check their hygiene rating before you visit.
+        </p>
+      </hgroup>
+
+      <!-- Hero search form
+           action="Search.html" sends the query as a GET parameter (?q=)
+           to the search results page.
+           role="search" adds an ARIA landmark so screen-reader users
+           can jump straight to the search area.
+           novalidate disables browser-native validation so we can
+           handle it ourselves in Main.js with better UX messaging. -->
+      <form class="hero-form" action="Search.html" method="get" role="search"
+            aria-label="Search for food businesses" novalidate>
+
+        <!-- visually-hidden class positions the label off-screen but
+             keeps it accessible to screen readers.
+             The "for" attribute links it to the input below by id. -->
+        <label class="visually-hidden" for="hero-search">
+          Search by business name, postcode, or address
+        </label>
+
+        <!-- Decorative magnifying-glass icon inside the input field.
+             aria-hidden prevents screen readers from announcing the SVG. -->
+        <span class="hero-form__icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </span>
+
+        <!-- Search text input.
+             name="q" produces the ?q= query string parameter.
+             aria-describedby references the hint output below for
+             additional context announced to screen readers.
+             maxlength="200" prevents excessively long submissions. -->
+        <input class="hero-form__input" type="search" id="hero-search" name="q"
+               placeholder="Business name, postcode, or address…"
+               autocomplete="off" spellcheck="false"
+               aria-describedby="hero-hint" maxlength="200" required>
+
+        <!-- Form submit button -->
+        <button class="hero-form__btn" type="submit">Search</button>
+
+        <!-- Live region for hint or validation messages.
+             aria-live="polite" means screen readers announce changes
+             without interrupting what they are currently reading.
+             The "for" attribute links this output to the search input. -->
+        <output class="hero-form__hint" id="hero-hint" for="hero-search" aria-live="polite"></o>
+
+      </form>
+
+    </section>
+
+    <!-- ============================================================
+         STATISTICS BAR
+         Four headline figures about the dataset displayed in a
+         responsive grid. The heading is visually hidden but present
+         for screen-reader landmark navigation.
+    ============================================================ -->
+    <section class="stats-bar" aria-labelledby="stats-heading">
+
+      <!-- visually-hidden heading gives the section a name for
+           assistive technology without affecting the visual design. -->
+      <h2 id="stats-heading" class="visually-hidden">Key statistics</h2>
+
+      <ul class="stats-bar__grid">
+
+        <!-- Each list item is a single statistic: icon, label, value.
+             <figure> wraps the decorative icon; aria-hidden prevents
+             duplicate announcements since the <dl> already conveys
+             the same information. -->
+        <li class="stats-bar__item">
+          <figure class="stats-bar__figure" aria-hidden="true">
+            <img class="stats-bar__icon" src="Assets/Icons/Stastic.png" alt="" width="40" height="40" loading="lazy">
+          </figure>
+          <!-- dl / dt / dd grouping: semantically correct for a
+               key-value pair such as a label and its statistic. -->
+          <dl class="stats-bar__data">
+            <dt class="stats-bar__label">Rated businesses</dt>
+            <dd class="stats-bar__num">3,268</dd>
+          </dl>
+        </li>
+
+        <!-- Statistic: number of businesses awaiting their first inspection -->
+        <li class="stats-bar__item">
+          <figure class="stats-bar__figure" aria-hidden="true">
+            <img class="stats-bar__icon" src="Assets/Icons/New_Businesses.png" alt="" width="40" height="40" loading="lazy">
+          </figure>
+          <dl class="stats-bar__data">
+            <dt class="stats-bar__label">Awaiting inspection</dt>
+            <dd class="stats-bar__num">443</dd>
+          </dl>
+        </li>
+
+        <!-- Statistic: data source credit -->
+        <li class="stats-bar__item">
+          <figure class="stats-bar__figure" aria-hidden="true">
+            <img class="stats-bar__icon" src="Assets/Icons/Open_Data.png" alt="" width="40" height="40" loading="lazy">
+          </figure>
+          <dl class="stats-bar__data">
+            <dt class="stats-bar__label">Powered by Open Bristol</dt>
+            <dd class="stats-bar__num">Open Data</dd>
+          </dl>
+        </li>
+
+        <!-- Statistic: no registration needed to use the site -->
+        <li class="stats-bar__item">
+          <figure class="stats-bar__figure" aria-hidden="true">
+            <img class="stats-bar__icon" src="Assets/Icons/Free_Acces.png" alt="" width="40" height="40" loading="lazy">
+          </figure>
+          <dl class="stats-bar__data">
+            <dt class="stats-bar__label">No account required</dt>
+            <dd class="stats-bar__num">Free Access</dd>
+          </dl>
+        </li>
+
+      </ul>
+
+    </section>
+
+    <!-- ============================================================
+         BROWSE BY BUSINESS TYPE
+         A grid of category cards. Each card links to Search.html with
+         a pre-applied ?type= query parameter to pre-filter the results.
+    ============================================================ -->
+    <section class="browse-section" aria-labelledby="browse-heading">
+
+      <hgroup>
+        <h2 class="section-title" id="browse-heading">Browse by Business Type</h2>
+        <p class="section-sub">Select a category to filter food businesses</p>
+      </hgroup>
+
+      <!-- Type card grid: each item is a linked card with an icon and label.
+           aria-label on each <a> provides a clear description of where
+           the link leads, supplementing the visible figcaption text. -->
+      <ul class="type-grid" aria-label="Business type categories">
+
+        <!-- Restaurant category card -->
+        <li>
+          <a class="type-card" href="Search.html?type=restaurant" aria-label="Browse restaurants">
+            <figure class="type-card__figure">
+              <!-- alt="" because the aria-label on the parent <a>
+                   already describes the link purpose fully. -->
+              <img class="type-card__icon" src="Assets/Icons/type-restaurant.png" alt="" aria-hidden="true" loading="lazy">
+              <figcaption class="type-card__name">Restaurants</figcaption>
+            </figure>
+          </a>
+        </li>
+
+        <!-- Takeaway category card -->
+        <li>
+          <a class="type-card" href="Search.html?type=takeaway" aria-label="Browse takeaways">
+            <figure class="type-card__figure">
+              <img class="type-card__icon" src="Assets/Icons/type-takeaway.png" alt="" aria-hidden="true" loading="lazy">
+              <figcaption class="type-card__name">Takeaways</figcaption>
+            </figure>
+          </a>
+        </li>
+
+        <!-- Cafe category card -->
+        <li>
+          <a class="type-card" href="Search.html?type=cafe" aria-label="Browse cafés">
+            <figure class="type-card__figure">
+              <img class="type-card__icon" src="Assets/Icons/type-cafe.png" alt="" aria-hidden="true" loading="lazy">
+              <figcaption class="type-card__name">Cafés</figcaption>
+            </figure>
+          </a>
+        </li>
+
+        <!-- Pub and bar category card -->
+        <li>
+          <a class="type-card" href="Search.html?type=pub-bar" aria-label="Browse pubs and bars">
+            <figure class="type-card__figure">
+              <img class="type-card__icon" src="Assets/Icons/type-pub.png" alt="" aria-hidden="true" loading="lazy">
+              <figcaption class="type-card__name">Pubs &amp; Bars</figcaption>
+            </figure>
+          </a>
+        </li>
+
+        <!-- School category card: includes canteens and catering on school premises -->
+        <li>
+          <a class="type-card" href="Search.html?type=school" aria-label="Browse schools">
+            <figure class="type-card__figure">
+              <img class="type-card__icon" src="Assets/Icons/School.png" alt="" aria-hidden="true" loading="lazy">
+              <figcaption class="type-card__name">Schools</figcaption>
+            </figure>
+          </a>
+        </li>
+
+        <!-- Hotel category card -->
+        <li>
+          <a class="type-card" href="Search.html?type=hotel" aria-label="Browse hotels">
+            <figure class="type-card__figure">
+              <img class="type-card__icon" src="Assets/Icons/type-hotel.png" alt="" aria-hidden="true" loading="lazy">
+              <figcaption class="type-card__name">Hotels</figcaption>
+            </figure>
+          </a>
+        </li>
+
+      </ul>
+
+    </section>
+
+    <!-- ============================================================
+         RATINGS SECTION
+         Explains the 0 to 5 rating scale and provides quick-filter
+         pill links that pass a ?rating= parameter to Search.html.
+         The ordered list is reversed so it renders 5 down to 0 in
+         the HTML source order whilst displaying highest first visually.
+    ============================================================ -->
+    <section class="ratings-section" aria-labelledby="ratings-heading">
+
+      <hgroup>
+        <h2 class="section-title" id="ratings-heading">What Do the Ratings Mean?</h2>
+        <p class="section-sub">
+          Ratings range from 0 (urgent improvement required) to 5 (very good).
+          <a href="Rating-Guide.html">View full guide &rarr;</a>
+        </p>
+      </hgroup>
+
+      <!-- Wrapping the pills in <nav> makes this a navigable landmark.
+           The <ol> is reversed so the source order is 5 -> 0 without
+           needing to reorder the items in CSS. -->
+      <nav aria-label="Filter results by hygiene rating">
+        <ol class="rating-pills" reversed aria-label="Hygiene rating score key">
+
+          <!-- Rating 5: Very Good (the highest possible score) -->
+          <li>
+            <a class="rating-pill-link" href="Search.html?rating=5" aria-label="Rating 5 – Very Good">
+              <!-- <data> pairs the visible number with a machine-readable [value].
+                   aria-hidden prevents screen readers announcing the number
+                   twice since it is already part of the aria-label above. -->
+              <data class="rp-num rp-5" value="5" aria-hidden="true">5</data>
+              Very Good
+            </a>
+          </li>
+
+          <!-- Rating 4: Good -->
+          <li>
+            <a class="rating-pill-link" href="Search.html?rating=4" aria-label="Rating 4 – Good">
+              <data class="rp-num rp-4" value="4" aria-hidden="true">4</data>
+              Good
+            </a>
+          </li>
+
+          <!-- Rating 3: Generally Satisfactory -->
+          <li>
+            <a class="rating-pill-link" href="Search.html?rating=3" aria-label="Rating 3 – Generally Satisfactory">
+              <data class="rp-num rp-3" value="3" aria-hidden="true">3</data>
+              Generally Satisfactory
+            </a>
+          </li>
+
+          <!-- Rating 2: Improvement Necessary -->
+          <li>
+            <a class="rating-pill-link" href="Search.html?rating=2" aria-label="Rating 2 – Improvement Necessary">
+              <data class="rp-num rp-2" value="2" aria-hidden="true">2</data>
+              Improvement Necessary
+            </a>
+          </li>
+
+          <!-- Rating 1: Major Improvement Necessary -->
+          <li>
+            <a class="rating-pill-link" href="Search.html?rating=1" aria-label="Rating 1 – Major Improvement Necessary">
+              <data class="rp-num rp-1" value="1" aria-hidden="true">1</data>
+              Major Improvement Necessary
+            </a>
+          </li>
+
+          <!-- Rating 0: Urgent Improvement Required (the lowest possible score) -->
+          <li>
+            <a class="rating-pill-link" href="Search.html?rating=0" aria-label="Rating 0 – Urgent Improvement Required">
+              <data class="rp-num rp-0" value="0" aria-hidden="true">0</data>
+              Urgent Improvement Required
+            </a>
+          </li>
+
+        </ol>
+      </nav>
+
+      <!-- Prominent call-to-action button linking to the full rating guide page -->
+      <a class="btn-guide" href="Rating-Guide.html">
+        View Full Guide <span aria-hidden="true">›</span>
+      </a>
+
+    </section>
+
+  </main>
+
+  <!-- ================================================================
+       SITE FOOTER
+       Divided into three sub-sections:
+         1. footer-certs  - FHRS badge, certification logos, compliance links
+         2. footer-main   - Brand/contact block, quick links, legal links
+         3. footer-copy   - Copyright notice and data attribution
+  ================================================================ -->
+  <footer class="site-footer">
+
+    <!-- Certification and compliance strip across the top of the footer -->
+    <section class="footer-certs" aria-label="Certifications and compliance">
+
+      <!-- Official Food Hygiene Rating Scheme badge image -->
+      <img class="footer-certs__fhrs"
+           src="Assets/Icons/Food_Hygiene_Rating_Badge.png"
+           alt="Official Food Hygiene Rating sticker – score of 5, Very Good"
+           loading="lazy">
+
+      <!-- Third-party certification logos: CIEH, RSPA, ISO 22000 -->
+      <ul class="footer-certs__logos" aria-label="Certification badges">
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/cieh.png" alt="CIEH – Chartered Institute of Environmental Health" loading="lazy">
+          <span>CIEH Member</span>
+        </li>
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/rspa.png" alt="R·SPA – Royal Society for Public Health member" loading="lazy">
+          <span>R·SPA Member</span>
+        </li>
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/iso22000.png" alt="ISO 22000 certified – Food Safety Management" loading="lazy">
+          <span>ISO 22000</span>
+        </li>
+      </ul>
+
+      <!-- Compliance resource links: all open in a new tab.
+           visually-hidden "(opens in new tab)" text informs screen-reader
+           users of the behaviour without cluttering the visible label. -->
+      <nav class="footer-certs__links" aria-label="Compliance resources">
+        <a href="https://bristolfoodhygieneratings.substack.com/p/what-you-need-to-know-about-allergen" rel="noopener noreferrer" target="_blank">
+          Allergen Information
+          <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+        <span aria-hidden="true">|</span>
+        <a href="https://bristolfoodhygieneratings.substack.com/p/safe-food-handling-what-it-looks" rel="noopener noreferrer" target="_blank">
+          Safe Food Handling
+          <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+        <span aria-hidden="true">|</span>
+        <a href="https://bristolfoodhygieneratings.substack.com/p/haccp-certified-what-it-means-and" rel="noopener noreferrer" target="_blank">
+          <!-- <abbr> expands HACCP for users who may not know the acronym -->
+          <abbr title="Hazard Analysis and Critical Control Points">HACCP</abbr> Certified
+          <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+      </nav>
+
+    </section>
+
+    <!-- Main footer body: brand, quick links, legal links -->
+    <section class="footer-main" aria-label="Footer information">
+
+      <!-- Brand block with address and contact details.
+           <address> is semantically correct for contact information
+           associated with the nearest <article> or <body>, which in
+           this case is the organisation itself. -->
+      <section class="footer-brand" aria-label="Organisation contact information">
+        <a class="footer-brand__link" href="index.html" aria-label="Bristol Food Hygiene – return to homepage">
+          <img class="footer-brand__logo" src="Assets/Icons/Logo.png" alt="" aria-hidden="true" width="34" height="34">
+          <span class="footer-brand__name">Bristol Food Hygiene</span>
+        </a>
+        <address class="footer-brand__addr">
+          FoodSafe Training Ltd<br>
+          123 Health St, Bristol, <abbr title="Postcode">BS1</abbr> 4AB<br>
+          Mon–Fri: 9:00 AM – 5:00 PM &middot; Sat–Sun: Closed<br>
+          <br>
+          Phone: <a href="tel:+441171234567">0117 123 4567</a><br>
+          Email: <a href="mailto:Bristol_Food_Hygiene@hotmail.com">Bristol_Food_Hygiene@hotmail.com</a><br>
+          Based in Bristol, United Kingdom
+        </address>
+      </section>
+
+      <!-- Quick links column: external pages and social media profiles -->
+      <nav class="footer-nav" aria-label="Quick links">
+        <h2 class="footer-nav__heading">Quick Links</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/about-bristol-food-hygiene-ratings" rel="noopener noreferrer" target="_blank">About Us</a></li>
+          <li><a class="footer-nav__link" href="https://www.linkedin.com/in/bristol-food-hygiene-" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+          <li><a class="footer-nav__link" href="https://twitter.com/FoodRating" rel="noopener noreferrer" target="_blank">Twitter</a></li>
+          <li><a class="footer-nav__link" href="https://www.youtube.com" rel="noopener noreferrer" target="_blank">YouTube</a></li>
+        </ul>
+      </nav>
+
+      <!-- Legal links column: policy and accessibility documents -->
+      <nav class="footer-nav" aria-label="Legal information">
+        <h2 class="footer-nav__heading">Legal</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/privacy-policy" rel="noopener noreferrer" target="_blank">Privacy Policy</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/cookie-policy" rel="noopener noreferrer" target="_blank">Cookie Policy</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/terms-of-use" rel="noopener noreferrer" target="_blank">Terms of Use</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/disclaimer" rel="noopener noreferrer" target="_blank">Disclaimer</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/accessibility" rel="noopener noreferrer" target="_blank">Accessibility</a></li>
+        </ul>
+      </nav>
+
+    </section>
+
+    <!-- Copyright and data-attribution strip at the very bottom of the page.
+         <time datetime="2026"> gives the machine-readable year alongside
+         the human-readable copyright notice. -->
+    <div class="footer-copy">
+      <p>
+        &copy; <time datetime="2026">2026</time> Bristol Food Hygiene Insights. All rights reserved.
+      </p>
+      <p>
+        Food hygiene data &copy;
+        <a href="https://www.food.gov.uk/" rel="noopener noreferrer" target="_blank">Food Standards Agency</a>
+        and
+        <a href="https://opendata.bristol.gov.uk/datasets/7d0994dded2348d5aff6d419b0c76bb9_0/explore" rel="noopener noreferrer" target="_blank">Bristol City Council Open Data</a>.
+      </p>
+    </div>
+
+  </footer>
+
+  <!-- ================================================================
+       SCRIPTS
+       data.js must load before Main.js because Main.js depends on
+       the dataset and helper functions that data.js defines.
+       Both are placed at the bottom of <body> so the HTML is fully
+       parsed before the scripts execute.
+  ================================================================ -->
+  <script src="js/data.js"></script>
+  <script src="js/Main.js"></script>
+</body>
+</html>
