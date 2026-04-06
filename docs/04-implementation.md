@@ -682,6 +682,7 @@ The active filter chips above the results list are styled as pill-shaped `<butto
 <img width="1470" height="867" alt="Screenshot 2026-04-06 at 19 46 12" src="https://github.com/user-attachments/assets/b0a7d68f-80b2-4412-904f-340b794524be" />
 
 <img width="1470" height="867" alt="Screenshot 2026-04-06 at 19 46 20" src="https://github.com/user-attachments/assets/4ec7a629-ae91-40c8-a66d-604a7edc7245" />
+<img width="1470" height="867" alt="Screenshot 2026-04-06 at 19 46 26" src="https://github.com/user-attachments/assets/04bb9062-c186-4aa8-9f07-cda5e75924f2" />
 
 <img width="1470" height="867" alt="Screenshot 2026-04-06 at 19 46 39" src="https://github.com/user-attachments/assets/dcef4743-c7fc-47cf-8b28-a1cbad503999" />
 
