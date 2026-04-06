@@ -1,0 +1,2865 @@
+/*
+ * Style.css
+ * Bristol Food Hygiene Ratings
+ * Author: Nadira Ali Robleh
+ * Version: 3.2.0 — Visual polish pass: refined cards, typography, interactions
+ * Last updated: 24/03/2026
+ *
+ * ─────────────────────────────────────────────────────────────────────────────
+ * TABLE OF CONTENTS
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  1.  CSS Custom Properties (Design Tokens)
+ *  2.  Reset & Base
+ *  3.  Accessibility Utilities
+ *  4.  Skip Link
+ *  5.  Site Header & Primary Navigation
+ *  6.  Mobile Nav Toggle
+ *  7.  HOMEPAGE — Hero Section
+ *  8.  HOMEPAGE — Hero Search Form
+ *  9.  HOMEPAGE — Statistics Bar
+ * 10.  HOMEPAGE — Browse by Business Type
+ * 11.  HOMEPAGE — What Do the Ratings Mean?
+ * 12.  SHARED — Site Footer
+ * 13.  SEARCH PAGE — Outer Layout & Page Title
+ * 14.  SEARCH PAGE — Search Bar
+ * 15.  SEARCH PAGE — Two-Column Layout
+ * 16.  SEARCH PAGE — Filter Panel
+ * 17.  SEARCH PAGE — Results Toolbar (chips + sort)
+ * 18.  SEARCH PAGE — Results List & Cards
+ * 19.  SEARCH PAGE — No-Results State
+ * 20.  SEARCH PAGE — Error Banner
+ * 21.  SEARCH PAGE — Pagination
+ * 22.  DETAIL PAGE — Page Layout
+ * 23.  DETAIL PAGE — Back Button
+ * 24.  DETAIL PAGE — Business Card (article)
+ * 25.  DETAIL PAGE — Detail Table (dl)
+ * 26.  DETAIL PAGE — Status Notices
+ * 27.  DETAIL PAGE — Right Sidebar
+ * 28.  RATING GUIDE — Page Hero Banner
+ * 29.  RATING GUIDE — Guide Wrap & Intro
+ * 30.  RATING GUIDE — In-Page TOC Nav
+ * 31.  RATING GUIDE — Rating Cards (ol > li > article)
+ * 32.  RATING GUIDE — Special Statuses Section
+ * 33.  SHARED — Rating Badge Colour System
+ * 34.  RESPONSIVE — Tablet (≤ 1023px)
+ * 35.  RESPONSIVE — Mobile (≤ 767px)
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   1.  CSS CUSTOM PROPERTIES
+   ═══════════════════════════════════════════════════════════════════════════
+   All design tokens are declared on :root so they are available globally.
+   Grouping them here means colours, spacing, and radii can be updated in
+   one place and the changes propagate throughout the whole stylesheet.
+*/
+:root {
+  /* ── Brand greens ──
+     A full tonal scale from near-black (950) to near-white (50).
+     Darker shades are used for the header and CTA backgrounds;
+     lighter shades are used for hover states and tinted surfaces. */
+  --green-950: #0d3b12;
+  --green-900: #1b5e20;
+  --green-800: #1d6b2c;
+  --green-700: #1d8a4f;
+  --green-600: #2e7d32;
+  --green-500: #388e3c;
+  --green-400: #4caf50;
+  --green-300: #66bb6a;
+  --green-200: #81C784;
+  --green-100: #e8f5e9;
+  --green-50:  #f1f8f2;
+
+  /* ── Rating badge exact colours ──
+     Each rating level has a dedicated background colour used consistently
+     across every badge, chip, and card border in the UI. */
+  --r5-bg: #1b5e20; /* Rating 5: Very Good (darkest green) */
+  --r4-bg: #2e7d32; /* Rating 4: Good */
+  --r3-bg: #689f38; /* Rating 3: Generally Satisfactory (yellow-green) */
+  --r2-bg: #F57F17; /* Rating 2: Improvement Necessary (amber) */
+  --r1-bg: #bf360c; /* Rating 1: Major Improvement Necessary (deep orange) */
+  --r0-bg: #b71c1c; /* Rating 0: Urgent Improvement Required (red) */
+
+  /* ── Status badge colours ──
+     Each status has its own background, text colour, and border colour.
+     Declared on a single line per status to keep them visually grouped. */
+  --status-rated-bg:    #e8f5e9; --status-rated-text:    #1b5e20; --status-rated-border: #a5d6a7;
+  --status-pending-bg:  #fff8e1; --status-pending-text:  #F57F17; --status-pending-border: #ffe082;
+  --status-awaiting-bg: #ede7f6; --status-awaiting-text: #4527a0; --status-awaiting-border: #b39ddb;
+  --status-exempt-bg:   #eceff1; --status-exempt-text:   #455a64; --status-exempt-border: #b0bec5;
+  --status-improve-bg:  #fff3e0; --status-improve-text:  #F57F17; --status-improve-border: #ffcc80;
+
+  /* ── Neutrals ──
+     Standard Material Design grey scale used for text, borders,
+     and background surfaces. */
+  --white:    #ffffff;
+  --grey-50:  #fafafa;
+  --grey-100: #f5f5f5;
+  --grey-200: #eeeeee;
+  --grey-300: #e0e0e0;
+  --grey-400: #bdbdbd;
+  --grey-500: #9e9e9e;
+  --grey-600: #757575;
+  --grey-700: #616161;
+  --grey-800: #424242;
+  --grey-900: #212121;
+
+  /* ── Semantic colour aliases ──
+     These map to greys above but use intent-based names so components
+     can be updated without hunting for raw hex values. */
+  --text-primary:   #212121; /* main body text */
+  --text-secondary: #616161; /* subdued labels and descriptions */
+  --text-muted:     #9e9e9e; /* placeholder text and meta info */
+  --border:         #e0e0e0; /* default border for cards and inputs */
+  --border-med:     #bdbdbd; /* slightly stronger border for inputs */
+  --surface:        #f5f5f5; /* light grey page surface */
+  --page-bg:        #ffffff; /* overall page background */
+
+  /* ── Alert colours ──
+     Used for banners, notices, and status badges.
+     Each set has a background, text colour, and border colour. */
+  --danger-bg:   #ffebee; --danger-text: #c62828; --danger-border: #ef9a9a;
+  --warning-bg:  #fff8e1; --warning-text:#F57F17; --warning-border:#ffe082;
+  --info-bg:     #e3f2fd; --info-text:   #1565c0; --info-border:   #90caf9;
+  --purple-bg:   #ede7f6; --purple-text: #4527a0; --purple-border: #b39ddb;
+
+  /* ── Typography ──
+     Both display and body use the same stack so that headings and
+     body copy feel unified. Inter is loaded via Google Fonts. */
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  /* ── Spacing scale ──
+     Based on a 0.25rem (4px) base unit. Used consistently so that
+     margins, padding, and gaps all align to the same grid. */
+  --sp-1: 0.25rem;  /*  4px */
+  --sp-2: 0.5rem;   /*  8px */
+  --sp-3: 0.75rem;  /* 12px */
+  --sp-4: 1rem;     /* 16px */
+  --sp-5: 1.25rem;  /* 20px */
+  --sp-6: 1.5rem;   /* 24px */
+  --sp-7: 1.75rem;  /* 28px */
+  --sp-8: 2rem;     /* 32px */
+  --sp-10: 2.5rem;  /* 40px */
+  --sp-12: 3rem;    /* 48px */
+  --sp-14: 3.5rem;  /* 56px */
+  --sp-16: 4rem;    /* 64px */
+
+  /* ── Layout ── */
+  --max-w: 1200px;  /* maximum content width used across all page wrappers */
+  --header-h: 60px; /* fixed header height referenced by sticky/offset calculations */
+
+  /* ── Radii ──
+     A scale from hairline (xs) to pill (full circle).
+     Consistent use of these tokens keeps corner rounding uniform. */
+  --r-xs:   2px;
+  --r-sm:   4px;
+  --r-md:   6px;
+  --r-lg:   8px;
+  --r-xl:   14px;
+  --r-2xl:  18px;
+  --r-pill: 24px; /* used for pill-shaped badges and buttons */
+
+  /* ── Shadows — richer for polished look ──
+     Multiple levels give components a sense of elevation.
+     --shadow-card-hover is used exclusively on interactive card states. */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,.05);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.1);
+  --shadow-md: 0 2px 8px rgba(0,0,0,.1);
+  --shadow-lg: 0 2px 8px rgba(0,0,0,.1);
+  --shadow-card-hover: 0 4px 16px rgba(0,0,0,.15);
+
+  /* ── Transitions ──
+     Three speeds for micro-interactions, used consistently throughout.
+     --t      is the snappiest (hover colour changes).
+     --t-md   is the default for transforms and box-shadows.
+     --t-lg   is reserved for slower animations like the mobile nav. */
+  --t: 150ms ease;
+  --t-md: 200ms ease;
+  --t-lg: 280ms ease;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   2.  RESET & BASE
+   ═══════════════════════════════════════════════════════════════════════════
+   A lightweight reset that normalises browser defaults without removing
+   useful UA styles. Each rule is kept minimal and purposeful.
+*/
+
+/* Universal box-sizing: border-box ensures padding and borders are included
+   in an element's declared width, preventing layout overflow surprises. */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;            /* enables smooth anchor scrolling */
+  -webkit-text-size-adjust: 100%;     /* prevents iOS auto-adjusting text on rotation */
+  text-size-adjust: 100%;
+  font-size: 16px;                    /* explicit root size; 1rem = 16px */
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--page-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;            /* footer is pushed to the bottom of the viewport */
+  -webkit-font-smoothing: antialiased;      /* smoother rendering on macOS/iOS */
+  -moz-osx-font-smoothing: grayscale;       /* smoother rendering on Firefox/macOS */
+}
+
+/* flex: 1 on <main> fills the remaining vertical space in the column layout
+   above, ensuring the footer always sits at the bottom of the page. */
+main { flex: 1; }
+
+/* Prevent images from overflowing their containers */
+img { display: block; max-width: 100%; height: auto; }
+
+/* Global link style: green brand colour with a smooth colour transition */
+a {
+  color: var(--green-600);
+  text-decoration: underline;
+  transition: color var(--t);
+}
+a:hover { color: var(--green-900); }
+
+/* Remove default list styles; specific components apply their own layout */
+ul, ol { list-style: none; }
+
+/* Normalise button so all buttons start from a blank slate */
+button {
+  font-family: inherit;  /* buttons do not inherit font-family by default */
+  cursor: pointer;
+  border: none;
+  background: none;
+  line-height: 1;
+}
+
+/* Normalise form controls to match body font */
+input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Heading baseline: tight line-height suits large display text */
+h1, h2, h3, h4, h5 { line-height: 1.25; font-weight: 700; }
+
+/* <address> is used for contact info; remove the default italic style */
+address { font-style: normal; }
+
+/* Consistent horizontal rule style */
+hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* <abbr> titles: dotted underline signals an expandable abbreviation */
+abbr[title] { text-decoration: underline dotted; cursor: help; }
+
+/* <meter> defaults to inline; display:block avoids phantom space beneath */
+meter { display: block; }
+
+/* Remove browser-native spin buttons on number inputs for a cleaner look */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; appearance: none; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3.  ACCESSIBILITY UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════
+   Utility classes and global focus styles that apply across every page.
+*/
+
+/*
+  .visually-hidden
+  Hides content from the visual layout whilst keeping it fully accessible
+  to screen readers and other assistive technology.
+  Used on: labels for icon-only inputs, skip-link destinations, meter
+  elements that duplicate visible content, and decorative headings.
+
+  The clip-path + 1px dimensions technique is preferred over older
+  clip:rect() because it handles right-to-left layouts correctly and
+  does not require position:absolute to trigger clipping.
+  !important on every property prevents accidental overrides from
+  higher-specificity component rules.
+*/
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/*
+  Global keyboard focus ring.
+  :focus-visible only shows the ring when the user is navigating by
+  keyboard, not when clicking with a mouse, giving sighted mouse users
+  a cleaner UI whilst fully supporting keyboard-only navigation.
+*/
+:focus-visible {
+  outline: 3px solid var(--green-500);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* Suppress the outline for pointer interactions where :focus-visible
+   would not show it anyway. This two-rule pattern covers all browsers. */
+:focus:not(:focus-visible) { outline: none; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   4.  SKIP LINK
+   ═══════════════════════════════════════════════════════════════════════════
+   The skip link allows keyboard users to bypass the site header navigation
+   and jump directly to the main content area. It is positioned off-screen
+   (top: -100px) so sighted mouse users never see it. When a keyboard user
+   tabs to it, :focus moves it on-screen so it becomes visible and usable.
+*/
+.skip-link {
+  position: absolute;
+  top: -100px;              /* hidden above the viewport by default */
+  left: var(--sp-4);
+  z-index: 9999;            /* must sit above every other element including the sticky header */
+  padding: var(--sp-2) var(--sp-5);
+  background: var(--green-600);
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transition: top var(--t);  /* smooth slide down when it receives focus */
+}
+
+/* When focused, drop the link into view at the top of the screen */
+.skip-link:focus { top: var(--sp-3); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   5.  SITE HEADER & PRIMARY NAVIGATION
+   ═══════════════════════════════════════════════════════════════════════════
+   The header is sticky so it remains visible as the user scrolls.
+   z-index: 200 ensures it sits above all page content and the mobile nav
+   backdrop, which is at the same z-index level.
+*/
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  height: var(--header-h);       /* fixed height used by offset calculations elsewhere */
+  padding: 0 var(--sp-6);
+  background-color: var(--green-900);
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);  /* subtle drop shadow to separate header from content */
+}
+
+/* Brand link: logo + site name side by side.
+   margin-right: auto pushes the nav to the far right of the header. */
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  text-decoration: none;
+  flex-shrink: 0;
+  margin-right: auto;  /* creates space between brand and nav */
+}
+
+/* Logo image: fixed square with a white background so the icon shows
+   clearly on the dark green header regardless of its transparency. */
+.site-header__logo {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-sm);
+  object-fit: contain;
+  background: var(--white);
+  padding: 2px;
+}
+
+/* Site name text: slightly tighter tracking suits the display treatment */
+.site-header__name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  white-space: nowrap;     /* prevents the name wrapping on narrow desktop viewports */
+  letter-spacing: -0.01em;
+}
+
+/* margin-left: auto pushes the nav list to the right edge */
+.primary-nav { margin-left: auto; }
+
+/* Horizontal list with a small gap between each nav item */
+.primary-nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+/* Individual nav link: transparent border by default so active state
+   can add a visible border without causing layout shift. */
+.primary-nav__link {
+  display: inline-block;
+  padding: var(--sp-2) var(--sp-4);
+  color: rgba(255,255,255,.80);  /* slightly transparent white for inactive state */
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: var(--r-sm);
+  border: 1px solid transparent;  /* holds space so border does not cause reflow on hover */
+  transition: background var(--t), color var(--t), border-color var(--t);
+}
+
+/* Hover: slightly brighter background and full white text */
+.primary-nav__link:hover {
+  color: var(--white);
+  background: rgba(255,255,255,.12);
+}
+
+/* Active/current page link: distinct frosted-glass appearance.
+   aria-current="page" is set by HTML; the CSS modifier class is a fallback. */
+.primary-nav__link--active,
+.primary-nav__link[aria-current="page"] {
+  color: var(--white);
+  background: rgba(255,255,255,.15);
+  border-color: rgba(255,255,255,.35);  /* visible border distinguishes the active link */
+  font-weight: 600;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   6.  MOBILE NAV TOGGLE
+   ═══════════════════════════════════════════════════════════════════════════
+   The hamburger button is hidden on desktop and shown only in the mobile
+   media query (section 35). The animation from three bars to an X is driven
+   by CSS transforms keyed off the aria-expanded attribute that Main.js sets.
+*/
+
+/* Hamburger button — hidden on desktop, shown via media query below */
+.nav-toggle {
+  display: none;                  /* desktop: invisible; shown in @media (max-width:767px) */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 38px;
+  height: 38px;
+  padding: 9px 7px;
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.30);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background var(--t);
+  position: relative;
+  z-index: 202; /* above header (200) and nav panel (201) */
+}
+
+.nav-toggle:hover { background: rgba(255,255,255,.10); }
+
+/* Three bars */
+.nav-toggle__bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transform-origin: center;
+  transition: transform .28s ease, opacity .28s ease;
+}
+
+/* Bars animate to × when open — JS sets aria-expanded="true" */
+
+/* Top bar rotates +45 degrees and shifts down to meet the centre */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+/* Middle bar fades and collapses to nothing */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+/* Bottom bar rotates -45 degrees and shifts up to meet the centre */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Backdrop scrim — element created by Main.js, styled here.
+   The scrim dims the page content when the mobile nav is open so the
+   navigation panel appears to float above the rest of the page.
+   It fades in via opacity transition; pointer-events: none stops it
+   blocking clicks before it becomes visible. */
+.nav-backdrop {
+  position: fixed;
+  inset: 0;                         /* covers the entire viewport */
+  background: rgba(0,0,0,.50);
+  z-index: 200; /* above page content, same level as header */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+}
+
+/* .is-visible is added by Main.js when the nav opens */
+.nav-backdrop.is-visible {
+  opacity: 1;
+  pointer-events: auto;             /* allows clicks on the backdrop to close the nav */
+}
+
+/* .primary-nav.is-open is declared ONLY inside @media (max-width:767px)
+   to prevent any cascade conflict with the desktop layout. */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   7.  HOMEPAGE — HERO SECTION
+   ═══════════════════════════════════════════════════════════════════════════
+   A full-width banner with a diagonal gradient background and two
+   decorative translucent circles created using ::before and ::after
+   pseudo-elements. overflow: hidden clips the circles at the edges.
+*/
+.hero {
+  position: relative;
+  overflow: hidden;    /* clips the ::before and ::after decorative circles */
+  background: linear-gradient(160deg, var(--green-900) 0%, #1a6e36 55%, var(--green-700) 100%);
+  padding: 72px var(--sp-6) 64px;
+  text-align: center;
+  color: var(--white);
+}
+
+/* Top-right decorative circle: a large translucent disc.
+   pointer-events: none ensures it never blocks clicks on content below. */
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.06);
+  top: -160px;    /* partially off-screen at the top */
+  right: -80px;   /* partially off-screen at the right */
+  pointer-events: none;
+}
+
+/* Bottom-left decorative circle: a smaller companion disc */
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.05);
+  bottom: -120px;   /* partially off-screen at the bottom */
+  left: -60px;      /* partially off-screen at the left */
+  pointer-events: none;
+}
+
+/* Location context pill shown above the main heading.
+   The frosted glass appearance (semi-transparent background + border)
+   works on the dark hero background. */
+.hero__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 5px var(--sp-4);
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: var(--r-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.90);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-5);
+}
+
+/* The map-pin SVG inside the pill uses a lighter green for visual contrast */
+.hero__pill svg { color: var(--green-200); flex-shrink: 0; }
+
+/* Main hero heading: clamp() makes it fluid between a minimum (1.85rem)
+   and a maximum (3rem) based on the viewport width. */
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.18;
+  color: var(--white);
+  margin-bottom: var(--sp-4);
+  letter-spacing: -0.02em;
+}
+
+/* <mark> inside the heading highlights "Bristol" in italic white.
+   background:none removes the default yellow highlight colour. */
+.hero__title mark { background: none; color: var(--white); font-style: italic; }
+
+/* Subheading: slightly transparent so it reads as secondary content */
+.hero__sub {
+  font-size: 1.0625rem;
+  color: rgba(255,255,255,.80);
+  max-width: 520px;
+  margin: 0 auto var(--sp-8);
+  line-height: 1.65;
+}
+
+/* Shared section heading used in browse and ratings sections on the homepage */
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-2);
+  letter-spacing: -0.01em;
+}
+
+/* Subdued paragraph immediately below a section heading */
+.section-sub {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-7);
+}
+
+/* Inline link inside .section-sub, e.g. "View full guide" */
+.section-sub a { color: var(--green-600); font-weight: 500; text-decoration: none; }
+.section-sub a:hover { text-decoration: underline; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   8.  HOMEPAGE — HERO SEARCH FORM
+   ═══════════════════════════════════════════════════════════════════════════
+   A pill-shaped search bar centred in the hero section. The icon is
+   absolutely positioned inside the input field on the left. The submit
+   button rounds only its right corners to join flush with the pill outline.
+*/
+.hero-form {
+  position: relative;    /* establishes the containing block for the absolutely positioned icon */
+  display: flex;
+  align-items: stretch;  /* makes the button stretch to the full height of the input */
+  max-width: 560px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: 50px;   /* full pill shape */
+  box-shadow: 0 4px 20px rgba(0,0,0,.28), 0 1px 4px rgba(0,0,0,.12);
+  overflow: hidden;       /* clips the button corners to the pill shape */
+}
+
+/* Magnifying-glass icon: absolutely positioned so it overlaps the input
+   without pushing the text. z-index: 1 ensures it sits above the input. */
+.hero-form__icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);  /* vertically centred regardless of input height */
+  color: var(--grey-500);
+  pointer-events: none;         /* prevents the icon from blocking input clicks */
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+/* Text input: padding-left accounts for the absolutely positioned icon */
+.hero-form__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 14px 14px 14px 50px;  /* 50px left padding clears the icon */
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  background: transparent;
+  min-width: 0;   /* prevents flex children from overflowing their container */
+}
+
+.hero-form__input::placeholder { color: var(--grey-500); }
+/* Hide the browser's native clear button on search inputs */
+.hero-form__input::-webkit-search-cancel-button { display: none; }
+
+/* Submit button: right corners are rounded to complete the pill shape.
+   Dark background contrasts with the white input for clear affordance. */
+.hero-form__btn {
+  flex-shrink: 0;
+  padding: 14px 28px;
+  background: #111111;
+  color: var(--white);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-radius: 0 50px 50px 0;  /* right side only, joins the pill */
+  transition: background var(--t);
+  border: none;
+  cursor: pointer;
+}
+
+.hero-form__btn:hover { background: #2e2e2e; }
+
+/* Hint text displayed below the input after a failed validation attempt.
+   Positioned absolutely so it does not affect the form's height. */
+.hero-form__hint {
+  display: block;
+  position: absolute;
+  top: calc(100% + 8px);  /* 8px gap below the form */
+  left: 50px;
+  right: 0;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,.75);
+  pointer-events: none;
+}
+
+/* A warning flag character prefixes any non-empty hint message */
+.hero-form__hint:not(:empty)::before { content: '⚑ '; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   9.  HOMEPAGE — STATISTICS BAR
+   ═══════════════════════════════════════════════════════════════════════════
+   A horizontal strip immediately below the hero displaying four key
+   statistics in equal-width columns. A right border on each column (except
+   the last) creates a visual separator between items.
+*/
+.stats-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);  /* separates the bar from the content below */
+}
+
+/* Four equal columns up to the maximum content width */
+.stats-bar__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+/* Each statistic: icon on the left, label/value on the right.
+   A right border separates each item from its neighbour. */
+.stats-bar__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6);
+  border-right: 1px solid var(--border);
+}
+
+/* No right border on the last item to avoid a double border at the edge */
+.stats-bar__item:last-child { border-right: none; }
+
+/* Icon image: fixed square, does not stretch with the flex layout */
+.stats-bar__icon { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
+
+/* Numeric value: large and bold to draw the eye */
+.stats-bar__num { font-size: 1.375rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; display: block; }
+
+/* Descriptive label below the number */
+.stats-bar__label { font-size: 0.8125rem; color: var(--text-secondary); display: block; line-height: 1.3; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   10. HOMEPAGE — BROWSE BY BUSINESS TYPE
+   ═══════════════════════════════════════════════════════════════════════════
+   A six-column grid of category cards. Each card links to the search page
+   with a pre-applied type filter parameter. On tablet the grid collapses to
+   three columns; on mobile to two (see responsive sections below).
+*/
+.browse-section { padding: var(--sp-10) var(--sp-6); background: var(--white); }
+.browse-section hgroup { margin-bottom: var(--sp-7); }  /* space between heading group and the grid */
+
+/* Six equal columns for the six business type categories */
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--sp-4);
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+/* Individual type card: border lifts on hover via box-shadow and translateY */
+.type-card {
+  display: block;
+  text-decoration: none;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-xl);
+  background: var(--white);
+  transition: border-color var(--t), box-shadow var(--t), transform var(--t-md);
+  overflow: hidden;
+}
+
+/* Hover and focus: green border, shadow, and a subtle lift */
+.type-card:hover,
+.type-card:focus-visible {
+  border-color: var(--green-400);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  text-decoration: none;
+  outline: none;  /* focus ring is handled by the border change */
+}
+
+/* Inner figure: icon stacked above the label */
+.type-card__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-6) var(--sp-3) var(--sp-5);
+  margin: 0;
+}
+
+/* Category icon image */
+.type-card__icon { width: 54px; height: 54px; object-fit: contain; }
+
+/* Category name label below the icon */
+.type-card__name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  line-height: 1.3;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   11. HOMEPAGE — WHAT DO THE RATINGS MEAN?
+   ═══════════════════════════════════════════════════════════════════════════
+   Rating pill links displayed as a horizontal wrapping row. Each pill
+   contains a coloured numeric badge and a text label. Clicking a pill
+   navigates to Search.html with a ?rating= pre-filter applied.
+*/
+/* Subtle grey background distinguishes this section from the white browse section */
+.ratings-section { padding: var(--sp-10) var(--sp-6); background: var(--grey-100); }
+.ratings-section hgroup { margin-bottom: var(--sp-7); }
+
+/* Wrapping flex row of pill links */
+.rating-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  justify-content: flex-start;
+  margin-bottom: var(--sp-6);
+  padding: 0;
+  max-width: var(--max-w);
+}
+
+/* Individual pill link */
+.rating-pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4) var(--sp-2) var(--sp-2);  /* less left padding to accommodate the badge */
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-pill);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color var(--t), box-shadow var(--t), transform var(--t-md);
+}
+
+/* Hover: green border highlight and subtle lift */
+.rating-pill-link:hover {
+  border-color: var(--green-400);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+/* Numeric badge inside each pill: coloured square with white number.
+   Uses the shared rating colour tokens (--r5-bg through --r0-bg). */
+.rp-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-sm);
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+/* Colour each badge according to its rating level */
+.rp-5 { background: var(--r5-bg); }
+.rp-4 { background: var(--r4-bg); }
+.rp-3 { background: var(--r3-bg); }
+.rp-2 { background: var(--r2-bg); }
+.rp-1 { background: var(--r1-bg); }
+.rp-0 { background: var(--r0-bg); }
+
+/* "View Full Guide" CTA button below the pills */
+.btn-guide {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 10px 22px;
+  background: var(--green-600);
+  color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transition: background var(--t);
+}
+
+.btn-guide:hover { background: var(--green-700); color: var(--white); text-decoration: none; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   12. SHARED — SITE FOOTER
+   ═══════════════════════════════════════════════════════════════════════════
+   The footer uses a very dark background (#111111) with translucent white
+   text for a premium, low-contrast feel on dark surfaces. It is divided
+   into three sub-sections:
+     1. .footer-certs  - certification badges and compliance links
+     2. .footer-main   - three-column brand/nav/legal grid
+     3. .footer-copy   - copyright and data attribution bar
+*/
+.site-footer {
+  background: #111111;
+  color: rgba(255,255,255,.75);  /* default text colour for all footer content */
+}
+
+/* Certification strip: FHRS badge, membership logos, and compliance links
+   laid out in a wrapping flex row */
+.footer-certs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-6);
+  padding: var(--sp-6) var(--sp-8);
+  border-bottom: 1px solid rgba(255,255,255,.08);  /* subtle separator above footer-main */
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* FHRS sticker image: fixed height, auto width to preserve the aspect ratio */
+.footer-certs__fhrs { height: 72px; width: auto; object-fit: contain; flex-shrink: 0; }
+
+/* Certification logo row: CIEH, R-SPA, ISO 22000 */
+.footer-certs__logos { display: flex; gap: var(--sp-5); align-items: center; flex-wrap: wrap; }
+
+/* Individual certification badge: icon stacked above a small text label */
+.footer-cert-badge { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.footer-cert-badge img { height: 40px; width: auto; object-fit: contain; }
+/* Caption text: very subdued, all-caps, small tracking */
+.footer-cert-badge span { font-size: 0.68rem; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: 0.06em; text-align: center; }
+
+/* Compliance links: margin-left: auto pushes this group to the far right of the certs strip */
+.footer-certs__links { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; margin-left: auto; }
+.footer-certs__links a { font-size: 0.8125rem; font-weight: 500; color: rgba(255,255,255,.65); text-decoration: none; transition: color var(--t); }
+.footer-certs__links a:hover { color: var(--white); }
+/* The pipe character used as a separator between links */
+.footer-certs__links span[aria-hidden] { color: rgba(255,255,255,.20); font-size: 0.75rem; }
+
+/* Main footer body: three-column grid (brand, quick links, legal) */
+.footer-main {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr 1fr;  /* brand column is wider than the two nav columns */
+  gap: var(--sp-8);
+  padding: var(--sp-8);
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Brand column: logo link above the address block */
+.footer-brand__link { display: inline-flex; align-items: center; gap: var(--sp-2); text-decoration: none; margin-bottom: var(--sp-4); }
+.footer-brand__logo { width: 32px; height: 32px; object-fit: contain; border-radius: var(--r-sm); background: rgba(255,255,255,.08); padding: 2px; }
+.footer-brand__name { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--white); }
+/* Address block: small, line-height 1.8 for comfortable multi-line reading */
+.footer-brand__addr { font-size: 0.8125rem; color: rgba(255,255,255,.55); line-height: 1.8; }
+/* Phone and email links inside the address block use the lighter green for legibility */
+.footer-brand__addr a { color: var(--green-300); text-decoration: none; }
+.footer-brand__addr a:hover { text-decoration: underline; }
+
+/* Navigation column headings: uppercase, high letter-spacing, very small */
+.footer-nav__heading { font-size: 0.8125rem; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--sp-4); }
+.footer-nav__list { display: flex; flex-direction: column; gap: var(--sp-3); }
+/* Nav links: subdued by default, white on hover */
+.footer-nav__link { font-size: 0.875rem; color: rgba(255,255,255,.60); text-decoration: none; transition: color var(--t); font-weight: 500; }
+.footer-nav__link:hover { color: var(--white); }
+
+/* Copyright bar at the very bottom of the footer */
+.footer-copy { display: block; padding: var(--sp-4) var(--sp-8); border-top: 1px solid rgba(255,255,255,.07); font-size: 0.78rem; color: rgba(255,255,255,.35); text-align: center; }
+.footer-copy p { margin: 3px 0; }  /* minimal spacing between the two copyright paragraphs */
+.footer-copy a { color: rgba(255,255,255,.45); text-decoration: underline; }
+.footer-copy a:hover { color: var(--white); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   13. SEARCH PAGE — OUTER LAYOUT & PAGE TITLE
+   ═══════════════════════════════════════════════════════════════════════════
+   The search page has a single maximum-width wrapper that contains the
+   search bar, the two-column results layout, and the page heading.
+*/
+.search-page-wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: var(--sp-7) var(--sp-6) var(--sp-12);
+}
+
+/* "Search Results" page heading */
+.page-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-5);
+  letter-spacing: -0.02em;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   14. SEARCH PAGE — SEARCH BAR  (improved)
+   ═══════════════════════════════════════════════════════════════════════════
+   Inline search bar at the top of the search results page. A focus-within
+   rule applies a coloured ring to the entire bar when the input is focused,
+   giving a clear affordance for keyboard navigation.
+*/
+.search-bar-wrap { margin-bottom: var(--sp-4); }
+
+/* The bar itself: rounded rectangle with a medium border */
+.search-bar {
+  display: flex;
+  align-items: stretch;
+  background: var(--white);
+  border: 1.5px solid var(--border-med);
+  border-radius: var(--r-lg);
+  overflow: hidden;              /* clips button corners to the bar border-radius */
+  max-width: 660px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--t), box-shadow var(--t);
+}
+
+/* When any child (the input) is focused, the whole bar gets a green ring */
+.search-bar:focus-within {
+  border-color: var(--green-500);
+  box-shadow: 0 0 0 3px rgba(46,125,50,.12), var(--shadow-sm);
+}
+
+/* Icon wrapper: flex-aligned and given horizontal padding */
+.search-bar__icon {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--sp-4);
+  color: var(--grey-500);
+  flex-shrink: 0;
+}
+
+/* The text input field inside the bar */
+.search-bar__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 13px var(--sp-2);
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  background: transparent;
+  min-width: 0;
+}
+
+.search-bar__input::placeholder { color: var(--text-muted); }
+/* Hide the native clear button on webkit search inputs */
+.search-bar__input::-webkit-search-cancel-button { display: none; }
+
+/* Submit button: sits flush against the right edge of the bar */
+.search-bar__btn {
+  flex-shrink: 0;
+  padding: 13px var(--sp-7);
+  background: #111111;
+  color: var(--white);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: background var(--t);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.search-bar__btn:hover { background: #2a2a2a; }
+
+/* Results summary line below the search bar: updated live by data.js */
+.results-summary {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  padding: var(--sp-2) var(--sp-1);
+  line-height: 1.5;
+}
+
+/* Highlighted terms within the summary text */
+.results-summary mark { background: none; font-weight: 700; color: var(--text-primary); }
+.results-summary strong { font-weight: 700; color: var(--text-primary); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   15. SEARCH PAGE — TWO-COLUMN LAYOUT
+   ═══════════════════════════════════════════════════════════════════════════
+   The search results area uses a two-column CSS grid: a fixed-width filter
+   sidebar on the left and a fluid results column on the right.
+   On tablet the grid collapses to a single column (see section 34).
+*/
+.results-layout {
+  display: grid;
+  grid-template-columns: 230px 1fr;  /* sidebar is 230px; results fill the remaining space */
+  gap: var(--sp-6);
+  align-items: start;    /* prevents the shorter column stretching to the height of the taller one */
+  margin-top: var(--sp-5);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   16. SEARCH PAGE — FILTER PANEL  (improved)
+   ═══════════════════════════════════════════════════════════════════════════
+   Sticky filter sidebar. position: sticky with top offset keeps it visible
+   as the user scrolls through a long results list. On tablet it reverts to
+   position: static (see section 34).
+*/
+.filter-panel {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: calc(var(--header-h) + var(--sp-4));  /* clears the sticky header */
+}
+
+/* "Filters" heading bar at the top of the panel */
+.filter-panel__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 12px var(--sp-5);
+  background: var(--green-900);   /* dark green matches the site header */
+  color: var(--white);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Filter funnel SVG icon in the heading */
+.filter-panel__head svg { flex-shrink: 0; }
+
+/* Filter form: slight vertical padding inside the panel */
+.filter-form { padding: var(--sp-2) 0; }
+
+/* A fieldset groups either the rating checkboxes or the type checkboxes */
+.filter-fieldset {
+  border: none;
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--grey-100);  /* hairline separator between the two fieldsets */
+}
+
+/* No bottom border on the last fieldset to avoid a double border before the button */
+.filter-fieldset:last-of-type { border-bottom: none; }
+
+/* Legend acts as a section label above each group of checkboxes */
+.filter-fieldset__legend {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  margin-bottom: var(--sp-3);
+  display: block;
+  width: 100%;
+}
+
+/* Vertical list of filter options */
+.filter-list { display: flex; flex-direction: column; gap: 1px; }
+.filter-list__item { width: 100%; }
+
+/* Each filter row is a clickable label wrapping its checkbox */
+.filter-label {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 7px var(--sp-2);
+  cursor: pointer;
+  border-radius: var(--r-md);
+  transition: background var(--t);
+  width: 100%;
+  font-size: 0.875rem;
+}
+
+/* Hover: very light green tint to show the row is interactive */
+.filter-label:hover { background: var(--green-50); }
+
+/* Native checkbox: accent-color applies the brand green to the tick */
+.filter-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--green-600);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+/* Label text: takes available space, pushing the count to the right */
+.filter-label__text { flex: 1; color: var(--text-primary); font-size: 0.875rem; line-height: 1.3; }
+
+/* Result count badge: tabular numerals so digits align even when the count changes */
+.filter-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  min-width: 16px;
+  text-align: right;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Coloured rating badge inside filter */
+/* Small coloured square badge matching the rating number in the filter list */
+.r-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+/* One rule per rating level using the shared colour tokens */
+.r-badge--5 { background: var(--r5-bg); }
+.r-badge--4 { background: var(--r4-bg); }
+.r-badge--3 { background: var(--r3-bg); }
+.r-badge--2 { background: var(--r2-bg); }
+.r-badge--1 { background: var(--r1-bg); }
+.r-badge--0 { background: var(--r0-bg); }
+
+/* "Clear All Filters" button at the bottom of the panel.
+   width: calc() subtracts horizontal margins so the button fills the panel
+   with consistent gutters on both sides. */
+.clear-btn {
+  display: block;
+  width: calc(100% - var(--sp-8));
+  margin: var(--sp-3) var(--sp-4) var(--sp-4);
+  padding: 9px var(--sp-4);
+  background: var(--white);
+  border: 1.5px solid var(--green-400);
+  border-radius: var(--r-md);
+  color: var(--green-700);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: background var(--t), color var(--t), border-color var(--t);
+}
+
+/* Hover: light green fill to reinforce the interactive state */
+.clear-btn:hover {
+  background: var(--green-50);
+  color: var(--green-900);
+  border-color: var(--green-600);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   17. SEARCH PAGE — RESULTS TOOLBAR  (improved active chips + sort)
+   ═══════════════════════════════════════════════════════════════════════════
+   A horizontal bar above the results list showing active filter chips
+   on the left and the sort dropdown on the right.
+*/
+.results-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1.5px solid var(--border);  /* separates toolbar from results list */
+  min-height: 44px;   /* prevents the toolbar collapsing to nothing when no chips are shown */
+}
+
+/* Container for the active filter chip buttons.
+   flex: 1 lets it take available space, pushing the sort dropdown to the right. */
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  flex: 1;
+}
+
+/* Active chips — polished pill style.
+   Each chip is a <span class="active-chip"> inside a <li> generated by data.js.
+   The × button is <button class="active-chip__remove"> nested inside that span. */
+
+/* The pill wrapper: sits around the label text and the × button together */
+.active-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px 5px 12px;
+  background: var(--green-50);
+  border: 1.5px solid var(--green-200);
+  border-radius: var(--r-pill);
+  color: var(--green-900);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: inherit;
+  transition: background var(--t), border-color var(--t);
+}
+
+/* Hover: darken the whole chip */
+.active-chip:hover {
+  background: var(--green-100);
+  border-color: var(--green-400);
+}
+
+/* The × remove button inside each chip.
+   Rendered as a small circular icon-button with no background by default. */
+.active-chip__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: var(--green-600);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+  flex-shrink: 0;
+  transition: background var(--t), color var(--t), transform var(--t);
+}
+
+/* The × symbol is CSS-generated so there is no duplicate character in the DOM */
+.active-chip__remove::after {
+  content: '×';
+}
+
+/* Hover: highlight the × circle */
+.active-chip__remove:hover {
+  background: var(--green-200);
+  color: var(--green-900);
+  transform: scale(1.2);
+}
+
+/* Keyboard focus ring on the × button */
+.active-chip__remove:focus-visible {
+  outline: 2px solid var(--green-500);
+  outline-offset: 1px;
+}
+
+/* Sort dropdown wrapper: aligned to the far right of the toolbar */
+.sort-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* "Sort by:" label text */
+.sort-lbl { font-size: 0.8125rem; color: var(--text-secondary); font-weight: 500; white-space: nowrap; }
+
+/* Sort select element: native dropdown with a light border and shadow */
+.sort-sel {
+  padding: 7px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  background: var(--white);
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  box-shadow: var(--shadow-xs);
+  transition: border-color var(--t);
+}
+
+/* Focus: green border replaces the browser's default focus ring */
+.sort-sel:focus { border-color: var(--green-500); outline: none; }
+
+/* Results column: min-width: 0 allows the flex/grid child to shrink below its content width */
+.results-column { min-width: 0; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   18. SEARCH PAGE — RESULTS LIST & CARDS  (significantly improved)
+   ═══════════════════════════════════════════════════════════════════════════
+   The results list is an <ol> populated by data.js. Each item is a card
+   linking to Business-Detail.html. The card uses a three-column grid:
+   a large rating badge | business info block | status + arrow.
+*/
+/* Vertical stack of result cards with a small gap between each */
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: 0;
+}
+
+/* Remove the gap caused by an empty list sitting above #no-results.
+   When the list is empty, display:none collapses it so there is no
+   unwanted space between the toolbar and the empty-state panel. */
+.results-list:empty {
+  display: none;
+}
+
+/* Card wrapper: white background with a rounded border that turns green on hover */
+.result-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: border-color var(--t-md), box-shadow var(--t-md), transform var(--t-md);
+}
+
+/* Hover: green border, deeper shadow, and a 1px lift */
+.result-card:hover {
+  border-color: var(--green-300);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-1px);
+}
+
+/* The entire card surface is a link to the detail page */
+.result-card__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove the default focus outline from the link; the card handles it */
+.result-card__link:focus { outline: none; }
+
+/* When the inner link is keyboard-focused, the card gets the brand focus ring.
+   :has() allows the parent to style itself based on a descendant's state. */
+.result-card:has(.result-card__link:focus-visible) {
+  outline: 3px solid var(--green-500);
+  outline-offset: 2px;
+}
+
+/* Article layout inside card: three-column grid with the badge fixed on the left */
+.result-card__link article {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;  /* badge | info | status+arrow */
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+}
+
+/* Large rating badge on the left of each result card */
+.rc-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r-md);
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);  /* subtle shadow gives the badge depth */
+}
+
+/* One colour per rating score using the shared tokens */
+.rc-badge--5 { background: var(--r5-bg); }
+.rc-badge--4 { background: var(--r4-bg); }
+.rc-badge--3 { background: var(--r3-bg); }
+.rc-badge--2 { background: var(--r2-bg); }
+.rc-badge--1 { background: var(--r1-bg); }
+.rc-badge--0 { background: var(--r0-bg); }
+
+/* Awaiting inspection badge: purple background, smaller text, word-wraps */
+.rc-badge--awaiting {
+  background: var(--purple-text);
+  font-size: 0.6rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+  padding: var(--sp-1);
+  overflow-wrap: break-word;
+}
+
+/* Exempt and pending badge variants */
+.rc-badge--exempt  { background: var(--grey-500); font-size: 0.7rem; }
+.rc-badge--pending { background: var(--warning-text); font-size: 0.7rem; }
+
+/* Info block: takes all remaining horizontal space in the grid */
+.rc-info { flex: 1; min-width: 0; }  /* min-width: 0 allows text truncation to work */
+
+/* Business name: truncated with an ellipsis if it overflows one line */
+.rc-name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+/* Name turns green on hover to reinforce that the card is clickable */
+.result-card:hover .rc-name { color: var(--green-800); }
+
+/* Meta row below the name: type badge, address, date, all inline */
+.rc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Business type badge: small pill with a green tint */
+.rc-type {
+  display: inline-block;
+  padding: 2px 9px;
+  background: var(--green-50);
+  border: 1px solid var(--green-200);
+  border-radius: var(--r-pill);
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: var(--green-800);
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+/* Address and date snippets in the meta row */
+.rc-addr { color: var(--text-secondary); }
+.rc-date { color: var(--text-muted); font-size: 0.78rem; }
+
+/* Separator dot between meta items */
+.rc-meta .rc-sep {
+  color: var(--grey-300);
+  font-size: 0.6rem;
+  user-select: none;  /* prevents the dot being accidentally selected when double-clicking text */
+}
+
+/* Status chip in the right column of the card grid */
+.rc-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  font-size: 0.73rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  letter-spacing: 0.01em;
+}
+
+/* One colour scheme per status type using the shared status tokens */
+.rc-status--rated    { background: var(--status-rated-bg);    color: var(--status-rated-text);    border: 1.5px solid var(--status-rated-border); }
+.rc-status--pending  { background: var(--status-pending-bg);  color: var(--status-pending-text);  border: 1.5px solid var(--status-pending-border); }
+.rc-status--awaiting { background: var(--status-awaiting-bg); color: var(--status-awaiting-text); border: 1.5px solid var(--status-awaiting-border); }
+.rc-status--exempt   { background: var(--status-exempt-bg);   color: var(--status-exempt-text);   border: 1.5px solid var(--status-exempt-border); }
+.rc-status--improve  { background: var(--status-improve-bg);  color: var(--status-improve-text);  border: 1.5px solid var(--status-improve-border); }
+
+/* Right arrow chevron: shifts right slightly on hover for a click affordance */
+.rc-arrow {
+  color: var(--grey-300);
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  transition: color var(--t), transform var(--t);
+}
+
+/* Arrow turns green and moves 2px right when the card is hovered */
+.result-card:hover .rc-arrow {
+  color: var(--green-500);
+  transform: translateX(2px);
+}
+
+/* Right column of the card grid: status chip stacked above the arrow */
+.rc-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--sp-2);
+  flex-shrink: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   19. SEARCH PAGE — NO-RESULTS STATE  (improved)
+   ═══════════════════════════════════════════════════════════════════════════
+   Shown by data.js (removes the [hidden] attribute) when a search returns
+   zero matching businesses. A dashed border and centred content signal to
+   the user that this is an empty, not an error, state.
+*/
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--sp-12) var(--sp-6);
+  border: 1.5px dashed var(--border-med);  /* dashed border visually suggests "nothing here" */
+  border-radius: var(--r-xl);
+  background: var(--white);
+  margin: var(--sp-2) 0;
+  min-height: 480px;    /* prevents the panel collapsing too small when the results list is short */
+  justify-content: center;
+}
+
+/* The large magnifying-glass SVG illustration */
+.no-results__figure {
+  color: var(--grey-300);
+  margin: 0 0 var(--sp-5) 0;
+}
+
+/* "No results found" heading */
+.no-results__heading {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-2);
+  letter-spacing: -0.01em;
+}
+
+/* Helper text below the heading */
+.no-results__msg {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  max-width: 340px;
+  line-height: 1.65;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   20. SEARCH PAGE — ERROR BANNER  (improved)
+   ═══════════════════════════════════════════════════════════════════════════
+   Shown by data.js when the dataset fails to load. Uses role="alert" in the
+   HTML so screen readers announce the error immediately.
+*/
+
+/* Ensure the error banner's `hidden` attribute is never overridden
+   by the display:flex rule below. Only targets #error-banner. */
+#error-banner[hidden] { display: none !important; }
+
+/* Amber/yellow warning banner: friendly but clearly an alert */
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  background: #fffbf0;
+  border: 1.5px solid #f6d860;
+  border-radius: var(--r-lg);
+  margin: var(--sp-4) 0;
+  box-shadow: var(--shadow-xs);
+}
+
+/* Warning triangle icon: amber to match the banner tone */
+.error-banner__icon { color: #d97706; flex-shrink: 0; }
+
+/* Text area: grows to fill available width */
+.error-banner__body { flex: 1; font-size: 0.875rem; }
+
+/* Bold title line at the top of the error message */
+.error-banner__title {
+  display: block;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  margin-bottom: 2px;
+}
+
+/* Supporting description text below the title */
+.error-banner__body > span,
+.error-banner__body p { color: var(--text-secondary); font-size: 0.8125rem; }
+
+/* "Retry" button: green call-to-action, aligned to the far right of the banner */
+.error-banner__retry {
+  flex-shrink: 0;
+  padding: 7px 16px;
+  background: var(--green-600);
+  color: var(--white);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background var(--t);
+  align-self: center;
+  font-family: inherit;
+  border: none;
+}
+
+.error-banner__retry:hover { background: var(--green-700); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   21. SEARCH PAGE — PAGINATION  (improved)
+   ═══════════════════════════════════════════════════════════════════════════
+   A centred row of page number buttons generated by data.js. The active
+   page button uses the brand green fill; disabled prev/next buttons are
+   greyed out and non-interactive.
+*/
+/* Centre the pagination controls horizontally */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--sp-8);
+}
+
+/* Flex row of page buttons with a small gap between each */
+.pagination__list {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+/* Base style for every pagination button (both <a> and <button> elements) */
+.pagination__list li > *,
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 var(--sp-2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: var(--white);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background var(--t), border-color var(--t), color var(--t), box-shadow var(--t);
+  box-shadow: var(--shadow-xs);
+}
+
+/* Hover: light green tint and green border */
+.pagination__list li > *:hover,
+.page-btn:hover {
+  background: var(--green-50);
+  border-color: var(--green-300);
+  color: var(--green-800);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Active/current page: filled dark green, white text, green glow shadow */
+.pagination__list li > [aria-current="page"],
+.page-btn--active {
+  background: var(--green-800);
+  border-color: var(--green-800);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(27,94,32,.30);
+}
+
+/* Disabled prev/next buttons: greyed out, no pointer, no shadow */
+.pagination__list li > [disabled],
+.page-btn--disabled {
+  color: var(--grey-300);
+  border-color: var(--grey-200);
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   22. DETAIL PAGE — PAGE LAYOUT
+   ═══════════════════════════════════════════════════════════════════════════
+   Two-column CSS grid applied directly to <main>: a fluid main column for
+   the business card and notices, and a fixed 340px sidebar for the rating
+   guide. On tablet the grid collapses to a single column (section 34).
+*/
+.detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;  /* main content | fixed sidebar */
+  gap: var(--sp-8);
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-6) var(--sp-12);
+  align-items: stretch;   /* both columns grow to the same height */
+}
+
+/* Main column: flex column stacks its children vertically */
+.detail-col { min-width: 0; display: flex; flex-direction: column; }
+
+/* "Business Detail" page heading */
+.detail-heading {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-4);
+  letter-spacing: -0.01em;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   23. DETAIL PAGE — BACK BUTTON
+   ═══════════════════════════════════════════════════════════════════════════
+   A secondary button styled as an outlined pill that takes the user back to
+   the search results page.
+*/
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 7px 14px;
+  border: 1.5px solid var(--border-med);
+  border-radius: var(--r-sm);
+  background: var(--white);
+  margin-bottom: var(--sp-5);
+  transition: background var(--t), border-color var(--t);
+}
+
+/* The left-chevron SVG icon inside the button */
+.btn-back svg { color: var(--text-secondary); }
+
+/* Hover: light grey fill to show the button is interactive */
+.btn-back:hover {
+  background: var(--grey-100);
+  border-color: var(--grey-500);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   24. DETAIL PAGE — BUSINESS CARD (article)
+   ═══════════════════════════════════════════════════════════════════════════
+   The main business information panel. The .is-loading class is removed by
+   data.js once the record has been fetched and the fields are populated.
+   The large rating badge uses attribute selectors keyed on [value] to apply
+   the correct colour without extra modifier classes.
+*/
+/* Outer card container */
+.biz-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--sp-6);
+}
+
+/* Card header: badge on the left, name/tags/address on the right */
+.biz-card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: var(--sp-5) var(--sp-6) 0 var(--sp-6);
+  flex-wrap: wrap;   /* allows the header to wrap on very narrow viewports */
+}
+
+/* Large numeric rating badge: defaults to a neutral grey until data.js
+   populates the [value] attribute and the colour rules below apply. */
+.biz-rating-badge {
+  width: 74px;
+  height: 74px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-size: 2.375rem;
+  font-weight: 800;
+  color: var(--grey-700);
+  background: var(--grey-100);
+  border: 2px solid var(--grey-300);
+  line-height: 1;
+}
+
+/* Attribute selector rules: data.js sets [value] to "0"-"5" once loaded.
+   CSS then overrides the neutral grey with the correct rating colour. */
+.biz-rating-badge[value="5"] { background: var(--r5-bg); color: var(--white); border-color: transparent; }
+.biz-rating-badge[value="4"] { background: var(--r4-bg); color: var(--white); border-color: transparent; }
+.biz-rating-badge[value="3"] { background: var(--r3-bg); color: var(--white); border-color: transparent; }
+.biz-rating-badge[value="2"] { background: var(--r2-bg); color: var(--white); border-color: transparent; }
+.biz-rating-badge[value="1"] { background: var(--r1-bg); color: var(--white); border-color: transparent; }
+.biz-rating-badge[value="0"] { background: var(--r0-bg); color: var(--white); border-color: transparent; }
+
+/* Identity block to the right of the badge */
+.biz-card__identity {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: var(--sp-4);
+}
+
+/* Business name heading */
+.biz-card__name {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* Tags list: business type and rating status chips displayed inline */
+.biz-card__tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-bottom: 4px; }
+
+/* Base tag style: pill-shaped, subtle border */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.3;
+  border: 1px solid var(--border);
+  color: var(--grey-700);
+}
+
+/* Business type tag: green tint */
+.tag--type   { background: var(--green-100); color: var(--green-800); border-color: var(--green-200); }
+/* Rating status tag: uses the rated status colour tokens */
+.tag--status { background: var(--status-rated-bg); color: var(--status-rated-text); border: 1px solid var(--status-rated-border); }
+/* A tick character is prepended to the status tag via CSS */
+.tag--status::before { content: '✓ '; }
+
+/* Address line below the tags: map-pin icon + address text */
+.biz-card__addr {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  font-style: normal;
+}
+
+/* Horizontal divider between the card header and the detail table */
+.biz-divider { margin: 0; border-top-color: var(--border); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   25. DETAIL PAGE — DETAIL TABLE (dl)
+   ═══════════════════════════════════════════════════════════════════════════
+   A description list styled as a two-column table. The left column contains
+   the label (<dt>) and the right column contains the value (<dd>). data.js
+   populates the dd elements by matching their preceding dt text.
+*/
+/* Two-column grid: fixed label column + fluid value column */
+.biz-table {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  padding: 0 var(--sp-6);
+}
+
+/* Shared styles for both label and value cells */
+.biz-label,
+.biz-value {
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);  /* horizontal row separator */
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+
+/* No border on the very last row to avoid a double bottom border */
+.biz-table > .biz-label:last-of-type,
+.biz-table > .biz-value:last-of-type { border-bottom: none; }
+
+/* Label cell: subdued, slightly smaller, right padding creates a gutter */
+.biz-label { color: var(--text-secondary); font-weight: 500; padding-right: var(--sp-4); font-size: 0.875rem; line-height: 1.4; }
+/* Value cell: primary text colour, normal weight */
+.biz-value { color: var(--text-primary); font-weight: 400; }
+
+/* Hygiene rating row: meter bar and text label side by side */
+.biz-value .biz-rating-row { display: flex; align-items: center; gap: var(--sp-3); }
+
+/* Small coloured badge used within the rating row in some layouts */
+.biz-value-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+/* One colour per rating level for the value badge */
+.biz-value-badge--5 { background: var(--r5-bg); }
+.biz-value-badge--4 { background: var(--r4-bg); }
+.biz-value-badge--3 { background: var(--r3-bg); }
+.biz-value-badge--2 { background: var(--r2-bg); }
+.biz-value-badge--1 { background: var(--r1-bg); }
+.biz-value-badge--0 { background: var(--r0-bg); }
+
+/* <meter> element styled as a thin horizontal bar with brand green accent */
+.biz-rating-meter { display: block; width: 120px; height: 6px; margin-top: var(--sp-1); accent-color: var(--green-600); }
+
+/* Rating label text beside the meter bar */
+.biz-rating-label { font-weight: 600; color: var(--text-primary); }
+
+/* Rating date: standard size, inherits from .biz-value */
+.biz-rating-date  { font-size: 0.875rem; }
+
+/* Rating status chip: pill-shaped, default uses rated (green) colours.
+   data.js may replace this with a different chip for other statuses. */
+.biz-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--status-rated-bg);
+  color: var(--status-rated-text);
+  border: 1px solid var(--status-rated-border);
+}
+
+/* Default tick prepended to the status chip via CSS */
+.biz-status-chip::before { content: '✓ '; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   26. DETAIL PAGE — STATUS NOTICES
+   ═══════════════════════════════════════════════════════════════════════════
+   Three notice panels (pending, awaiting, exempt) beneath the business card.
+   data.js sets el.style.display to show or hide each one based on the
+   business record's fields. Each uses a distinct colour scheme.
+*/
+/* Section wrapper: top margin separates it from the business card above */
+.detail-section { margin-top: var(--sp-6); }
+
+/* Section heading row with an optional sub-label */
+.detail-section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Subdued sub-label text after the heading, e.g. "(hidden by default)" */
+.detail-section-title__sub { font-size: 0.82rem; color: var(--text-muted); font-weight: 400; margin-left: var(--sp-2); }
+
+/* Base notice style: horizontal flex with an icon and a text block */
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--r-md);
+  margin-top: var(--sp-3);
+  border: 1.5px solid transparent;   /* colour applied by modifier below */
+  width: 100%;
+}
+
+/* Icon wrapper inside the notice */
+.notice__figure { display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.25rem; line-height: 1; margin: 0; padding-top: 2px; }
+.notice__icon { font-size: 1.25rem; line-height: 1; display: block; }
+.notice p { flex: 1; margin: 0; }
+/* Bold notice title */
+.notice__title { display: block; font-weight: 700; font-size: 0.9375rem; margin-bottom: var(--sp-1); }
+/* Descriptive text below the title */
+.notice__desc { font-size: 0.875rem; line-height: 1.55; display: block; }
+
+/* Pending notice: yellow/amber theme */
+.notice--pending  { background: #fffde7; border-color: #ffe082; }
+.notice--pending .notice__title { color: #F57F17; }
+.notice--pending .notice__desc  { color: #F57F17; }
+
+/* Awaiting inspection notice: purple theme */
+.notice--awaiting { background: #ede7f6; border-color: #b39ddb; }
+.notice--awaiting .notice__title { color: #4527a0; }
+.notice--awaiting .notice__desc  { color: #4527a0; }
+
+/* Exempt notice: blue theme */
+.notice--exempt { background: #e3f2fd; border-color: #90caf9; }
+.notice--exempt .notice__title { color: #1565c0; }
+.notice--exempt .notice__desc  { color: #1565c0; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   27. DETAIL PAGE — RIGHT SIDEBAR
+   ═══════════════════════════════════════════════════════════════════════════
+   Sticky sidebar containing a condensed rating guide so the user can
+   interpret the score without leaving the detail page. Stickiness is
+   removed on tablet (section 34).
+*/
+
+/* Sidebar sticks below the fixed header as the user scrolls */
+.detail-sidebar { position: sticky; top: calc(var(--header-h) + var(--sp-5)); }
+
+/* Card container inside the sidebar */
+.sidebar-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Card heading at the top of the sidebar */
+.sidebar-card__title { font-family: var(--font-display); font-size: 1.0625rem; font-weight: 700; color: var(--text-primary); padding: var(--sp-6) var(--sp-6) var(--sp-2); line-height: 1.3; }
+
+/* Introductory paragraph below the card heading */
+.sidebar-card__intro { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; padding: var(--sp-3) var(--sp-6) var(--sp-5); border-bottom: 1px solid var(--border); margin: 0; }
+
+/* Rating guide list inside the sidebar */
+.rating-guide-list { padding: var(--sp-3) var(--sp-6); display: flex; flex-direction: column; }
+
+/* Individual rating guide item: badge + text side by side */
+.rg-item { display: flex; align-items: flex-start; gap: var(--sp-4); padding: var(--sp-4) 0; border-bottom: 1px solid var(--grey-100); }
+.rg-item > p { flex: 1; min-width: 0; margin: 0; line-height: 1.4; }
+/* Hide any <br> elements inside the item paragraph to prevent unwanted line breaks */
+.rg-item > p br { display: none; }
+/* No border on the last item */
+.rg-item:last-child { border-bottom: none; }
+
+/* Coloured numeric badge at the start of each guide item */
+.rg-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: var(--r-sm);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 1px;  /* aligns the badge optically with the first line of text */
+}
+
+/* One colour per rating using the shared tokens */
+.rg-badge--5 { background: var(--r5-bg); }
+.rg-badge--4 { background: var(--r4-bg); }
+.rg-badge--3 { background: var(--r3-bg); }
+.rg-badge--2 { background: var(--r2-bg); }
+.rg-badge--1 { background: var(--r1-bg); }
+.rg-badge--0 { background: var(--r0-bg); }
+
+/* Rating name title in bold, above the description */
+.rg-title { display: block; font-size: 0.9375rem; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+/* Short description of what the rating means */
+.rg-desc { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.55; }
+
+/* Sub-heading row above the special status items in the sidebar */
+.sidebar-card__sub { font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.07em; padding: var(--sp-3) var(--sp-5) var(--sp-2); border-top: 1px solid var(--border); }
+
+/* List of special status items (awaiting, pending, exempt) in the sidebar */
+.sp-list { padding: 0 var(--sp-5) var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-2); }
+
+/* Individual special status item: left accent border and tinted background */
+.sp-item { padding: var(--sp-3); border-radius: var(--r-sm); border-left: 3px solid transparent; font-size: 0.8125rem; }
+.sp-item strong { display: block; font-weight: 700; margin-bottom: 3px; font-size: 0.8125rem; }
+.sp-item p { color: var(--text-secondary); font-size: 0.78rem; line-height: 1.45; }
+
+/* Colour themes for each special status */
+.sp-item--awaiting { background: var(--purple-bg);  border-color: var(--purple-text); }
+.sp-item--awaiting strong { color: var(--purple-text); }
+.sp-item--pending  { background: var(--warning-bg); border-color: var(--warning-text); }
+.sp-item--pending strong  { color: var(--warning-text); }
+.sp-item--exempt   { background: var(--grey-100);   border-color: var(--grey-500); }
+.sp-item--exempt strong   { color: var(--grey-700); }
+
+/* "View Full Rating Guide" button at the bottom of the sidebar card */
+.btn-full-guide {
+  display: block;
+  margin: var(--sp-3) var(--sp-5) var(--sp-5);
+  padding: 9px var(--sp-4);
+  background: var(--green-600);
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--r-sm);
+  text-align: center;
+  text-decoration: none;
+  transition: background var(--t);
+}
+
+.btn-full-guide:hover { background: var(--green-700); color: var(--white); text-decoration: none; }
+
+/* FHRS badge image displayed at the bottom of the sidebar */
+.fhrs-img { display: block; max-height: 110px; margin: var(--sp-4) auto; object-fit: contain; }
+
+/* Fallback FHRS badge block: shown by data.js if the image fails to load.
+   Displays the numeric score in the same green square style. */
+#fhrs-fb {
+  display: none;      /* hidden by default; data.js switches to display:flex if needed */
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  background: var(--green-700);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  border-radius: var(--r-md);
+  margin: var(--sp-4) auto;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   28. RATING GUIDE — PAGE HERO BANNER
+   ═══════════════════════════════════════════════════════════════════════════
+   A simpler hero banner used on the Rating Guide page. No decorative
+   pseudo-elements, just a two-stop green gradient with centred text.
+*/
+.page-hero {
+  background: linear-gradient(160deg, var(--green-900) 0%, var(--green-700) 100%);
+  padding: var(--sp-10) var(--sp-6) var(--sp-8);
+  text-align: center;
+  color: var(--white);
+}
+
+/* Fluid heading: clamp() scales between 1.75rem and 2.5rem */
+.page-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--sp-2);
+}
+
+/* Subtitle below the heading */
+.page-hero__sub { font-size: 1rem; color: rgba(255,255,255,.80); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   29. RATING GUIDE — GUIDE WRAP & INTRO CALLOUT
+   ═══════════════════════════════════════════════════════════════════════════
+   The guide content is narrower than other pages (max-width: 800px) to keep
+   the reading line length comfortable. The intro callout uses a light border
+   to distinguish it from the page background.
+*/
+/* Narrow max-width for comfortable reading of the guide content */
+.guide-wrap { max-width: 800px; margin: 0 auto; padding: var(--sp-8) var(--sp-6) var(--sp-16); }
+
+/* Introductory aside box below the hero banner */
+.guide-intro {
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-lg);
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  line-height: 1.7;
+  margin-bottom: var(--sp-8);
+}
+
+.guide-intro strong { color: var(--text-primary); font-weight: 700; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   30. RATING GUIDE — IN-PAGE TOC NAV
+   ═══════════════════════════════════════════════════════════════════════════
+   A row of pill links that scroll the page to the corresponding rating card
+   when clicked. Each pill contains a small coloured badge matching the
+   rating card colour system.
+*/
+.guide-toc { margin-bottom: var(--sp-8); }
+
+/* Wrapping flex row of TOC pill links */
+.guide-toc__list { display: flex; flex-wrap: wrap; gap: var(--sp-2); padding: 0; }
+
+/* Individual TOC pill link */
+.guide-toc__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 6px 14px 6px 8px;  /* less left padding to pull the badge close to the edge */
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-pill);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: border-color var(--t), box-shadow var(--t);
+}
+
+.guide-toc__link:hover { border-color: var(--green-400); box-shadow: var(--shadow-xs); color: var(--text-primary); text-decoration: none; }
+
+/* Small badge inside each TOC link: uses the shared colour tokens */
+.guide-toc__link data,
+.guide-toc__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+/* Colour each TOC badge according to its rating level */
+.guide-toc__link--5 data, .guide-toc__link--5 .guide-toc__badge { background: var(--r5-bg); }
+.guide-toc__link--4 data, .guide-toc__link--4 .guide-toc__badge { background: var(--r4-bg); }
+.guide-toc__link--3 data, .guide-toc__link--3 .guide-toc__badge { background: var(--r3-bg); }
+.guide-toc__link--2 data, .guide-toc__link--2 .guide-toc__badge { background: var(--r2-bg); }
+.guide-toc__link--1 data, .guide-toc__link--1 .guide-toc__badge { background: var(--r1-bg); }
+.guide-toc__link--0 data, .guide-toc__link--0 .guide-toc__badge { background: var(--r0-bg); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   31. RATING GUIDE — RATING CARDS
+   ═══════════════════════════════════════════════════════════════════════════
+   Each rating level is its own <article> inside the <ol>.
+   A coloured left border is applied via [data-score] attribute selectors,
+   keyed off the score value set in the HTML. scroll-margin-top ensures
+   that the sticky header does not overlap a card when the user navigates
+   to it via a TOC anchor link.
+*/
+/* Vertical stack of rating cards */
+.guide-cards-list { display: flex; flex-direction: column; gap: var(--sp-5); margin-bottom: var(--sp-10); padding: 0; }
+
+/* Individual rating card: two-column grid with badge on the left */
+.guide-card {
+  display: grid;
+  grid-template-columns: 72px 1fr;  /* fixed badge column | fluid info column */
+  gap: var(--sp-5);
+  align-items: start;
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow var(--t);
+  /* Offset for the sticky header when scrolled to via anchor link */
+  scroll-margin-top: calc(var(--header-h) + var(--sp-4));
+}
+
+.guide-card:hover { box-shadow: var(--shadow-sm); }
+
+/* Left border colour keyed off the data-score attribute */
+.guide-card[data-score="5"] { border-left: 4px solid var(--r5-bg); }
+.guide-card[data-score="4"] { border-left: 4px solid var(--r4-bg); }
+.guide-card[data-score="3"] { border-left: 4px solid var(--r3-bg); }
+.guide-card[data-score="2"] { border-left: 4px solid var(--r2-bg); }
+.guide-card[data-score="1"] { border-left: 4px solid var(--r1-bg); }
+.guide-card[data-score="0"] { border-left: 4px solid var(--r0-bg); }
+
+/* Large numeric badge on the left of the card */
+.guide-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--r-md);
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+/* Badge colour keyed off the parent card's data-score attribute */
+.guide-card[data-score="5"] .guide-badge { background: var(--r5-bg); }
+.guide-card[data-score="4"] .guide-badge { background: var(--r4-bg); }
+.guide-card[data-score="3"] .guide-badge { background: var(--r3-bg); }
+.guide-card[data-score="2"] .guide-badge { background: var(--r2-bg); }
+.guide-card[data-score="1"] .guide-badge { background: var(--r1-bg); }
+.guide-card[data-score="0"] .guide-badge { background: var(--r0-bg); }
+
+/* Info block to the right of the badge */
+.guide-info { min-width: 0; }
+
+/* Rating level heading inside the info block */
+.guide-info h2 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-2);
+  letter-spacing: -0.01em;
+}
+
+/* Short description paragraph below the heading */
+.guide-info > p { font-size: 0.9rem; color: var(--text-primary); line-height: 1.65; margin-bottom: var(--sp-3); }
+
+/* Blockquote explaining what the rating means in practice.
+   A thicker left border distinguishes it from the description paragraph. */
+.guide-meaning {
+  background: var(--grey-50);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: var(--sp-3) var(--sp-4);
+  margin: 0;
+  border-left: 3px solid var(--border-med);  /* accent border on the left */
+}
+
+.guide-meaning p { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+.guide-meaning strong { color: var(--text-primary); font-weight: 700; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   32. RATING GUIDE — SPECIAL STATUSES SECTION
+   ═══════════════════════════════════════════════════════════════════════════
+   Three cards explaining the non-numeric statuses a business can have:
+   Awaiting Inspection, New Rating Pending, and Exempt.
+   They sit in a three-column grid below the rating cards.
+*/
+/* Top border separates this section from the rating cards above */
+.statuses-section { padding-top: var(--sp-8); border-top: 1.5px solid var(--border); }
+
+/* Section heading */
+.statuses-section > h2 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--sp-5); letter-spacing: -0.01em; }
+
+/* Three equal-width cards in a row */
+.status-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+
+/* Individual status card */
+.status-card { padding: var(--sp-5); background: var(--white); border: 1.5px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-xs); }
+.status-card__figure { margin: 0 0 var(--sp-3); }  /* space below the icon figure */
+.status-card__icon { font-size: 1.75rem; display: block; line-height: 1; }
+/* Status card heading */
+.status-card h3 { font-size: 0.9375rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--sp-2); }
+/* Status card description text */
+.status-card p { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   33. SHARED — RATING BADGE COLOUR SYSTEM
+   ═══════════════════════════════════════════════════════════════════════════
+   Generic utility classes and attribute selectors that apply the correct
+   rating colour to any element with a [data-rating] attribute or a .badge-N
+   class. These act as a fallback for dynamically generated content.
+*/
+/* Base badge style: centred content, display font, white text */
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-sm);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+}
+
+/* Attribute selector and utility class for each rating level.
+   [data-rating="N"] can be applied to any element; .badge-N is a fallback class. */
+[data-rating="5"], .badge-5 { background: var(--r5-bg); color: #fff; }
+[data-rating="4"], .badge-4 { background: var(--r4-bg); color: #fff; }
+[data-rating="3"], .badge-3 { background: var(--r3-bg); color: #fff; }
+[data-rating="2"], .badge-2 { background: var(--r2-bg); color: #fff; }
+[data-rating="1"], .badge-1 { background: var(--r1-bg); color: #fff; }
+[data-rating="0"], .badge-0 { background: var(--r0-bg); color: #fff; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   34. RESPONSIVE — TABLET (≤ 1023px)
+   ═══════════════════════════════════════════════════════════════════════════
+   Collapses multi-column grids to fewer columns and removes sticky
+   positioning from elements that cannot fit the two-column layout.
+*/
+@media (max-width: 1023px) {
+
+  /* Statistics bar: four columns collapse to two */
+  .stats-bar__grid { grid-template-columns: repeat(2, 1fr); }
+  /* Remove the right border from item 2 (now the last in its row) */
+  .stats-bar__item:nth-child(2) { border-right: none; }
+  /* Add a bottom border to items 1 and 2 to separate the two rows */
+  .stats-bar__item:nth-child(1),
+  .stats-bar__item:nth-child(2) { border-bottom: 1px solid var(--border); }
+
+  /* Browse grid: six columns collapse to three */
+  .type-grid { grid-template-columns: repeat(3, 1fr); }
+
+  /* Search page: drop the sidebar into a single-column stack */
+  .results-layout { grid-template-columns: 1fr; }
+  /* Remove sticky positioning so the filter panel sits naturally in the flow */
+  .filter-panel { position: static; }
+
+  /* Detail page: drop the sidebar below the main column */
+  .detail-layout { grid-template-columns: 1fr; max-width: 640px; }
+  /* Remove sticky positioning from the sidebar */
+  .detail-sidebar { position: static; }
+
+  /* Special statuses grid: three columns collapse to two */
+  .status-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Footer main: three columns collapse to two.
+     The brand section spans both columns. */
+  .footer-main { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   35. RESPONSIVE — MOBILE (≤ 767px)
+   ═══════════════════════════════════════════════════════════════════════════
+   Full mobile layout: single-column grids, stacked search form, animated
+   slide-down navigation panel, and smaller typography throughout.
+*/
+@media (max-width: 767px) {
+
+  /* Reduce header padding on small screens */
+  .site-header { padding: 0 var(--sp-4); gap: var(--sp-3); }
+  .site-header__name { font-size: 0.9rem; }
+
+  /* Show hamburger on mobile */
+  .nav-toggle { display: flex; }
+
+  /* Mobile nav panel — hidden by default, animated open via max-height.
+     max-height animation is used instead of height so the element can
+     be animated from 0 to auto-height in pure CSS. */
+  .primary-nav {
+    position: fixed;
+    top: var(--nav-top, var(--header-h));   /* fallback to --header-h if --nav-top is not set */
+    left: 0;
+    right: 0;
+    z-index: 201;  /* above header (200) so panel is visible */
+    background: var(--green-900);
+    overflow: hidden;
+    max-height: 0;         /* collapsed by default */
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity    0.24s ease,
+                transform  0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 12px 32px rgba(0,0,0,.40);
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+
+  /* .is-open is added by Main.js when the hamburger is clicked */
+  .primary-nav.is-open {
+    max-height: 320px;   /* enough to show all four nav items */
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile nav list: vertical column filling the panel width */
+  .primary-nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+
+  /* Mobile nav links: full-width rows with a left accent border */
+  .primary-nav__link {
+    display: flex;
+    align-items: center;
+    padding: 14px 24px;
+    color: rgba(255,255,255,.88);
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: background 0.15s ease, color 0.15s ease, padding-left 0.18s ease;
+    border-left: 3px solid transparent;  /* accent border shown on hover/active */
+    border-bottom: 1px solid rgba(255,255,255,.06);   /* hairline separator between links */
+    border-radius: 0;
+  }
+
+  /* No bottom border on the last link */
+  .primary-nav__link:last-child { border-bottom: none; }
+
+  /* Hover and focus: slide the link text right and show the accent border */
+  .primary-nav__link:hover,
+  .primary-nav__link:focus-visible {
+    background: rgba(255,255,255,.10);
+    color: #ffffff;
+    padding-left: 30px;
+    border-left-color: rgba(255,255,255,.6);
+    outline: none;
+  }
+
+  /* Active/current page link in the mobile nav */
+  .primary-nav__link--active,
+  .primary-nav__link[aria-current="page"] {
+    color: #ffffff;
+    background: rgba(255,255,255,.14);
+    border-left-color: #a5d6a7;   /* light green accent for the active indicator */
+    font-weight: 600;
+    padding-left: 28px;
+  }
+
+  /* Nav list items — always visible, no staggered opacity trap */
+  .primary-nav__list li {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hamburger bars — animate to × */
+  .nav-toggle__bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity   0.20s ease;
+    transform-origin: center;
+  }
+
+  /* When open: top bar rotates to form the top stroke of the X */
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  /* Middle bar vanishes */
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  /* Bottom bar rotates to form the bottom stroke of the X */
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Hero: reduced padding on small screens */
+  .hero { padding: 52px var(--sp-4) 48px; }
+
+  /* Search form on mobile: stacks vertically instead of a horizontal pill */
+  .hero-form { flex-direction: column; border-radius: var(--r-lg); overflow: hidden; max-width: 100%; }
+  /* Icon hidden in the stacked layout to save space */
+  .hero-form__icon { display: none; }
+  /* Input fills the top of the stacked form */
+  .hero-form__input { border-radius: var(--r-lg) var(--r-lg) 0 0; padding: 14px var(--sp-4); width: 100%; }
+  /* Submit button fills the bottom of the stacked form */
+  .hero-form__btn { border-radius: 0 0 var(--r-lg) var(--r-lg); width: 100%; text-align: center; padding: 14px var(--sp-4); }
+
+  /* Stats bar: remove outer padding; two columns instead of four */
+  .stats-bar { padding: 0; }
+  .stats-bar__grid { grid-template-columns: 1fr 1fr; }
+  .stats-bar__item { padding: var(--sp-4); gap: var(--sp-3); }
+  /* Border adjustments for the 2x2 grid on mobile */
+  .stats-bar__item:nth-child(1) { border-bottom: 1px solid var(--border); }
+  .stats-bar__item:nth-child(2) { border-right: none; border-bottom: 1px solid var(--border); }
+  .stats-bar__item:nth-child(3) { border-bottom: none; }
+  /* Smaller number text to fit two columns */
+  .stats-bar__num { font-size: 1.1rem; }
+
+  /* Browse section: two columns instead of six */
+  .browse-section { padding: var(--sp-8) var(--sp-4); }
+  .type-grid { grid-template-columns: repeat(2, 1fr); gap: var(--sp-3); }
+
+  /* Ratings section: pills stack vertically */
+  .ratings-section { padding: var(--sp-8) var(--sp-4); }
+  .rating-pills { flex-direction: column; align-items: stretch; max-width: 100%; }
+  .rating-pill-link { justify-content: flex-start; }
+
+  /* Search page: reduce padding */
+  .search-page-wrap { padding: var(--sp-4); }
+  .results-layout { gap: var(--sp-4); margin-top: var(--sp-4); }
+
+  /* Cards on mobile — stack badge above info */
+  /* Slightly smaller badge and padding for narrower screens */
+  .result-card__link article {
+    grid-template-columns: 48px 1fr auto;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+  }
+
+  .rc-badge { width: 48px; height: 48px; font-size: 1.375rem; }
+
+  /* Detail page: full width, reduced padding */
+  .detail-layout { padding: var(--sp-4); gap: var(--sp-5); max-width: 100%; }
+
+  /* Detail table: single column on mobile.
+     Labels become small muted captions above their values. */
+  .biz-table { grid-template-columns: 1fr; }
+  .biz-label { border-bottom: none; padding-bottom: 2px; font-size: 0.75rem; color: var(--text-muted); padding-top: var(--sp-3); }
+  .biz-value { padding-top: 2px; }
+  /* Slightly smaller badge in the card header on mobile */
+  .biz-rating-badge { width: 60px; height: 52px; font-size: 1.6rem; }
+
+  /* Rating guide: reduced padding, smaller cards */
+  .guide-wrap { padding: var(--sp-5) var(--sp-4) var(--sp-10); }
+  .guide-card { grid-template-columns: 52px 1fr; gap: var(--sp-3); padding: var(--sp-4); }
+  .guide-badge { width: 48px; height: 48px; font-size: 1.75rem; }
+  /* Special statuses: single column instead of three */
+  .status-grid { grid-template-columns: 1fr; }
+  /* TOC pills can wrap freely on narrow screens */
+  .guide-toc__list { flex-wrap: wrap; }
+
+  /* Footer: stacked layout on mobile */
+  .footer-certs { flex-direction: column; align-items: flex-start; padding: var(--sp-5) var(--sp-4); gap: var(--sp-4); }
+  .footer-certs__links { margin-left: 0; }  /* remove the auto margin that pushed links to the right on desktop */
+  .footer-main { grid-template-columns: 1fr; padding: var(--sp-6) var(--sp-4); gap: var(--sp-5); }
+  .footer-brand { grid-column: auto; }  /* reset the span-all-columns from the tablet breakpoint */
+  .footer-copy { padding: var(--sp-4); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   36. SEARCH PAGE — RESULT CARD LINK & BUG-FIX RULES
+   (moved from inline <style> in Search.html)
+   ═══════════════════════════════════════════════════════════════════════════
+   Additional result card rules consolidated here from the HTML file to keep
+   all styles in one place and avoid specificity conflicts.
+*/
+/* Ensure the card uses position:relative so child elements can be absolutely
+   positioned inside it if needed in future iterations. */
+.result-card { position: relative; }
+.result-card__link { display: block; text-decoration: none; color: inherit; }
+
+/* Underline the business name on hover and focus for a clear link affordance */
+.result-card__link:hover .rc-name,
+.result-card__link:focus  .rc-name { text-decoration: underline; }
+
+/* Remove the default outline from the link; the card border handles focus */
+.result-card__link:hover,
+.result-card__link:focus  { outline: none; }
+
+/* When the inner link is focused, the card gets the brand focus ring.
+   The non-:focus-visible version (without Visible) is used here to cover
+   older browsers that do not support :has() with :focus-visible. */
+.result-card:has(.result-card__link:focus) { outline: 2px solid var(--green-600); outline-offset: 2px; }
+
+/* Override the grid layout with flex for a simpler card layout in this context */
+.result-card__link article { display: flex; align-items: center; gap: 0.9rem; padding: 0.85rem 1rem; }
+
+/*
+  BUG FIX v2.0.1 — Hide no-results / error-banner when result cards exist.
+  LAYER 1 - CSS (primary, cannot be overridden by JS hidden/display):
+  When .results-list:not(:empty) is true, both siblings are hidden via
+  display:none !important — this wins over any JS style mutation.
+*/
+/* Use the general sibling combinator (~) to target both panels that
+   immediately follow the results list in the DOM. */
+.results-list:not(:empty) ~ #no-results,
+.results-list:not(:empty) ~ #error-banner {
+  display:    none !important;
+  visibility: hidden !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   37. MOBILE NAV ENHANCEMENTS — consolidated into section 35 above
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   38. DETAIL PAGE — DEMO NOTICE BANNER
+   (moved from inline <style> in Business-Detail.html)
+   ═══════════════════════════════════════════════════════════════════════════
+   A yellow warning strip shown at the top of Business-Detail.html when
+   no ?id= parameter is present in the URL, indicating the page is in
+   demo mode with a sample business record.
+*/
+.demo-notice {
+  display: none;                   /* hidden by default */
+  background: #fff8e1;
+  border-left: 4px solid #f9a825; /* amber left accent border */
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+/* .is-visible is toggled by data.js when no ?id= is found in the URL */
+.demo-notice.is-visible { display: block; }
+.demo-notice strong { color: #333; }
+.demo-notice a { color: #2e7d32; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   39. DETAIL PAGE — BUSINESS SELECTOR (shown when no ?id= in URL)
+   ═══════════════════════════════════════════════════════════════════════════
+   A search/select panel rendered by data.js when no ?id= query parameter
+   is present, allowing the user to choose a business from a dropdown or
+   search by name rather than navigating back to the search page.
+*/
+/* Outer wrapper card */
+.biz-selector-wrap {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5) var(--sp-6);
+  margin-bottom: var(--sp-5);
+  box-shadow: var(--shadow-xs);
+}
+
+/* Label above the selector controls */
+.biz-selector__label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-3);
+}
+
+/* Vertical stack of search input and select dropdown */
+.biz-selector__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* Search text input inside the selector */
+.biz-selector__input {
+  width: 100%;
+  padding: 10px var(--sp-4);
+  border: 1.5px solid var(--border-med);
+  border-radius: var(--r-md);
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  background: var(--white);
+  outline: none;
+  transition: border-color var(--t), box-shadow var(--t);
+}
+
+/* Focus ring: green border with a matching glow */
+.biz-selector__input:focus {
+  border-color: var(--green-500);
+  box-shadow: 0 0 0 3px rgba(46,125,50,.12);
+}
+
+.biz-selector__input::placeholder { color: var(--text-muted); }
+/* Hide the browser's native clear button on webkit search inputs */
+.biz-selector__input::-webkit-search-cancel-button { display: none; }
+
+/* Native <select> dropdown below the search input */
+.biz-selector__select {
+  width: 100%;
+  padding: 10px var(--sp-4);
+  border: 1.5px solid var(--border-med);
+  border-radius: var(--r-md);
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  background: var(--white);
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--t), box-shadow var(--t);
+  appearance: auto;   /* preserves the native OS dropdown arrow */
+}
+
+/* Focus ring matches the text input focus style */
+.biz-selector__select:focus {
+  border-color: var(--green-500);
+  box-shadow: 0 0 0 3px rgba(46,125,50,.12);
+}
+
+/* Mobile: tighter padding inside the selector wrapper */
+@media (max-width: 767px) {
+  .biz-selector-wrap { padding: var(--sp-4); }
+}
