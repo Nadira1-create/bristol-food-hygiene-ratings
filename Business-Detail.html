@@ -1,0 +1,677 @@
+<!-- ===============================================================
+     Business-Detail.html
+     Bristol Food Hygiene Insights
+     ---------------------------------------------------------------
+     Purpose: Displays full hygiene rating and inspection details for
+     a single food business. Business data is injected at runtime by
+     data.js using the ?id= query parameter in the URL.
+     If no ID is provided, a demo-mode notice is shown and a sample
+     entry from the dataset is displayed instead.
+
+     Linked resources:
+       css/Style.css  - Global stylesheet (custom properties, layout)
+       data.js        - Fetches data, populates the page, controls notices
+       Main.js        - Handles the mobile navigation toggle behaviour
+
+     Accessibility:
+       lang="en-GB" declares British English to screen readers.
+       Skip link targets #main-content for keyboard users.
+       aria-label, aria-live, aria-current and role attributes are
+       used throughout to support assistive technology.
+=============================================================== -->
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <!-- Character encoding declared first so the browser interprets
+       all subsequent characters correctly -->
+  <meta charset="UTF-8">
+  <!-- Responsive viewport: prevents mobile browsers scaling the layout
+       and ensures correct display on all screen sizes -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Page description shown in search engine results -->
+  <meta name="description" content="View food hygiene rating details for a specific business in Bristol.">
+  <!-- Author attribution for this page -->
+  <meta name="author" content="Bristol Food Hygiene Insights">
+  <!-- Open Graph meta tags control how this page appears when shared
+       on social media platforms such as Facebook and LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content="Business Detail – Bristol Food Hygiene">
+  <title>Business Detail – Bristol Food Hygiene</title>
+  <!-- Preconnect hints establish early connections to Google Fonts servers,
+       reducing latency when the font stylesheets are requested below -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google Fonts stylesheet:
+       Fraunces - used for headings (serif, display typeface)
+       DM Sans  - used for body text (clean, modern sans-serif) -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+  <!-- Global stylesheet containing custom properties, layout grid and
+       all shared component styles used across the site -->
+  <link rel="stylesheet" href="css/Style.css">
+  <!-- Favicon displayed in the browser tab and bookmarks -->
+  <link rel="icon" type="image/png" href="Assets/Icons/Logo.png">
+  <style>
+    /* ── No-business-selected empty state ── */
+    .no-biz-state {
+      display: none; /* shown by data.js showBusinessSelector() */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: var(--sp-5);
+      padding: var(--sp-16) var(--sp-10);
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-md);
+    }
+
+    .no-biz-state__icon-wrap {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--green-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .no-biz-state__icon-wrap svg { stroke: var(--green-700); }
+
+    .no-biz-state__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .no-biz-state__desc {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      max-width: 38ch;
+      margin: calc(var(--sp-1) * -1) 0 0;
+    }
+
+    .no-biz-state__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      padding: 0.7rem 1.75rem;
+      border-radius: var(--r-pill);
+      background: var(--green-800);
+      color: var(--white);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background var(--t-md), box-shadow var(--t-md), transform var(--t-md);
+      box-shadow: 0 2px 8px rgba(29,107,44,.25);
+      margin-top: var(--sp-2);
+    }
+    .no-biz-state__cta:hover,
+    .no-biz-state__cta:focus-visible {
+      background: var(--green-900);
+      color: var(--white);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(29,107,44,.35);
+    }
+
+    .no-biz-state__hint {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-top: calc(var(--sp-2) * -1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip link: allows keyboard and screen reader users to bypass the
+       site header and jump straight to the main content area.
+       Visually hidden until focused, controlled by .skip-link in Style.css -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ===============================================================
+       SITE HEADER
+       .site-header  - used by Main.js focus-outside handler
+       #nav-toggle   - used by data.js initNavToggle()
+       #primary-nav  - used by data.js initNavToggle()
+  =============================================================== -->
+  <header class="site-header">
+
+    <a href="index.html" class="site-header__brand"
+       aria-label="Bristol Food Hygiene – go to home page">
+      <img class="site-header__logo"
+           src="Assets/Icons/Logo.png"
+           alt=""
+           aria-hidden="true"
+           width="36" height="36">
+      <span class="site-header__name">Bristol Food Hygiene</span>
+    </a>
+
+    <button id="nav-toggle"
+            type="button"
+            class="nav-toggle"
+            aria-expanded="false"
+            aria-controls="primary-nav"
+            aria-label="Open navigation menu">
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+    </button>
+
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <ul class="primary-nav__list">
+        <li><a class="primary-nav__link" href="index.html">Home</a></li>
+        <li><a class="primary-nav__link" href="Search.html">Search</a></li>
+        <li><a class="primary-nav__link primary-nav__link--active" href="Business-Detail.html" aria-current="page">Detail</a></li>
+        <li><a class="primary-nav__link" href="Rating-Guide.html">Rating Guide</a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+
+  <!-- ===============================================================
+       DEMO-MODE NOTICE BANNER
+       id="demo-notice" - data.js adds .is-visible when no ?id= in URL
+  =============================================================== -->
+  <!-- <aside> is used here because this notice is supplementary content
+       tangentially related to the main page content.
+       role="note" and aria-live="polite" ensure screen readers announce
+       the message without interrupting the user -->
+  <aside id="demo-notice" class="demo-notice" role="note" aria-live="polite">
+    <p>
+      <strong>Demo mode:</strong> No business ID was provided.
+      Showing a sample entry from the dataset.
+      <a href="Search.html">Search for a real business &rarr;</a>
+    </p>
+  </aside>
+
+
+  <!-- ===============================================================
+       MAIN CONTENT
+       detail-layout applies the two-column CSS grid directly on <main>
+       removing the need for a wrapper element entirely.
+  =============================================================== -->
+  <!-- id="main-content" is the target of the skip link above.
+       The CSS class detail-layout sets up the two-column grid:
+       left column for business details, right sidebar for the rating guide -->
+  <main id="main-content" class="detail-layout">
+
+    <!-- Left column: contains the business information card and
+         all three conditional status notices -->
+    <!-- Left column -->
+    <section class="detail-col" aria-label="Business information">
+
+      <!-- Page heading for the left detail column -->
+      <h1 class="detail-heading">Business Detail</h1>
+
+      <!-- Back link navigates the user to the Search results page.
+           The SVG chevron icon is decorative and hidden from assistive technology -->
+      <a href="Search.html" class="btn-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back to results
+      </a>
+
+
+      <!-- No-selection empty state.
+        Shown by showBusinessSelector() in data.js when no ?id= present.
+        Hidden by populateDetailPage() once a business loads.
+      -->
+      <section id="no-business-selected" class="no-biz-state" aria-live="polite" aria-labelledby="no-biz-title">
+
+        <span class="no-biz-state__icon-wrap" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+               stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </span>
+
+        <h2 class="no-biz-state__title" id="no-biz-title">No business selected</h2>
+
+        <p class="no-biz-state__desc">
+          Search for a Bristol food business and click it
+          to view its hygiene rating and full inspection details here.
+        </p>
+
+        <a href="Search.html" class="no-biz-state__cta">
+          Go to Search
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </a>
+
+        <p class="no-biz-state__hint">Or use the Back to results link above</p>
+
+      </section>
+
+
+      <!-- Business Card
+        article.biz-card         - data.js removes .is-loading once populated
+        data.biz-rating-badge    - data.js sets textContent, [value], aria-label
+        h2.biz-card__name        - data.js sets textContent
+        ul.biz-card__tags        - data.js sets innerHTML with <li><span class="tag ...">
+        p.biz-card__addr > span  - data.js sets textContent of the inner <span>
+        dl.biz-table             - data.js iterates .biz-label dt elements
+      -->
+      <!-- <article> is appropriate here because the business card is a
+           self-contained piece of content that makes sense independently.
+           .is-loading is removed by data.js once the data has been fetched.
+           aria-labelledby links the article to the business name heading -->
+      <article class="biz-card is-loading" aria-labelledby="biz-name">
+
+        <header class="biz-card__header">
+
+          <!--
+            <data> is semantically correct for a machine-readable value
+            with a human-readable representation.
+            The [value] attribute is updated by data.js; CSS uses it for colour.
+            role="img" added so aria-label is permitted on the element.
+          -->
+          <!-- Rating badge displayed prominently in the card header.
+               Initialised with a dash placeholder; data.js populates the real value.
+               The [value] attribute drives CSS colour-coding of the badge -->
+          <data class="biz-rating-badge" value="" role="img" aria-label="Loading rating">&ndash;</data>
+
+          <!-- Identity block: wraps the name, tags, and address to the right of the badge -->
+          <div class="biz-card__identity">
+
+            <!-- Business name heading. data.js sets textContent once loaded.
+                 "Loading..." is a placeholder shown during the skeleton loading state -->
+            <h2 class="biz-card__name" id="biz-name">Loading&hellip;</h2>
+
+            <!-- Tag list showing the business category and its rating status.
+                 data.js replaces the entire innerHTML with live data tags -->
+            <ul class="biz-card__tags" aria-label="Business category and status">
+              <!-- data.js replaces this innerHTML -->
+              <li><span class="tag tag--type">&ndash;</span></li>
+              <li><span class="tag tag--status">&#10003; Rated</span></li>
+            </ul>
+
+            <!-- Address display with a decorative location pin SVG icon.
+                 aria-hidden hides the icon from screen readers.
+                 The inner <span> is populated by data.js at runtime -->
+            <p class="biz-card__addr">
+              <svg class="addr-icon" viewBox="0 0 14 18" fill="none"
+                   xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M7 0C4.24 0 2 2.24 2 5c0 3.75 5 11 5 11s5-7.25 5-11c0-2.76-2.24-5-5-5z"
+                      fill="currentColor"/>
+                <circle cx="7" cy="5" r="2" fill="white"/>
+              </svg>
+              <!-- data.js sets the span's textContent -->
+              <span>&ndash;</span>
+            </p>
+
+          </div><!-- /biz-card__identity -->
+
+        </header>
+
+        <!-- Horizontal divider between the card header and the detail table -->
+        <hr class="biz-divider">
+
+
+        <!--
+          Description list - data.js reads each dt.biz-label's textContent,
+          then populates dt.nextElementSibling (the dd.biz-value).
+          The dt text must EXACTLY match the switch-case strings in data.js.
+        -->
+        <!-- Definition list displaying all structured business fields.
+             Each dt.biz-label is a field label; each dd.biz-value is its value.
+             data.js matches the dt text against switch-case labels to decide
+             which value to insert into the corresponding dd -->
+        <dl class="biz-table" aria-label="Full business details">
+
+          <!-- Business name field: populated by data.js at runtime -->
+          <dt class="biz-label">Business Name</dt>
+          <dd class="biz-value">&ndash;</dd>
+
+          <!-- Full address field: populated by data.js at runtime -->
+          <dt class="biz-label">Full Address</dt>
+          <dd class="biz-value">&ndash;</dd>
+
+          <!-- Postcode field: populated by data.js at runtime -->
+          <dt class="biz-label">Postcode</dt>
+          <dd class="biz-value">&ndash;</dd>
+
+          <!-- Business type field (e.g. Restaurant, Takeaway): populated by data.js -->
+          <dt class="biz-label">Business Type</dt>
+          <dd class="biz-value">&ndash;</dd>
+
+          <!--
+            Hygiene Rating row:
+            meter.biz-rating-meter - data.js sets [value] + aria-label
+            span.biz-rating-label  - data.js sets innerHTML
+          -->
+          <dt class="biz-label">Hygiene Rating</dt>
+          <dd class="biz-value">
+            <meter class="biz-rating-meter"
+                   min="0" max="5" value="0"
+                   aria-label="Hygiene rating: not yet loaded">
+            </meter>
+            <span class="biz-rating-label">&ndash;</span>
+          </dd>
+
+          <!--
+            Rating Date row:
+            time.biz-rating-date - data.js sets textContent + [datetime].
+            datetime="2000-01-01" is a valid placeholder; data.js overwrites it.
+          -->
+          <!-- Rating Date field: <time> provides a machine-readable ISO date
+               via the [datetime] attribute, which data.js overwrites at runtime.
+               The placeholder "2000-01-01" is a syntactically valid date value -->
+          <dt class="biz-label">Rating Date</dt>
+          <dd class="biz-value">
+            <time class="biz-rating-date" datetime="2000-01-01">&ndash;</time>
+          </dd>
+
+          <!--
+            Rating Status row:
+            data.js sets innerHTML to a status chip span.
+          -->
+          <!-- Rating Status field: data.js injects a styled chip element
+               (e.g. "Pass", "Fail") as the innerHTML of the inner span -->
+          <dt class="biz-label">Rating Status</dt>
+          <dd class="biz-value">
+            <span class="biz-status-chip">&ndash;</span>
+          </dd>
+
+          <!-- New Rating Pending field: data.js sets this to "Yes" or "No"
+               depending on the business newRatingPending property -->
+          <dt class="biz-label">New Rating Pending</dt>
+          <dd class="biz-value">&ndash;</dd>
+
+        </dl>
+
+      </article>
+
+
+      <!-- This section groups the three conditional status notices.
+           Each notice is hidden by default; data.js reveals the relevant
+           one based on the business rating status properties -->
+      <!-- Status Notices
+        data.js shows/hides each notice via el.style.display.
+        All three are initially hidden.
+        <p role="status"> is correct - each is a single live region
+        paragraph, not a structural section of content.
+      -->
+      <section class="detail-section" aria-label="Status notices" style="display:none">
+
+        <h2 class="detail-section-title">
+          <span aria-hidden="true"></span>
+          Status Notices
+        </h2>
+
+        <!-- notice-pending -->
+        <p class="notice notice--pending" role="status" aria-live="polite">
+          <span class="notice__figure" aria-hidden="true">
+            <img src="Assets/Icons/hourglass icon.png" alt="Hourglass icon" class="notice__icon-img" width="28" height="28">
+          </span>
+          <span>
+            <strong class="notice__title">A new rating is pending</strong>
+            <span class="notice__desc">A new inspection has been carried out. The rating shown may change soon.</span>
+          </span>
+        </p>
+
+        <!-- notice-awaiting -->
+        <p class="notice notice--awaiting" role="status" aria-live="polite">
+          <span class="notice__figure" aria-hidden="true">
+            <img src="Assets/Icons/ notice__icon.png" alt="" class="notice__icon-img" width="28" height="28">
+          </span>
+          <span>
+            <strong class="notice__title">Awaiting Inspection</strong>
+            <span class="notice__desc">This business has not yet been inspected. No rating is currently available.</span>
+          </span>
+        </p>
+
+        <!-- notice-exempt -->
+        <p class="notice notice--exempt" role="status" aria-live="polite">
+          <span class="notice__figure" aria-hidden="true">
+            <img src="Assets/Icons/exempt.png" alt="" class="notice__icon-img" width="28" height="28">
+          </span>
+          <span>
+            <strong class="notice__title">Exempt from Rating</strong>
+            <span class="notice__desc">This business is exempt from the food hygiene rating scheme.</span>
+          </span>
+        </p>
+
+      </section>
+
+    </section><!-- /detail-col -->
+
+
+    <!-- Right sidebar: displays a static reference guide explaining
+         what each hygiene rating score means to consumers -->
+    <!-- Right Sidebar -->
+    <aside class="detail-sidebar" aria-label="Food hygiene rating guide">
+      <section class="sidebar-card" aria-labelledby="sidebar-guide-heading">
+
+        <h2 class="sidebar-card__title" id="sidebar-guide-heading">What Does This Rating Mean?</h2>
+
+        <p class="sidebar-card__intro">
+          Food hygiene ratings are given to food businesses following an inspection by
+          local food safety officers. Ratings range from&nbsp;0 (urgent improvement
+          necessary) to&nbsp;5 (very good).
+        </p>
+
+        <!--
+          Ordered list with reversed so it counts 5 to 0, matching
+          the visual order. Each li is a rating level entry.
+        -->
+        <ol class="rating-guide-list" reversed aria-label="Hygiene rating scores, highest to lowest">
+
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--5" aria-hidden="true">5</span>
+            <p><strong class="rg-title">Very Good</strong>
+               <span class="rg-desc">Very good hygiene standards. Food handling, cleanliness, and record-keeping all meet or exceed requirements.</span></p>
+          </li>
+
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--4" aria-hidden="true">4</span>
+            <p><strong class="rg-title">Good</strong>
+               <span class="rg-desc">Good hygiene standards overall. Minor issues may exist but the business is performing well.</span></p>
+          </li>
+
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--3" aria-hidden="true">3</span>
+            <p><strong class="rg-title">Generally Satisfactory</strong>
+               <span class="rg-desc">Hygiene standards are acceptable but some areas need improvement. Basic requirements are met.</span></p>
+          </li>
+
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--2" aria-hidden="true">2</span>
+            <p><strong class="rg-title">Improvement Necessary</strong>
+               <span class="rg-desc">Notable hygiene issues found. The business must take action to improve its standards.</span></p>
+          </li>
+
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--1" aria-hidden="true">1</span>
+            <p><strong class="rg-title">Major Improvement Necessary</strong>
+               <span class="rg-desc">Poor hygiene standards. Significant changes are required to reach acceptable levels.</span></p>
+          </li>
+
+          <li class="rg-item">
+            <span class="rg-badge rg-badge--0" aria-hidden="true">0</span>
+            <p><strong class="rg-title">Urgent Improvement Required</strong>
+               <span class="rg-desc">Serious concerns found. Urgent action is required and enforcement action may be taken.</span></p>
+          </li>
+
+        </ol>
+
+      </section>
+    </aside>
+
+  </main>
+
+
+  <!-- ===============================================================
+       SITE FOOTER
+  =============================================================== -->
+  <footer class="site-footer">
+
+    <!-- Certifications and compliance section:
+         displays the FHRS badge, third-party certification logos,
+         and links to compliance-related articles on Substack -->
+    <section class="footer-certs" aria-label="Certifications and compliance">
+      <!-- FHRS (Food Hygiene Rating Scheme) badge image.
+           loading="lazy" defers loading until the image enters the viewport,
+           improving initial page load performance -->
+      <img class="footer-certs__fhrs"
+           src="Assets/Icons/Food_Hygiene_Rating_Badge.png"
+           alt="Food Hygiene Rating Scheme – rated 5, Very Good"
+           loading="lazy">
+      <!-- List of certification body logos with their labels -->
+      <ul class="footer-certs__logos" aria-label="Certification badges">
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/cieh.png"
+               alt="CIEH – Chartered Institute of Environmental Health"
+               loading="lazy">
+          <span>CIEH Member</span>
+        </li>
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/rspa.png"
+               alt="R·SPA – Royal Society for Public Health member"
+               loading="lazy">
+          <span>R·SPA Member</span>
+        </li>
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/iso22000.png"
+               alt="ISO 22000 certified – Food Safety Management"
+               loading="lazy">
+          <span>ISO 22000</span>
+        </li>
+      </ul>
+      <!-- Compliance resource links: open in a new tab.
+           rel="noopener noreferrer" prevents the new tab accessing the opener
+           window and avoids passing the referrer header -->
+      <nav class="footer-certs__links" aria-label="Compliance resources">
+        <a href="https://bristolfoodhygieneratings.substack.com/p/what-you-need-to-know-about-allergen"
+           rel="noopener noreferrer" target="_blank">
+          Allergen Information <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+        <span aria-hidden="true">|</span>
+        <a href="https://bristolfoodhygieneratings.substack.com/p/safe-food-handling-what-it-looks"
+           rel="noopener noreferrer" target="_blank">
+          Safe Food Handling <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+        <span aria-hidden="true">|</span>
+        <a href="https://bristolfoodhygieneratings.substack.com/p/haccp-certified-what-it-means-and"
+           rel="noopener noreferrer" target="_blank">
+          <abbr title="Hazard Analysis and Critical Control Points">HACCP</abbr> Certified
+          <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+      </nav>
+    </section>
+
+    <!-- Main footer content: brand block and navigation columns -->
+    <section class="footer-main" aria-label="Footer information">
+
+      <!-- Brand block: logo, site name and contact address -->
+      <section class="footer-brand" aria-label="Organisation contact information">
+        <a class="footer-brand__link" href="index.html"
+           aria-label="Bristol Food Hygiene – return to homepage">
+          <img class="footer-brand__logo" src="Assets/Icons/Logo.png"
+               alt="" aria-hidden="true" width="34" height="34">
+          <span class="footer-brand__name">Bristol Food Hygiene</span>
+        </a>
+        <!-- <address> is semantically correct for contact information
+             relating to the nearest article or body of content.
+             &ndash; provides an en dash; &middot; provides a centred dot separator -->
+        <address class="footer-brand__addr">
+          FoodSafe Training Ltd<br>
+          123 Health St, Bristol, <abbr title="Postcode">BS1</abbr> 4AB<br>
+          Mon–Fri: 9:00 AM – 5:00 PM &middot; Sat–Sun: Closed<br>
+          <br>
+          Phone: <a href="tel:+441171234567">0117 123 4567</a><br>
+          Email: <a href="/cdn-cgi/l/email-protection#783a0a110b0c1714273e17171c2730011f111d161d3810170c15191114561b1715"><span class="__cf_email__" data-cfemail="b9fbcbd0cacdd6d5e6ffd6d6dde6f1c0ded0dcd7dcf9d1d6cdd4d8d0d597dad6d4">[email&#160;protected]</span></a><br>
+          Based in Bristol, United Kingdom
+        </address>
+      </section>
+
+      <!-- Quick links navigation column -->
+      <nav class="footer-nav" aria-label="Quick links">
+        <h2 class="footer-nav__heading">Quick Links</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/about-bristol-food-hygiene-ratings" rel="noopener noreferrer" target="_blank">About Us</a></li>
+          <li><a class="footer-nav__link" href="https://www.linkedin.com/in/bristol-food-hygiene-" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+          <li><a class="footer-nav__link" href="https://twitter.com/FoodRating" rel="noopener noreferrer" target="_blank">Twitter</a></li>
+          <li><a class="footer-nav__link" href="https://www.youtube.com" rel="noopener noreferrer" target="_blank">YouTube</a></li>
+        </ul>
+      </nav>
+
+      <!-- Legal navigation column: links to policy and compliance pages -->
+      <nav class="footer-nav" aria-label="Legal information">
+        <h2 class="footer-nav__heading">Legal</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/privacy-policy" rel="noopener noreferrer" target="_blank">Privacy Policy</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/cookie-policy" rel="noopener noreferrer" target="_blank">Cookie Policy</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/terms-of-use" rel="noopener noreferrer" target="_blank">Terms of Use</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/disclaimer" rel="noopener noreferrer" target="_blank">Disclaimer</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/accessibility" rel="noopener noreferrer" target="_blank">Accessibility</a></li>
+        </ul>
+      </nav>
+
+    </section>
+
+    <!-- ── Copyright bar ──
+         Changed from <footer> (invalid nested footer) to <section>.
+         This is a self-contained, thematically distinct portion of the
+         site footer grouping copyright and data-attribution content.
+         <section> is the correct semantic choice: it has its own
+         implicit heading context via aria-label, and is not a
+         landmark footer in its own right.
+    -->
+    <!-- Copyright and data attribution bar at the very bottom of the page.
+         <time datetime="2026"> provides a machine-readable year for search
+         engines and other automated tools -->
+    <section class="footer-copy" aria-label="Copyright information">
+      <p>&copy; <time datetime="2026">2026</time> Bristol Food Hygiene Insights. All rights reserved.</p>
+      <p>
+        Food hygiene data &copy;
+        <a href="https://www.food.gov.uk/" rel="noopener noreferrer" target="_blank">Food Standards Agency</a>
+        and
+        <a href="https://opendata.bristol.gov.uk/datasets/7d0994dded2348d5aff6d419b0c76bb9_0/explore"
+           rel="noopener noreferrer" target="_blank">Bristol City Council Open Data</a>.
+      </p>
+    </section>
+
+  </footer>
+
+  <!-- ================================================================
+       SCRIPTS
+       data.js is loaded first because it defines the dataset and all
+       helper functions. Main.js depends on those, so it loads second.
+       Placing both scripts at the bottom of <body> ensures the full
+       HTML is parsed before either script runs.
+  ================================================================ -->
+  <script src="js/data.js"></script>
+  <script src="js/Main.js"></script>
+
+  <script>
+    /* Runs after data.js has finished on DOMContentLoaded.
+       If a real business is loaded (?id= present), force the
+       Status Notices section and all three notice boxes to show.
+       If no ?id= is present (empty state), do nothing — data.js
+       already hides the section via showBusinessSelector(). */
+    document.addEventListener('DOMContentLoaded', function () {
+      var id = new URLSearchParams(window.location.search).get('id');
+      if (!id) return; /* no business loaded — leave section hidden */
+
+      setTimeout(function () {
+        var section = document.querySelector('.detail-section');
+        if (section) section.style.display = '';
+
+        document.querySelectorAll('.notice--pending, .notice--awaiting, .notice--exempt')
+          .forEach(function (n) { n.style.display = 'flex'; });
+      }, 0);
+    });
+  </script>
+</body>
+</html>
