@@ -470,11 +470,11 @@ The design process followed these steps in order: requirements review, low-fidel
 
 | Phase | Document |
 |---|---|
-| 1. Planning | [docs/planning.md](docs/planning.md) |
-| 2. Requirements | [docs/requirements.md](docs/requirements.md) |
-| 3. Design | [docs/design.md](docs/design.md) |
-| 4. Implementation | [docs/implementation.md](docs/implementation.md) |
-| 5. Testing | [docs/testing.md](docs/testing.md) |
+| 1. Planning | [docs/planning.md](docs/01-planning.md) |
+| 2. Requirements | [docs/requirements.md](docs/02-requirement.md) |
+| 3. Design | [docs/design.md](docs/03-design.md) |
+| 4. Implementation | [docs/implementation.md](docs/04-implementation.md) |
+| 5. Testing | [docs/testing.md](docs/05-testing.md) |
 
 ---
 
@@ -491,7 +491,7 @@ Rating sticker graphics are provided by the **Food Standards Agency (FSA)** and 
 | Field | Detail |
 |---|---|
 | Module | UFCF9F-30-1 Information Systems Development |
-| Author | Nadira Ali Robleh |
+| Author | Nadira Ali Robleh and Susu Mohamed|
 | Version | 1.0.0 |
 | Application | Bristol Food Hygiene Ratings Web Application |
 | Date | 06 April 2026 |
