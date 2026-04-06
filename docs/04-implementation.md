@@ -621,7 +621,8 @@ The final pre-submission pass refined existing components without introducing an
 
 ### Homepage Hero Section
 
-*(Insert screenshot of homepage hero section here)*
+<img width="1470" height="841" alt="Screenshot 2026-04-06 at 18 10 48" src="https://github.com/user-attachments/assets/0364415b-c7ab-48df-bbe5-7638466079d0" />
+
 
 The homepage opens with a full-width green hero section containing the primary search bar. The deep green colour (`#1b5e20`) was chosen deliberately because green is the universally recognised colour for food hygiene safety in the United Kingdom, matching the official Food Standards Agency rating sticker scheme used on physical food premises. This creates an immediate visual association between the application and the familiar badges found on the doors and windows of restaurants and takeaways.
 
@@ -633,7 +634,13 @@ Below the hero, a statistics bar shows the total number of rated businesses and 
 
 ### Colour-Coded Rating Badge System
 
-*(Insert screenshot of rating badges across different pages here)*
+<img width="1470" height="841" alt="Screenshot 2026-04-06 at 18 13 03" src="https://github.com/user-attachments/assets/560a4d2c-d3cb-4ef5-81b8-8736ad18c5d8" />
+<img width="1470" height="841" alt="Screenshot 2026-04-06 at 18 13 12" src="https://github.com/user-attachments/assets/62b1eab5-7066-4f42-96ec-91c5e533b9b0" />
+
+<img width="367" height="799" alt="Screenshot 2026-04-06 at 18 13 29" src="https://github.com/user-attachments/assets/e75642b1-651a-4dcc-b337-01464908a303" />
+<img width="367" height="170" alt="Screenshot 2026-04-06 at 18 13 41" src="https://github.com/user-attachments/assets/5d4c89ad-628c-468e-be04-8f416f6a442d" />
+
+
 
 One of the most deliberate styling decisions across the entire application is the colour-coded rating badge system. Each of the six rating levels (0 to 5) is assigned a distinct background colour defined as a CSS custom property in the `:root` block of `Style.css`:
 
@@ -654,7 +661,12 @@ The badges are rendered as styled `<span>` elements with a `value` attribute set
 
 ### Search Results Page Layout
 
-*(Insert screenshot of search results page here)*
+<img width="1470" height="870" alt="Screenshot 2026-04-06 at 18 05 54" src="https://github.com/user-attachments/assets/6e33daac-44a5-4f01-afb4-2f6fe0e66e44" />
+<img width="1470" height="870" alt="Screenshot 2026-04-06 at 18 06 03" src="https://github.com/user-attachments/assets/2cbd413a-857b-495f-bc9e-1d6923739292" />
+
+<img width="1470" height="870" alt="Screenshot 2026-04-06 at 18 08 42" src="https://github.com/user-attachments/assets/70abf7f2-de93-435b-83a7-d271f73ea10a" />
+<img width="1470" height="870" alt="Screenshot 2026-04-06 at 18 08 48" src="https://github.com/user-attachments/assets/f9ec4585-b3ee-4fbf-b210-b3002a11693a" />
+<img width="1470" height="870" alt="Screenshot 2026-04-06 at 18 08 56" src="https://github.com/user-attachments/assets/68978d6e-bb72-41f5-ad96-3f52cbde1a79" />
 
 The search results page uses the twelve-column CSS grid to create a two-column layout: a narrow filter sidebar on the left and the main results area on the right. This proportional split gives the filter panel enough space to display all filter options clearly without crowding the results, whilst keeping the result cards as the dominant visual element on the page.
 
@@ -676,7 +688,8 @@ The three conditional notice panels are styled with distinct background colours 
 
 ### Rating Guide Page
 
-*(Insert screenshot of rating guide page here)*
+<img width="1470" height="869" alt="Screenshot 2026-04-06 at 18 15 13" src="https://github.com/user-attachments/assets/6714d66e-c2ee-4510-999b-37164d9894cf" />
+<img width="1470" height="869" alt="Screenshot 2026-04-06 at 18 15 18" src="https://github.com/user-attachments/assets/49561c3f-1412-4a1b-b850-3640656889ea" />
 
 The Rating Guide page uses a linear scroll layout with a green hero banner at the top, an in-page `<nav>` table of contents with anchor links, and six rating cards rendered as `<article>` elements inside an `<ol>`. Each card uses a thick left border accent in the same colour as that rating's badge, creating a strong visual link between the guide and the badges seen elsewhere in the application. A "What This Means" sub-panel inside each card uses a lighter tinted background to visually differentiate contextual guidance from the primary label and description.
 
@@ -686,7 +699,25 @@ The Special Statuses section at the bottom of the page uses a three-column card 
 
 ### Responsive Design
 
-*(Insert screenshots of mobile and tablet layouts here)*
+<img width="1026" height="797" alt="Screenshot 2026-04-06 at 18 19 19" src="https://github.com/user-attachments/assets/50a487b6-00b4-42f9-8c24-af588f6b4dfa" />
+<img width="1026" height="746" alt="Screenshot 2026-04-06 at 18 19 36" src="https://github.com/user-attachments/assets/4691f7b0-da13-483e-8401-7757f100aad6" />
+<img width="1026" height="488" alt="Screenshot 2026-04-06 at 18 19 48" src="https://github.com/user-attachments/assets/741ed391-d4bd-4329-9336-e2d73b04cfae" />
+
+<img width="1026" height="744" alt="Screenshot 2026-04-06 at 18 21 15" src="https://github.com/user-attachments/assets/a2f5c15e-e00b-4972-9838-d3fd71c8c501" />
+<img width="1026" height="744" alt="Screenshot 2026-04-06 at 18 21 24" src="https://github.com/user-attachments/assets/c36b6663-320c-4c0f-8adc-959cc71e58d8" />
+<img width="1026" height="744" alt="Screenshot 2026-04-06 at 18 21 30" src="https://github.com/user-attachments/assets/b2e2078f-2f5c-4eaa-af28-5193c6c0cf5f" />
+
+<img width="519" height="665" alt="Screenshot 2026-04-06 at 18 23 54" src="https://github.com/user-attachments/assets/80bdfbfc-6b7a-460c-9b5c-195bb9b5980d" />
+<img width="519" height="665" alt="Screenshot 2026-04-06 at 18 24 00" src="https://github.com/user-attachments/assets/b77e0c15-b370-4915-8564-575c67c6b327" />
+<img width="519" height="665" alt="Screenshot 2026-04-06 at 18 24 06" src="https://github.com/user-attachments/assets/345e9dcc-3a88-41ce-ad85-08cab27f8e58" />
+<img width="519" height="665" alt="Screenshot 2026-04-06 at 18 24 13" src="https://github.com/user-attachments/assets/a9aa465d-2171-4cde-b1ca-3cce2dae5e00" />
+<img width="519" height="665" alt="Screenshot 2026-04-06 at 18 24 22" src="https://github.com/user-attachments/assets/e9f17223-14fb-4f0e-ae6e-4772997e5b3a" />
+
+<img width="519" height="665" alt="Screenshot 2026-04-06 at 18 24 44" src="https://github.com/user-attachments/assets/6d41acf3-602a-4420-839c-fdf75d6f5993" />
+<img width="519" height="665" alt="Screenshot 2026-04-06 at 18 24 52" src="https://github.com/user-attachments/assets/c57577fa-9b69-4bf8-8918-c9a47b377b39" />
+<img width="519" height="665" alt="Screenshot 2026-04-06 at 18 24 58" src="https://github.com/user-attachments/assets/2d67c023-49e6-40af-81d4-97c41d9b88c9" />
+<img width="519" height="665" alt="Screenshot 2026-04-06 at 18 25 03" src="https://github.com/user-attachments/assets/5aec397a-28a9-4fed-91d4-1d3c83b8694f" />
+
 
 The stylesheet implements three responsive breakpoints. At desktop width (1024px and above), the full two-column and multi-column layouts are used throughout. At tablet width (768px to 1023px), the filter sidebar collapses above the results list, the business detail two-column layout stacks vertically, and card padding is reduced. At mobile width (below 768px), all multi-column layouts reflow to a single column, the navigation bar collapses into a hamburger toggle button managed by `Main.js`, and font sizes and spacing are adjusted to remain legible and comfortable on small screens.
 
@@ -872,7 +903,9 @@ The right column displays the official Food Standards Agency (FSA) hygiene ratin
 
 Below the official graphic, the "What Does This Rating Mean?" panel lists all six rating levels from 5 to 0, each with its colour-coded score badge and a plain-language description. A Full Guide link at the base of the panel navigates to the Rating Guide page for a more comprehensive explanation.
 
-*(Insert screenshot of the rating explanation panel)*
+<img width="348" height="788" alt="Screenshot 2026-04-06 at 18 29 50" src="https://github.com/user-attachments/assets/eae46d19-4eae-4013-ac6a-0d56131cb3ea" />
+<img width="348" height="264" alt="Screenshot 2026-04-06 at 18 30 01" src="https://github.com/user-attachments/assets/cb3dd2cb-4bee-42e9-a0c4-b03aa93a9e18" />
+
 
 **Requirement satisfied:** FR17.
 
@@ -904,7 +937,10 @@ If the selected business has `ratingStatus: 'Exempt'`, a light blue notice panel
 
 Click the Full Guide link in the rating explanation panel, or click Rating Guide in the navigation bar. The Rating Guide page loads and displays the full green hero banner, the introductory panel, the in-page table of contents, all six rating level cards with colour-coded left-border accents and "What This Means" sub-panels, and the Special Statuses section at the bottom.
 
-*(Insert screenshot of the Rating Guide page)*
+<img width="1470" height="867" alt="Screenshot 2026-04-06 at 18 31 33" src="https://github.com/user-attachments/assets/4d65f43e-c186-4f21-acf7-a3e47fef65ca" />
+<img width="1470" height="867" alt="Screenshot 2026-04-06 at 18 31 48" src="https://github.com/user-attachments/assets/c88ccb17-887f-49b9-9b27-3c30ff985e41" />
+<img width="1470" height="867" alt="Screenshot 2026-04-06 at 18 32 39" src="https://github.com/user-attachments/assets/15e780a6-d047-4fd2-a1df-53934f8c0a05" />
+
 
 **Requirement satisfied:** FR17.
 
