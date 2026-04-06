@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<!--
+  File:         Rating-Guide.html
+  Project:      Bristol Food Hygiene Ratings
+  Version:      2.0.4
+  Author:       Nadira Ali Robleh
+  Last updated: 31/03/2026
+
+  Description:
+    Standalone reference page explaining what each Food Hygiene Rating
+    score means, from 5 (Very Good) down to 0 (Urgent Improvement
+    Required), plus a section for special statuses such as Awaiting
+    Inspection, New Rating Pending, and Exempt.
+
+  Sections (in order):
+    1. <head>           - Meta tags, fonts, stylesheet, favicon
+    2. skip-link        - Keyboard bypass to #main-content
+    3. site-header      - Brand, hamburger toggle, primary nav
+    4. page-hero        - Page title and subtitle banner
+    5. guide-intro      - Brief explanatory aside about the rating scheme
+    6. guide-toc        - In-page anchor navigation (jump to each rating)
+    7. guide-cards-list - Six rating cards (5 down to 0)
+    8. statuses-section - Three special status cards
+    9. site-footer      - Certs, contact, quick links, legal, copyright
+-->
+<html lang="en-GB">
+<head>
+  <!-- UTF-8 encoding ensures all characters render correctly,
+       including pound signs, accented letters, and special symbols. -->
+  <meta charset="UTF-8">
+  <!-- Responsive viewport: scales the layout to fit the device width
+       rather than rendering at desktop width and shrinking. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO description used by search engines in result snippets -->
+  <meta name="description" content="Understand what each food hygiene rating score from 0 to 5 means. Learn how ratings are awarded and what special statuses such as Awaiting Inspection mean.">
+  <meta name="author" content="Bristol Food Hygiene Insights">
+
+  <!-- Open Graph tags: control how this page appears when shared on
+       social media platforms such as Facebook or LinkedIn. -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content="Rating Guide – Bristol Food Hygiene">
+  <meta property="og:description" content="Understand food hygiene ratings from 0 to 5 and what they mean for businesses in Bristol.">
+
+  <!-- Browser tab title -->
+  <title>Rating Guide – Bristol Food Hygiene</title>
+
+  <!-- Google Fonts: Fraunces for display headings, DM Sans for body text.
+       preconnect hints open the DNS/TCP connection before the font
+       stylesheet request, reducing load time. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+
+  <!-- Global stylesheet shared across all pages -->
+  <link rel="stylesheet" href="css/Style.css">
+
+  <!-- Favicon displayed in the browser tab -->
+  <link rel="icon" type="image/png" href="Assets/Icons/Logo.png">
+</head>
+<body>
+
+  <!-- Skip link: becomes visible when focused by a keyboard user.
+       Lets users bypass the header navigation and jump directly to
+       the main content without tabbing through every nav link. -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ================================================================
+       SITE HEADER
+       Contains the brand logo link, the hamburger toggle for mobile,
+       and the primary navigation list.
+  ================================================================ -->
+  <header class="site-header" aria-label="Site header">
+
+    <!-- Brand link: wraps the logo and site name together.
+         The aria-label provides a meaningful destination description
+         for screen readers instead of reading logo alt + span text. -->
+    <a class="site-header__brand"
+       href="index.html"
+       aria-label="Bristol Food Hygiene – go to homepage">
+      <!-- alt="" because the parent aria-label describes the link fully -->
+      <img class="site-header__logo"
+           src="Assets/Icons/Logo.png"
+           alt=""
+           aria-hidden="true"
+           width="38" height="38">
+      <span class="site-header__name">Bristol Food Hygiene</span>
+    </a>
+
+    <!-- Hamburger button: toggles the mobile navigation menu.
+         Main.js flips aria-expanded between "true"/"false" on click.
+         aria-controls references the nav element by its id. -->
+    <button class="nav-toggle"
+            type="button"
+            id="nav-toggle"
+            aria-controls="primary-nav"
+            aria-expanded="false"
+            aria-label="Open navigation menu">
+      <!-- Three decorative bars that form the hamburger icon visually -->
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+    </button>
+
+    <!-- Primary navigation: four main site pages.
+         aria-current="page" marks this page's link so screen readers
+         announce "current page" when the user focuses on it. -->
+    <nav class="primary-nav"
+         id="primary-nav"
+         aria-label="Primary navigation">
+      <ul class="primary-nav__list">
+        <li><a class="primary-nav__link" href="index.html">Home</a></li>
+        <li><a class="primary-nav__link" href="Search.html">Search</a></li>
+        <li><a class="primary-nav__link" href="Business-Detail.html">Detail</a></li>
+        <li>
+          <!-- This link is marked active since we are on the Rating Guide page -->
+          <a class="primary-nav__link primary-nav__link--active"
+             href="Rating-Guide.html"
+             aria-current="page">Rating Guide</a>
+        </li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <!-- ================================================================
+       PAGE HERO BANNER
+       A simple title banner at the top of the page content area.
+       aria-labelledby ties the section to its visible heading so
+       screen readers announce the section name when navigating
+       by landmark.
+  ================================================================ -->
+  <section class="page-hero" aria-labelledby="guide-hero-heading">
+    <hgroup>
+      <!-- id referenced by aria-labelledby on the parent section -->
+      <h1 class="page-hero__title" id="guide-hero-heading">Rating Guide</h1>
+      <p class="page-hero__sub">Understanding Food Hygiene Ratings</p>
+    </hgroup>
+  </section>
+
+  <!-- ================================================================
+       MAIN CONTENT
+       id="main-content" is the target of the skip-link at the top of
+       the page. guide-wrap applies the page-specific layout class.
+  ================================================================ -->
+  <main id="main-content" class="guide-wrap">
+
+    <!-- Brief introductory aside explaining what ratings are and where
+         the data comes from. <aside> is appropriate here because this
+         is supplementary context rather than the primary content. -->
+    <aside class="guide-intro" aria-label="About food hygiene ratings">
+      <p>
+        Food hygiene ratings are given by local authorities in the
+        <!-- <abbr> expands the abbreviation for users who may not know it -->
+        <abbr title="United Kingdom">UK</abbr> after inspecting food
+        businesses. Ratings range from <strong>0</strong> (urgent
+        improvement necessary) to <strong>5</strong> (very good).
+        All data is sourced from the Food Standards Agency and Bristol
+        City Council's open data platform.
+      </p>
+    </aside>
+
+    <!-- ============================================================
+         IN-PAGE TABLE OF CONTENTS
+         A quick-jump navigation list so users can skip straight to
+         any rating card without scrolling through the whole page.
+         The <ol> is reversed so the source order matches the visual
+         order (5 at the top, 0 at the bottom) without reordering in CSS.
+    ============================================================ -->
+    <nav class="guide-toc" aria-label="Jump to rating">
+      <!-- visually-hidden heading gives the nav a name for assistive
+           technology without appearing in the visual design. -->
+      <h2 class="guide-toc__heading visually-hidden">Jump to a rating</h2>
+      <ol class="guide-toc__list" reversed aria-label="Rating levels, highest to lowest">
+        <li><a class="guide-toc__link guide-toc__link--5" href="#rating-5">
+          <span class="guide-toc__badge">5</span> Very Good</a></li>
+        <li><a class="guide-toc__link guide-toc__link--4" href="#rating-4">
+          <span class="guide-toc__badge">4</span> Good</a></li>
+        <li><a class="guide-toc__link guide-toc__link--3" href="#rating-3">
+          <span class="guide-toc__badge">3</span> Generally Satisfactory</a></li>
+        <li><a class="guide-toc__link guide-toc__link--2" href="#rating-2">
+          <span class="guide-toc__badge">2</span> Improvement Necessary</a></li>
+        <li><a class="guide-toc__link guide-toc__link--1" href="#rating-1">
+          <span class="guide-toc__badge">1</span> Major Improvement Necessary</a></li>
+        <li><a class="guide-toc__link guide-toc__link--0" href="#rating-0">
+          <span class="guide-toc__badge">0</span> Urgent Improvement Required</a></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================
+         RATING CARDS LIST
+         An ordered list rendered in reverse (5 down to 0) so the
+         highest score appears first visually.
+         Each list item contains one <article> (a self-contained
+         rating card) with:
+           - A visually-hidden <h2> as the direct-child heading
+             (required to satisfy HTML outline and validator rules).
+           - A visible <h2> inside .guide-info with aria-hidden="true"
+             so screen readers do not announce the title twice.
+           - A <span> badge showing the numeric score.
+           - A visually-hidden <meter> providing a machine-readable
+             and screen-reader-friendly rating bar.
+           - A <blockquote> explaining what the rating means in practice.
+    ============================================================ -->
+    <ol class="guide-cards-list"
+        reversed
+        aria-label="Food hygiene rating cards, highest to lowest">
+
+      <!-- ============================================================
+           RATING 5: Very Good
+           id="rating-5" is the anchor target from the table of contents.
+           data-score="5" allows CSS to apply the correct colour theme.
+      ============================================================ -->
+      <li>
+        <article class="guide-card"
+                 id="rating-5"
+                 data-score="5"
+                 aria-labelledby="rating-5-title">
+
+          <!-- Direct-child heading: satisfies the HTML validator's
+               "article lacks heading" warning. Visually hidden so it
+               does not duplicate the visible heading inside .guide-info.
+               The id is shared with aria-labelledby on the <article>. -->
+          <h2 id="rating-5-title" class="visually-hidden">Very Good</h2>
+
+          <!-- Large numeric badge; decorative so hidden from screen readers.
+               Colour is applied via the parent article's data-score attribute. -->
+          <span class="guide-badge" aria-hidden="true">5</span>
+
+          <!-- Visually-hidden meter: provides an accessible rating bar
+               for screen readers without affecting the visual layout. -->
+          <p class="visually-hidden">
+            <meter min="0" max="5" value="5"
+                   aria-label="Hygiene rating 5 out of 5"></meter>
+          </p>
+
+          <!-- Rating info block: visible heading is aria-hidden because
+               the visually-hidden h2 above already names the article. -->
+          <section class="guide-info" aria-labelledby="rating-5-title">
+            <h2 aria-hidden="true">Very Good</h2>
+            <p>
+              Very good hygiene standards. Food handling, cleanliness, and
+              record-keeping all meet or exceed requirements.
+            </p>
+            <!-- blockquote with cite attribute pointing to the official
+                 Food Standards Agency source for this rating definition. -->
+            <blockquote class="guide-meaning"
+                        cite="https://www.food.gov.uk/safety-hygiene/food-hygiene-rating-scheme">
+              <p>
+                <strong>What this means:</strong> This business has passed
+                all aspects of the food hygiene inspection to the highest
+                standard. You can be confident in the cleanliness and safety
+                of food prepared here.
+              </p>
+            </blockquote>
+          </section>
+
+        </article>
+      </li>
+
+      <!-- ============================================================
+           RATING 4: Good
+      ============================================================ -->
+      <li>
+        <article class="guide-card"
+                 id="rating-4"
+                 data-score="4"
+                 aria-labelledby="rating-4-title">
+
+          <h2 id="rating-4-title" class="visually-hidden">Good</h2>
+
+          <span class="guide-badge" aria-hidden="true">4</span>
+
+          <p class="visually-hidden">
+            <meter min="0" max="5" value="4"
+                   aria-label="Hygiene rating 4 out of 5"></meter>
+          </p>
+
+          <section class="guide-info" aria-labelledby="rating-4-title">
+            <h2 aria-hidden="true">Good</h2>
+            <p>
+              Good hygiene standards overall. Minor issues may exist but
+              the business is performing well.
+            </p>
+            <blockquote class="guide-meaning"
+                        cite="https://www.food.gov.uk/safety-hygiene/food-hygiene-rating-scheme">
+              <p>
+                <strong>What this means:</strong> The business is performing
+                well. Any issues noted during the inspection are minor and
+                the business is managing its hygiene responsibly.
+              </p>
+            </blockquote>
+          </section>
+
+        </article>
+      </li>
+
+      <!-- ============================================================
+           RATING 3: Generally Satisfactory
+      ============================================================ -->
+      <li>
+        <article class="guide-card"
+                 id="rating-3"
+                 data-score="3"
+                 aria-labelledby="rating-3-title">
+
+          <h2 id="rating-3-title" class="visually-hidden">Generally Satisfactory</h2>
+
+          <span class="guide-badge" aria-hidden="true">3</span>
+
+          <p class="visually-hidden">
+            <meter min="0" max="5" value="3"
+                   aria-label="Hygiene rating 3 out of 5"></meter>
+          </p>
+
+          <section class="guide-info" aria-labelledby="rating-3-title">
+            <h2 aria-hidden="true">Generally Satisfactory</h2>
+            <p>
+              Hygiene standards are acceptable but some areas need
+              improvement. Basic requirements are met.
+            </p>
+            <blockquote class="guide-meaning"
+                        cite="https://www.food.gov.uk/safety-hygiene/food-hygiene-rating-scheme">
+              <p>
+                <strong>What this means:</strong> The business meets minimum
+                legal standards but there is room for improvement. Basic food
+                safety requirements are being met.
+              </p>
+            </blockquote>
+          </section>
+
+        </article>
+      </li>
+
+      <!-- ============================================================
+           RATING 2: Improvement Necessary
+      ============================================================ -->
+      <li>
+        <article class="guide-card"
+                 id="rating-2"
+                 data-score="2"
+                 aria-labelledby="rating-2-title">
+
+          <h2 id="rating-2-title" class="visually-hidden">Improvement Necessary</h2>
+
+          <span class="guide-badge" aria-hidden="true">2</span>
+
+          <p class="visually-hidden">
+            <meter min="0" max="5" value="2"
+                   aria-label="Hygiene rating 2 out of 5"></meter>
+          </p>
+
+          <section class="guide-info" aria-labelledby="rating-2-title">
+            <h2 aria-hidden="true">Improvement Necessary</h2>
+            <p>
+              Notable hygiene issues found. The business must take action
+              to improve its standards.
+            </p>
+            <blockquote class="guide-meaning"
+                        cite="https://www.food.gov.uk/safety-hygiene/food-hygiene-rating-scheme">
+              <p>
+                <strong>What this means:</strong> There are notable hygiene
+                concerns. The business has been informed of what needs to be
+                corrected. You may wish to consider this before visiting.
+              </p>
+            </blockquote>
+          </section>
+
+        </article>
+      </li>
+
+      <!-- ============================================================
+           RATING 1: Major Improvement Necessary
+      ============================================================ -->
+      <li>
+        <article class="guide-card"
+                 id="rating-1"
+                 data-score="1"
+                 aria-labelledby="rating-1-title">
+
+          <h2 id="rating-1-title" class="visually-hidden">Major Improvement Necessary</h2>
+
+          <span class="guide-badge" aria-hidden="true">1</span>
+
+          <p class="visually-hidden">
+            <meter min="0" max="5" value="1"
+                   aria-label="Hygiene rating 1 out of 5"></meter>
+          </p>
+
+          <section class="guide-info" aria-labelledby="rating-1-title">
+            <h2 aria-hidden="true">Major Improvement Necessary</h2>
+            <p>
+              Poor hygiene standards. Significant changes are required to
+              reach acceptable levels.
+            </p>
+            <blockquote class="guide-meaning"
+                        cite="https://www.food.gov.uk/safety-hygiene/food-hygiene-rating-scheme">
+              <p>
+                <strong>What this means:</strong> There are serious hygiene
+                concerns at this establishment. You are advised to exercise
+                caution and may wish to avoid visiting until an improved
+                rating is issued.
+              </p>
+            </blockquote>
+          </section>
+
+        </article>
+      </li>
+
+      <!-- ============================================================
+           RATING 0: Urgent Improvement Required (the lowest score)
+      ============================================================ -->
+      <li>
+        <article class="guide-card"
+                 id="rating-0"
+                 data-score="0"
+                 aria-labelledby="rating-0-title">
+
+          <h2 id="rating-0-title" class="visually-hidden">Urgent Improvement Required</h2>
+
+          <span class="guide-badge" aria-hidden="true">0</span>
+
+          <p class="visually-hidden">
+            <meter min="0" max="5" value="0"
+                   aria-label="Hygiene rating 0 out of 5"></meter>
+          </p>
+
+          <section class="guide-info" aria-labelledby="rating-0-title">
+            <h2 aria-hidden="true">Urgent Improvement Required</h2>
+            <p>
+              Serious concerns found. Urgent action is required and
+              enforcement action may be taken.
+            </p>
+            <blockquote class="guide-meaning"
+                        cite="https://www.food.gov.uk/safety-hygiene/food-hygiene-rating-scheme">
+              <p>
+                <strong>What this means:</strong> This business has very poor
+                hygiene standards. Formal enforcement action may be underway.
+                It is strongly recommended you avoid this establishment.
+              </p>
+            </blockquote>
+          </section>
+
+        </article>
+      </li>
+
+    </ol><!-- /guide-cards-list -->
+
+    <!-- ================================================================
+         SPECIAL STATUSES SECTION
+         Explains the three non-numeric statuses a business can hold:
+         Awaiting Inspection, New Rating Pending, and Exempt.
+         Each is presented as a card with an icon, heading, and
+         description.
+    ================================================================ -->
+    <section class="statuses-section" aria-labelledby="statuses-heading">
+
+      <h2 id="statuses-heading">Special Statuses</h2>
+
+      <ul class="status-grid">
+
+        <!-- Awaiting Inspection: the business has not yet been visited
+             by the local authority food safety team. -->
+        <li class="status-card">
+          <!-- <figure> groups the icon image with its hidden caption,
+               correctly associating the image with its context.
+               aria-hidden prevents the figure from being announced
+               since the heading and paragraph already describe it. -->
+          <figure class="status-card__figure" aria-hidden="true">
+            <img class="status-card__icon"
+                 src="Assets/Icons/hourglass icon.png"
+                 alt=""
+                 width="48" height="48">
+            <!-- visually-hidden figcaption for any assistive technology
+                 that navigates figure elements directly -->
+            <figcaption class="visually-hidden">Awaiting inspection icon</figcaption>
+          </figure>
+          <h3>Awaiting Inspection</h3>
+          <p>
+            The business is newly registered and has not yet been inspected
+            by the local authority. No rating is available. This does not
+            mean the business is unsafe — it simply has not been inspected yet.
+          </p>
+        </li>
+
+        <!-- New Rating Pending: an inspection has taken place but the
+             updated score has not yet been published. -->
+        <li class="status-card">
+          <figure class="status-card__figure" aria-hidden="true">
+            <img class="status-card__icon"
+                 src="Assets/Icons/ notice__icon.png"
+                 alt=""
+                 width="48" height="48">
+            <figcaption class="visually-hidden">New rating pending icon</figcaption>
+          </figure>
+          <h3>New Rating Pending</h3>
+          <p>
+            A recent inspection has taken place. The displayed rating may not
+            reflect the latest findings and could change. Check back regularly
+            for the updated score.
+          </p>
+        </li>
+
+        <!-- Exempt: certain low-risk or temporary premises do not need
+             to participate in the Food Hygiene Rating Scheme. -->
+        <li class="status-card">
+          <figure class="status-card__figure" aria-hidden="true">
+            <img class="status-card__icon"
+                 src="Assets/Icons/exempt.png"
+                 alt=""
+                 width="48" height="48">
+            <figcaption class="visually-hidden">Exempt from rating icon</figcaption>
+          </figure>
+          <h3>Exempt</h3>
+          <p>
+            This business is exempt from the food hygiene rating scheme.
+            Certain premises — such as some low-risk or temporary
+            establishments — are not required to be rated.
+          </p>
+        </li>
+
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- ================================================================
+       SITE FOOTER
+       Same structure used across all pages for consistency:
+         1. footer-certs  - Certification badges and compliance links
+         2. footer-main   - Brand/contact, quick links, legal links
+         3. footer-copy   - Copyright notice and open-data attribution
+  ================================================================ -->
+  <footer class="site-footer">
+
+    <!-- Certification and compliance strip -->
+    <section class="footer-certs" aria-label="Certifications and compliance">
+
+      <!-- Official FHRS sticker image -->
+      <img class="footer-certs__fhrs"
+           src="Assets/Icons/Food_Hygiene_Rating_Badge.png"
+           alt="Food Hygiene Rating Scheme – rated 5, Very Good"
+           loading="lazy">
+
+      <!-- Membership and certification logos -->
+      <ul class="footer-certs__logos" aria-label="Certification badges">
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/cieh.png"
+               alt="CIEH – Chartered Institute of Environmental Health"
+               loading="lazy">
+          <span>CIEH Member</span>
+        </li>
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/rspa.png"
+               alt="R·SPA – Royal Society for Public Health member"
+               loading="lazy">
+          <span>R·SPA Member</span>
+        </li>
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/iso22000.png"
+               alt="ISO 22000 certified – Food Safety Management"
+               loading="lazy">
+          <span>ISO 22000</span>
+        </li>
+      </ul>
+
+      <!-- Compliance article links: open in new tabs with screen-reader notice -->
+      <nav class="footer-certs__links" aria-label="Compliance resources">
+        <a href="https://bristolfoodhygieneratings.substack.com/p/what-you-need-to-know-about-allergen"
+           rel="noopener noreferrer" target="_blank">
+          Allergen Information
+          <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+        <span aria-hidden="true">|</span>
+        <a href="https://bristolfoodhygieneratings.substack.com/p/safe-food-handling-what-it-looks"
+           rel="noopener noreferrer" target="_blank">
+          Safe Food Handling
+          <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+        <span aria-hidden="true">|</span>
+        <a href="https://bristolfoodhygieneratings.substack.com/p/haccp-certified-what-it-means-and"
+           rel="noopener noreferrer" target="_blank">
+          <abbr title="Hazard Analysis and Critical Control Points">HACCP</abbr> Certified
+          <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+      </nav>
+
+    </section>
+
+    <!-- Footer body: three-column layout of brand info, quick links, legal -->
+    <section class="footer-main" aria-label="Footer information">
+
+      <!-- Brand and contact address block -->
+      <section class="footer-brand" aria-label="Organisation contact information">
+        <a class="footer-brand__link"
+           href="index.html"
+           aria-label="Bristol Food Hygiene – return to homepage">
+          <img class="footer-brand__logo"
+               src="Assets/Icons/Logo.png"
+               alt=""
+               aria-hidden="true"
+               width="34" height="34">
+          <span class="footer-brand__name">Bristol Food Hygiene</span>
+        </a>
+
+        <!-- <address> is semantically correct for organisation contact details -->
+        <address class="footer-brand__addr">
+          FoodSafe Training Ltd<br>
+          123 Health St, Bristol, <abbr title="Postcode">BS1</abbr> 4AB<br>
+          Mon–Fri: 9:00 AM – 5:00 PM &middot; Sat–Sun: Closed<br>
+          <br>
+          Phone: <a href="tel:+441171234567">0117 123 4567</a><br>
+          Email: <a href="/cdn-cgi/l/email-protection#6123130812150e0d3e270e0e053e29180608040f0421090e150c00080d4f020e0c"><span class="__cf_email__" data-cfemail="b7f5c5dec4c3d8dbe8f1d8d8d3e8ffced0ded2d9d2f7dfd8c3dad6dedb99d4d8da">[email&#160;protected]</span></a><br>
+          Based in Bristol, United Kingdom
+        </address>
+      </section>
+
+      <!-- Quick links column -->
+      <nav class="footer-nav" aria-label="Quick links">
+        <h2 class="footer-nav__heading">Quick Links</h2>
+        <ul class="footer-nav__list">
+          <li>
+            <a class="footer-nav__link"
+               href="https://bristolfoodhygieneratings.substack.com/p/about-bristol-food-hygiene-ratings"
+               rel="noopener noreferrer" target="_blank">About Us</a>
+          </li>
+          <li>
+            <a class="footer-nav__link"
+               href="https://www.linkedin.com/in/bristol-food-hygiene-"
+               rel="noopener noreferrer" target="_blank">LinkedIn</a>
+          </li>
+          <li>
+            <a class="footer-nav__link"
+               href="https://twitter.com/FoodRating"
+               rel="noopener noreferrer" target="_blank">Twitter</a>
+          </li>
+          <li>
+            <a class="footer-nav__link"
+               href="https://www.youtube.com"
+               rel="noopener noreferrer" target="_blank">YouTube</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Legal links column: policies and accessibility statement -->
+      <nav class="footer-nav" aria-label="Legal information">
+        <h2 class="footer-nav__heading">Legal</h2>
+        <ul class="footer-nav__list">
+          <li>
+            <a class="footer-nav__link"
+               href="https://bristolfoodhygieneratings.substack.com/p/privacy-policy"
+               rel="noopener noreferrer" target="_blank">Privacy Policy</a>
+          </li>
+          <li>
+            <a class="footer-nav__link"
+               href="https://bristolfoodhygieneratings.substack.com/p/cookie-policy"
+               rel="noopener noreferrer" target="_blank">Cookie Policy</a>
+          </li>
+          <li>
+            <a class="footer-nav__link"
+               href="https://bristolfoodhygieneratings.substack.com/p/terms-of-use"
+               rel="noopener noreferrer" target="_blank">Terms of Use</a>
+          </li>
+          <li>
+            <a class="footer-nav__link"
+               href="https://bristolfoodhygieneratings.substack.com/p/disclaimer"
+               rel="noopener noreferrer" target="_blank">Disclaimer</a>
+          </li>
+          <li>
+            <a class="footer-nav__link"
+               href="https://bristolfoodhygieneratings.substack.com/p/accessibility"
+               rel="noopener noreferrer" target="_blank">Accessibility</a>
+          </li>
+        </ul>
+      </nav>
+
+    </section>
+
+    <!-- Copyright and open-data attribution bar at the foot of the page.
+         <small> is semantically appropriate for legal/fine-print text.
+         <time datetime="2026"> provides the machine-readable year. -->
+    <section class="footer-copy" aria-label="Copyright information">
+      <p>
+        <small>&copy; <time datetime="2026">2026</time> Bristol Food Hygiene Insights. All rights reserved.</small>
+      </p>
+      <p>
+        <small>Food hygiene data &copy;
+          <a href="https://www.food.gov.uk/"
+             rel="noopener noreferrer" target="_blank">Food Standards Agency</a>
+          and
+          <a href="https://opendata.bristol.gov.uk/datasets/7d0994dded2348d5aff6d419b0c76bb9_0/explore" rel="noopener noreferrer" target="_blank">Bristol City Council Open Data</a>.
+        </small>
+      </p>
+    </section>
+
+  </footer>
+
+  <!-- ================================================================
+       SCRIPTS
+       Main.js controls the mobile navigation toggle.
+       data.js is loaded first as a dependency, followed by Main.js.
+       Both placed at the bottom of <body> so the HTML is fully
+       parsed before the scripts execute.
+  ================================================================ -->
+  <script src="js/data.js"></script>
+  <script src="js/Main.js"></script>
+
+</body>
+</html>
