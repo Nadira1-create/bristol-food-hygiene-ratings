@@ -956,6 +956,8 @@ Click the Full Guide link in the rating explanation panel, or click Rating Guide
 
 Click the Back to Results button at the top of the Business Details page. The application navigates back to `Search.html` with the previous search query and filter state preserved in the URL query parameters. The same filtered results are displayed exactly as they were before the user navigated to the details page.
 
-*(Insert screenshot of the Back to Results button and the restored results page)*
+<img width="1470" height="210" alt="Screenshot 2026-04-06 at 20 11 40" src="https://github.com/user-attachments/assets/87730362-ff91-4cf5-8746-c2c5cea5c59a" />
+
+<img width="1470" height="867" alt="Screenshot 2026-04-06 at 20 14 54" src="https://github.com/user-attachments/assets/a31d3e49-73f6-42fb-af7b-7cf1b48b5636" />
 
 **What this demonstrates:** Page-to-page state is preserved via URL query parameters, meaning the user does not need to re-enter their search or re-apply their filters after viewing a business's details.
