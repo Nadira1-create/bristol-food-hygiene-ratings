@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<!--
+  File:         Search.html
+  Project:      Bristol Food Hygiene Ratings
+  Version:      2.0.1  - BUG FIX: no-results / error-banner shown alongside results
+  Author:       Nadira Ali Robleh
+  Last updated: 24/03/2026
+
+  Description:
+    Search results page. Accepts a ?q= query parameter (and optional
+    ?rating= / ?type= filter parameters) from the URL and uses data.js
+    to filter the dataset, render result cards, and update the filter
+    panel counts. Pagination is handled by data.js as well.
+
+  Sections (in order):
+    1. <head>            - Meta tags, fonts, stylesheet, favicon
+    2. skip-link         - Keyboard bypass to #main-content
+    3. site-header       - Brand, hamburger toggle, primary nav
+    4. main              - Page title, search bar, results layout
+    5. results-layout    - Filter sidebar + results column (two-column grid)
+    6. filter-panel      - Hygiene rating checkboxes and business-type checkboxes
+    7. results-column    - Sort toolbar, results list, no-results state, error banner, pagination
+    8. site-footer       - Certs, contact, quick links, legal, copyright
+    9. <script>          - data.js then Main.js in dependency order
+-->
+<html lang="en-GB">
+<head>
+  <!-- Character encoding: UTF-8 supports all unicode characters including
+       special symbols used throughout the UI. -->
+  <meta charset="UTF-8">
+  <!-- Responsive viewport: prevents mobile browsers shrinking the layout
+       down to a desktop-width view. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO description for search engine result snippets -->
+  <meta name="description" content="Search food hygiene ratings for restaurants, takeaways, cafés and other food businesses in Bristol.">
+  <meta name="author" content="Bristol Food Hygiene Insights">
+
+  <!-- Open Graph tags: control the preview shown when the page is
+       shared on social platforms such as LinkedIn or Facebook. -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content="Search Results – Bristol Food Hygiene">
+  <meta property="og:description" content="Find and filter food hygiene ratings for businesses in Bristol.">
+
+  <!-- Browser tab title -->
+  <title>Search Results – Bristol Food Hygiene</title>
+
+  <!-- Google Fonts: Fraunces (display headings) and DM Sans (body text).
+       preconnect hints allow the browser to resolve DNS and open TCP
+       connections early, reducing the perceived load time of the fonts. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+
+  <!-- Global stylesheet shared across all pages -->
+  <link rel="stylesheet" href="css/Style.css">
+
+  <!-- Favicon: the small icon displayed in the browser tab -->
+  <link rel="icon" type="image/png" href="Assets/Icons/Logo.png">
+</head>
+<body>
+
+  <!-- Skip link: becomes visible when a keyboard user tabs to it.
+       Allows users to bypass the header and jump to the main content
+       area without tabbing through every navigation link. -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ================================================================
+       SITE HEADER
+       Contains the brand logo link, hamburger toggle button for mobile,
+       and the primary navigation list.
+  ================================================================ -->
+  <header class="site-header" aria-label="Site header">
+    <!-- Brand link wraps the logo image and site name together.
+         aria-label provides the destination description for screen readers. -->
+    <a class="site-header__brand" href="index.html"
+       aria-label="Bristol Food Hygiene – go to homepage">
+      <!-- alt="" because the aria-label on the parent link already
+           provides a full and meaningful description. -->
+      <img class="site-header__logo" src="Assets/Icons/Logo.png"
+           alt="" aria-hidden="true" width="38" height="38">
+      <span class="site-header__name">Bristol Food Hygiene</span>
+    </a>
+
+    <!-- Hamburger button: shown on small screens; hidden on desktop
+         via CSS. Main.js toggles aria-expanded and the mobile nav. -->
+    <button class="nav-toggle" type="button" id="nav-toggle"
+            aria-controls="primary-nav" aria-expanded="false"
+            aria-label="Open navigation menu">
+      <!-- Three decorative bars forming the hamburger icon -->
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+    </button>
+
+    <!-- Primary navigation.
+         aria-current="page" marks the active link for screen readers. -->
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <ul class="primary-nav__list">
+        <li><a class="primary-nav__link" href="index.html">Home</a></li>
+        <li>
+          <!-- This is the active page so aria-current="page" is applied -->
+          <a class="primary-nav__link primary-nav__link--active"
+             href="Search.html" aria-current="page">Search</a>
+        </li>
+        <li><a class="primary-nav__link" href="Business-Detail.html">Detail</a></li>
+        <li><a class="primary-nav__link" href="Rating-Guide.html">Rating Guide</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <!-- ================================================================
+       MAIN CONTENT
+       id="main-content" is the target for the skip-link above.
+       search-page-wrap applies the page's outer layout class.
+  ================================================================ -->
+  <main id="main-content" class="search-page-wrap">
+
+    <!-- Page title: visible heading at the top of the results area -->
+    <h1 class="page-title">Search Results</h1>
+
+    <!-- ============================================================
+         SEARCH BAR
+         <search> is the HTML5 landmark element for search widgets.
+         The form submits as GET to Search.html so the query becomes
+         a bookmarkable and shareable URL (?q=...).
+         role="search" adds an extra ARIA landmark on the form for
+         browsers that do not yet support the <search> element.
+    ============================================================ -->
+    <search class="search-bar-wrap" aria-label="Search for food businesses">
+      <form class="search-bar" method="get" action="Search.html" role="search" novalidate>
+
+        <!-- visually-hidden label links to the input by id.
+             Accessible to screen readers but invisible in the layout. -->
+        <label class="visually-hidden" for="search-input">
+          Search by business name, postcode or address
+        </label>
+
+        <!-- Decorative magnifying-glass icon inside the search field.
+             focusable="false" prevents IE from giving the SVG a focus ring.
+             aria-hidden removes it from the accessibility tree entirely. -->
+        <span class="search-bar__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               width="18" height="18" focusable="false" aria-hidden="true">
+            <!-- Search icon: circle representing the lens -->
+            <circle cx="11" cy="11" r="7" fill="none"
+                    stroke="currentColor" stroke-width="2"></circle>
+            <!-- Search icon: the handle of the magnifying glass -->
+            <line x1="16.5" y1="16.5" x2="22" y2="22"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+          </svg>
+        </span>
+
+        <!-- Main search input field.
+             name="q" produces the ?q= query parameter in the URL.
+             aria-describedby links to the hint span below for additional
+             context that screen readers will announce.
+             autocomplete="off" prevents browser autofill from obscuring the field. -->
+        <input class="search-bar__input" type="search" id="search-input" name="q"
+               placeholder="Search by name, postcode or address&hellip;"
+               maxlength="200" autocomplete="off" spellcheck="false"
+               aria-describedby="search-hint">
+
+        <!-- visually-hidden hint text: announced by screen readers as
+             supplementary context because aria-describedby references it. -->
+        <span class="visually-hidden" id="search-hint">
+          Enter a business name, postcode, or part of an address then press Search.
+        </span>
+
+        <!-- Search submit button -->
+        <button class="search-bar__btn" type="submit">Search</button>
+      </form>
+
+      <!-- Live results summary: data.js updates this with the number of
+           results found, or a helpful prompt if no query has been entered.
+           aria-live="polite" means screen readers announce updates between
+           other speech, not immediately.
+           aria-atomic="true" ensures the full text is read each time it changes.
+           for="search-input" associates this output with the input field. -->
+      <output class="results-summary" id="results-summary"
+              for="search-input" aria-live="polite" aria-atomic="true">
+        Enter a search term above to find businesses.
+      </o>
+    </search>
+
+
+    <!-- ============================================================
+         RESULTS LAYOUT
+         Two-column CSS grid: filter sidebar on the left, results on
+         the right. aria-label identifies the overall landmark region.
+    ============================================================ -->
+    <section class="results-layout" aria-label="Filters and search results">
+
+      <!-- ============================================================
+           FILTER SIDEBAR
+           Contains two fieldsets: one for hygiene rating checkboxes
+           and one for business type checkboxes.
+           data.js reads the checked values and re-runs the filter on
+           every change event.
+      ============================================================ -->
+      <aside class="filter-panel" aria-label="Filter results">
+        <h2 class="filter-panel__head">
+          <!-- Filter funnel icon; decorative so hidden from screen readers -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               width="16" height="16" focusable="false" aria-hidden="true">
+            <path d="M3 4h18l-7 9v6l-4-2v-4L3 4z" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+          </svg>
+          Filters
+        </h2>
+
+        <!-- Filter form: submits GET to Search.html so filters are
+             reflected in the URL and are shareable/bookmarkable.
+             The hidden input carries the search query forward so
+             the ?q= parameter is not lost when filters change. -->
+        <form class="filter-form" id="filter-form" method="get"
+              action="Search.html" aria-label="Filter search results">
+          <!-- Hidden input preserves the current search query when
+               the filter form is submitted. data.js keeps this in sync. -->
+          <input type="hidden" name="q" value="">
+
+          <!-- ========================================================
+               HYGIENE RATING FILTER
+               One checkbox per rating level (5 down to 0).
+               data.js updates the <data class="filter-count"> value
+               and text when results change to show how many businesses
+               match each rating in the current result set.
+          ======================================================== -->
+          <fieldset class="filter-fieldset">
+            <legend class="filter-fieldset__legend">Hygiene Rating</legend>
+            <ul class="filter-list">
+
+              <!-- Rating 5: Very Good -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="r5">
+                  <input class="filter-checkbox" type="checkbox" id="r5" name="rating" value="5">
+                  <!-- Coloured rating badge; aria-hidden because the text label conveys the meaning -->
+                  <span class="r-badge r-badge--5" aria-hidden="true">5</span>
+                  <span class="filter-label__text">Very Good</span>
+                  <!-- <data> pairs the machine-readable count [value] with
+                       the visible count text. data.js updates both. -->
+                  <data class="filter-count" value="2">2</data>
+                </label>
+              </li>
+
+              <!-- Rating 4: Good -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="r4">
+                  <input class="filter-checkbox" type="checkbox" id="r4" name="rating" value="4">
+                  <span class="r-badge r-badge--4" aria-hidden="true">4</span>
+                  <span class="filter-label__text">Good</span>
+                  <data class="filter-count" value="1">1</data>
+                </label>
+              </li>
+
+              <!-- Rating 3: Generally Satisfactory -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="r3">
+                  <input class="filter-checkbox" type="checkbox" id="r3" name="rating" value="3">
+                  <span class="r-badge r-badge--3" aria-hidden="true">3</span>
+                  <span class="filter-label__text">Generally Satisfactory</span>
+                  <data class="filter-count" value="1">1</data>
+                </label>
+              </li>
+
+              <!-- Rating 2: Improvement Necessary -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="r2">
+                  <input class="filter-checkbox" type="checkbox" id="r2" name="rating" value="2">
+                  <span class="r-badge r-badge--2" aria-hidden="true">2</span>
+                  <span class="filter-label__text">Improvement Necessary</span>
+                  <data class="filter-count" value="0">0</data>
+                </label>
+              </li>
+
+              <!-- Rating 1: Major Improvement Necessary -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="r1">
+                  <input class="filter-checkbox" type="checkbox" id="r1" name="rating" value="1">
+                  <span class="r-badge r-badge--1" aria-hidden="true">1</span>
+                  <span class="filter-label__text">Major Improvement</span>
+                  <data class="filter-count" value="1">1</data>
+                </label>
+              </li>
+
+              <!-- Rating 0: Urgent Improvement Required (lowest possible score) -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="r0">
+                  <input class="filter-checkbox" type="checkbox" id="r0" name="rating" value="0">
+                  <span class="r-badge r-badge--0" aria-hidden="true">0</span>
+                  <span class="filter-label__text">Urgent Improvement</span>
+                  <data class="filter-count" value="0">0</data>
+                </label>
+              </li>
+            </ul>
+          </fieldset>
+
+          <!-- ========================================================
+               BUSINESS TYPE FILTER
+               One checkbox per category matching the type values used
+               in the dataset (restaurant, takeaway, pub-bar, etc.).
+          ======================================================== -->
+          <fieldset class="filter-fieldset">
+            <legend class="filter-fieldset__legend">Business Type</legend>
+            <ul class="filter-list">
+
+              <!-- Restaurant / Cafe type filter -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-restaurant">
+                  <input class="filter-checkbox" type="checkbox" id="t-restaurant" name="type" value="restaurant">
+                  <span class="filter-label__text">Restaurant / Café</span>
+                  <data class="filter-count" value="2">2</data>
+                </label>
+              </li>
+
+              <!-- Takeaway type filter -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-takeaway">
+                  <input class="filter-checkbox" type="checkbox" id="t-takeaway" name="type" value="takeaway">
+                  <span class="filter-label__text">Takeaway</span>
+                  <data class="filter-count" value="1">1</data>
+                </label>
+              </li>
+
+              <!-- Pub and bar type filter -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-pub-bar">
+                  <input class="filter-checkbox" type="checkbox" id="t-pub-bar" name="type" value="pub-bar">
+                  <span class="filter-label__text">Pub / Bar</span>
+                  <data class="filter-count" value="1">1</data>
+                </label>
+              </li>
+
+              <!-- School type filter: includes canteens and catering premises -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-school">
+                  <input class="filter-checkbox" type="checkbox" id="t-school" name="type" value="school">
+                  <span class="filter-label__text">School</span>
+                  <data class="filter-count" value="0">0</data>
+                </label>
+              </li>
+
+              <!-- Hotel type filter -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-hotel">
+                  <input class="filter-checkbox" type="checkbox" id="t-hotel" name="type" value="hotel">
+                  <span class="filter-label__text">Hotel</span>
+                  <data class="filter-count" value="0">0</data>
+                </label>
+              </li>
+
+              <!-- Other: a catch-all for businesses that do not fit the
+                   categories above (e.g. hospitals, supermarkets). -->
+              <li class="filter-list__item">
+                <label class="filter-label" for="t-other">
+                  <input class="filter-checkbox" type="checkbox" id="t-other" name="type" value="other">
+                  <span class="filter-label__text">Other</span>
+                  <data class="filter-count" value="0">0</data>
+                </label>
+              </li>
+            </ul>
+          </fieldset>
+
+          <!-- Clear all filters button: type="reset" clears all checkboxes
+               automatically without needing JavaScript. data.js listens
+               for the reset event and re-runs the search immediately. -->
+          <button class="clear-btn" type="reset" aria-label="Clear all active filters">
+            Clear All Filters
+          </button>
+        </form>
+      </aside>
+
+
+      <!-- ============================================================
+           RESULTS COLUMN
+           Contains the active-filters bar, sort dropdown, the results
+           list (populated by data.js), the empty state panel, the
+           error banner, and the pagination controls.
+      ============================================================ -->
+      <section class="results-column" aria-label="Search results">
+
+        <!-- Sort toolbar: shows active filter chips and the sort dropdown.
+             aria-live="polite" on the filter list means screen readers
+             announce when filter chips are added or removed. -->
+        <header class="results-toolbar" aria-label="Active filters and sort options">
+          <!-- Active filter chips rendered here by data.js when filters
+               are applied. Each chip includes a remove button. -->
+          <ul class="active-filters" aria-label="Currently applied filters"
+              aria-live="polite" aria-atomic="false"></ul>
+
+          <!-- Sort dropdown: data.js reads the selected value and
+               re-sorts the result list whenever it changes. -->
+          <p class="sort-wrap">
+            <label class="sort-lbl" for="sort-select">Sort by:</label>
+            <select class="sort-sel" id="sort-select" name="sort" aria-label="Sort results">
+              <option value="rating-desc" selected>Highest Rating</option>
+              <option value="rating-asc">Lowest Rating</option>
+              <option value="name-asc">Name A–Z</option>
+              <option value="name-desc">Name Z–A</option>
+              <option value="date-desc">Most Recently Rated</option>
+            </select>
+          </p>
+        </header>
+
+        <!-- ============================================================
+             RESULTS LIST
+             data.js populates this <ol> with result card <li> elements.
+             aria-live="polite" announces updates to screen readers.
+             aria-atomic="false" means each added/removed item is
+             announced individually rather than the whole list at once.
+
+             IMPORTANT: .results-list must remain an immediately preceding
+             sibling of #no-results and #error-banner for the CSS general
+             sibling combinator (~) to work correctly. Do not insert any
+             additional elements between them.
+        ============================================================ -->
+        <ol class="results-list"
+            aria-label="Food business search results"
+            aria-live="polite"
+            aria-atomic="false"></ol>
+
+        <!-- ============================================================
+             NO RESULTS STATE
+             Shown by data.js (removes [hidden]) when the search returns
+             zero matching businesses. Hidden by default via [hidden].
+             aria-live="polite" announces its appearance to screen readers.
+        ============================================================ -->
+        <section class="no-results" id="no-results"
+                 aria-labelledby="no-results-heading"
+                 aria-live="polite"
+                 hidden>
+          <!-- Illustrative search icon, hidden from screen readers -->
+          <figure class="no-results__figure" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                 width="56" height="56" focusable="false">
+              <!-- Large circle: the lens of the magnifying glass -->
+              <circle cx="26" cy="26" r="17" fill="none"
+                      stroke="currentColor" stroke-width="3.5"></circle>
+              <!-- The handle of the magnifying glass -->
+              <line x1="37" y1="37" x2="57" y2="57"
+                    stroke="currentColor" stroke-width="3.5" stroke-linecap="round"></line>
+            </svg>
+            <figcaption class="visually-hidden">No results illustration</figcaption>
+          </figure>
+          <h2 class="no-results__heading" id="no-results-heading">No results found</h2>
+          <p class="no-results__msg">
+            Try a different search term or broaden your filters to see more results.
+          </p>
+        </section>
+
+        <!-- ============================================================
+             ERROR BANNER
+             Shown by data.js when the dataset fails to load.
+             role="alert" and aria-live="assertive" cause screen readers
+             to announce the error immediately, interrupting other speech.
+             The Retry button triggers data.js to attempt the load again.
+        ============================================================ -->
+        <div class="error-banner" id="error-banner"
+             role="alert" aria-live="assertive"
+             hidden>
+          <!-- Warning triangle icon; decorative so hidden from screen readers -->
+          <svg class="error-banner__icon" xmlns="http://www.w3.org/2000/svg"
+               viewBox="0 0 24 24" width="18" height="18"
+               aria-hidden="true" focusable="false">
+            <!-- Outer triangle path of the warning icon -->
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+            <!-- Vertical bar of the exclamation mark -->
+            <line x1="12" y1="9" x2="12" y2="13"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+            <!-- Dot at the bottom of the exclamation mark -->
+            <line x1="12" y1="17" x2="12.01" y2="17"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+          </svg>
+          <p class="error-banner__body">
+            <strong class="error-banner__title">Unable to load data</strong>
+            Something went wrong while retrieving data. Please try again shortly.
+          </p>
+          <!-- Retry button: data.js listens for clicks and re-attempts
+               the dataset fetch when the button is activated. -->
+          <button class="error-banner__retry" type="button" id="retry-btn">Retry</button>
+        </div>
+
+        <!-- ============================================================
+             PAGINATION
+             data.js populates pagination__list with <li> elements
+             containing numbered page links. The nav landmark gives
+             screen readers a clear description of the control.
+        ============================================================ -->
+        <nav class="pagination" aria-label="Search results pages">
+          <ol class="pagination__list"></ol>
+        </nav>
+
+      </section>
+    </section><!-- /results-layout -->
+
+  </main>
+
+
+  <!-- ================================================================
+       SITE FOOTER
+       Consistent structure across all pages:
+         1. footer-certs  - Certification and compliance strip
+         2. footer-main   - Brand/address, quick links, legal links
+         3. footer-copy   - Copyright and data attribution
+  ================================================================ -->
+  <footer class="site-footer">
+
+    <!-- Certification strip: FHRS badge, membership logos, compliance links -->
+    <section class="footer-certs" aria-label="Certifications and compliance">
+      <img class="footer-certs__fhrs"
+           src="Assets/Icons/Food_Hygiene_Rating_Badge.png"
+           alt="Food Hygiene Rating Scheme – rated 5, Very Good"
+           loading="lazy">
+      <ul class="footer-certs__logos" aria-label="Certification badges">
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/cieh.png" alt="CIEH – Chartered Institute of Environmental Health" loading="lazy">
+          <span>CIEH Member</span>
+        </li>
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/rspa.png" alt="R·SPA – Royal Society for Public Health member" loading="lazy">
+          <span>R·SPA Member</span>
+        </li>
+        <li class="footer-cert-badge">
+          <img src="Assets/Icons/iso22000.png" alt="ISO 22000 certified – Food Safety Management" loading="lazy">
+          <span>ISO 22000</span>
+        </li>
+      </ul>
+      <!-- Compliance resource links: open in new tabs with screen-reader notice -->
+      <nav class="footer-certs__links" aria-label="Compliance resources">
+        <a href="https://bristolfoodhygieneratings.substack.com/p/what-you-need-to-know-about-allergen"
+           rel="noopener noreferrer" target="_blank">
+          Allergen Information <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+        <span aria-hidden="true">|</span>
+        <a href="https://bristolfoodhygieneratings.substack.com/p/safe-food-handling-what-it-looks"
+           rel="noopener noreferrer" target="_blank">
+          Safe Food Handling <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+        <span aria-hidden="true">|</span>
+        <a href="https://bristolfoodhygieneratings.substack.com/p/haccp-certified-what-it-means-and"
+           rel="noopener noreferrer" target="_blank">
+          <abbr title="Hazard Analysis and Critical Control Points">HACCP</abbr> Certified
+          <span class="visually-hidden">(opens in new tab)</span>
+        </a>
+      </nav>
+    </section>
+
+    <!-- Footer body: brand/contact, quick links, legal links -->
+    <section class="footer-main" aria-label="Footer information">
+
+      <!-- Organisation address and contact block.
+           <address> is correct here as it contains contact information
+           for the organisation that owns this content. -->
+      <section class="footer-brand" aria-label="Organisation contact information">
+        <a class="footer-brand__link" href="index.html"
+           aria-label="Bristol Food Hygiene – return to homepage">
+          <img class="footer-brand__logo" src="Assets/Icons/Logo.png"
+               alt="" aria-hidden="true" width="34" height="34">
+          <span class="footer-brand__name">Bristol Food Hygiene</span>
+        </a>
+        <address class="footer-brand__addr">
+          FoodSafe Training Ltd<br>
+          123 Health St, Bristol, <abbr title="Postcode">BS1</abbr> 4AB<br>
+          Mon–Fri: 9:00 AM – 5:00 PM &middot; Sat–Sun: Closed<br>
+          <br>
+          Phone: <a href="tel:+441171234567">0117 123 4567</a><br>
+          Email: <a href="mailto:Bristol_Food_Hygiene@hotmail.com">Bristol_Food_Hygiene@hotmail.com</a><br>
+          Based in Bristol, United Kingdom
+        </address>
+      </section>
+
+      <!-- Quick links: external pages and social media profiles -->
+      <nav class="footer-nav" aria-label="Quick links">
+        <h2 class="footer-nav__heading">Quick Links</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/about-bristol-food-hygiene-ratings" rel="noopener noreferrer" target="_blank">About Us</a></li>
+          <li><a class="footer-nav__link" href="https://www.linkedin.com/in/bristol-food-hygiene-" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+          <li><a class="footer-nav__link" href="https://twitter.com/FoodRating" rel="noopener noreferrer" target="_blank">Twitter</a></li>
+          <li><a class="footer-nav__link" href="https://www.youtube.com" rel="noopener noreferrer" target="_blank">YouTube</a></li>
+        </ul>
+      </nav>
+
+      <!-- Legal links: privacy, cookies, terms, disclaimer, and accessibility -->
+      <nav class="footer-nav" aria-label="Legal information">
+        <h2 class="footer-nav__heading">Legal</h2>
+        <ul class="footer-nav__list">
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/privacy-policy" rel="noopener noreferrer" target="_blank">Privacy Policy</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/cookie-policy" rel="noopener noreferrer" target="_blank">Cookie Policy</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/terms-of-use" rel="noopener noreferrer" target="_blank">Terms of Use</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/disclaimer" rel="noopener noreferrer" target="_blank">Disclaimer</a></li>
+          <li><a class="footer-nav__link" href="https://bristolfoodhygieneratings.substack.com/p/accessibility" rel="noopener noreferrer" target="_blank">Accessibility</a></li>
+        </ul>
+      </nav>
+
+    </section>
+
+    <!-- Copyright and open-data attribution bar.
+         <time datetime="2026"> provides the machine-readable year value
+         alongside the human-readable copyright text. -->
+    <div class="footer-copy">
+      <p>&copy; <time datetime="2026">2026</time> Bristol Food Hygiene Insights. All rights reserved.</p>
+      <p>
+        Food hygiene data &copy;
+        <a href="https://www.food.gov.uk/" rel="noopener noreferrer" target="_blank">Food Standards Agency</a>
+        and
+        <a href="https://opendata.bristol.gov.uk/datasets/7d0994dded2348d5aff6d419b0c76bb9_0/explore"
+           rel="noopener noreferrer" target="_blank">Bristol Open Data</a>.
+      </p>
+    </div>
+
+  </footer>
+
+  <!-- ================================================================
+       SCRIPTS
+       data.js is loaded first because it defines the dataset and all
+       helper functions. Main.js depends on those, so it loads second.
+       Placing both scripts at the bottom of <body> ensures the full
+       HTML is parsed before either script runs.
+  ================================================================ -->
+  <script src="js/data.js"></script>
+  <script src="js/Main.js"></script>
+</body>
+</html>
