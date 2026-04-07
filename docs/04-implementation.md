@@ -889,13 +889,14 @@ If `initSearchPage()` encounters an unexpected runtime error, the results contai
 
 From the filtered search results produced in UC1, click on any result card. The entire card is a clickable link. `data.js` appends the selected business's `id` as a URL query parameter and navigates to `Business-Detail.html?id=[id]`.
 
-*(Insert screenshot of a result card with cursor indicating it is clickable)*
+<img width="1470" height="956" alt="Screenshot 2026-04-07 at 19 36 27" src="https://github.com/user-attachments/assets/1d812ab9-4e2a-41b8-8f04-36d495f5a113" />
 
 #### Step 2: View the Business Details Page
 
 The Business Details page loads and `initDetailPage()` in `data.js` locates the correct record in `ALL_BUSINESSES` by `id` and populates the page. The left column contains the business information card, which shows the large numeric rating score box (colour-coded dark green for a rating of 5), the business name in bold, the business type badge, the status badge showing `"Rated"` in green, and the full address. Below the card, a `<dl>` presents every field from the dataset as a clearly labelled `<dt>`/`<dd>` row.
 
-*(Insert screenshot of the Business Details page showing the left column)*
+<img width="1470" height="956" alt="Screenshot 2026-04-07 at 19 36 34" src="https://github.com/user-attachments/assets/7363b810-36d9-454b-a335-d4520db5da55" />
+<img width="1470" height="956" alt="Screenshot 2026-04-07 at 19 39 38" src="https://github.com/user-attachments/assets/a82cdbe4-e356-4d36-af3c-77ae2574281b" />
 
 **What is shown:** Business name, full address, postcode, business type, hygiene rating, rating date, rating status, and new rating pending indicator, satisfying FR11.
 
@@ -903,7 +904,8 @@ The Business Details page loads and `initDetailPage()` in `data.js` locates the 
 
 The right column displays the official Food Standards Agency (FSA) hygiene rating badge, loaded from the external URL stored in the business record. This is the same green and black sticker design displayed on the doors and windows of physical food premises across the United Kingdom.
 
-*(Insert screenshot of the right column showing the official FSA rating graphic)*
+<img width="1470" height="133" alt="Screenshot 2026-04-07 at 19 40 36" src="https://github.com/user-attachments/assets/b91e4080-6538-4f01-9917-f6e1609a23bd" />
+
 
 **Requirement satisfied:** FR12. If the graphic fails to load, the `onerror` handler displays the numeric rating value as a styled fallback, satisfying FR13.
 
@@ -921,7 +923,8 @@ Below the official graphic, the "What Does This Rating Mean?" panel lists all si
 
 If the selected business has `newRatingPending: true` in the dataset, a yellow notice panel is displayed below the two-column layout. This notice informs the user that the currently displayed rating may change soon because a new rating is pending publication.
 
-*(Insert screenshot of the New Rating Pending notice panel)*
+<img width="618" height="133" alt="Screenshot 2026-04-07 at 19 41 24" src="https://github.com/user-attachments/assets/9c948b52-3262-48cc-9a52-b64b81f69ac3" />
+
 
 **Requirement satisfied:** FR15.
 
@@ -929,7 +932,8 @@ If the selected business has `newRatingPending: true` in the dataset, a yellow n
 
 If the selected business has `ratingStatus: 'AwaitingInspection'`, the numeric rating badge is replaced with the label `"Awaiting Inspection"` and a purple notice panel is displayed explaining that the business has not yet been inspected and no hygiene rating is currently available.
 
-*(Insert screenshot of the Awaiting Inspection notice panel)*
+<img width="618" height="96" alt="Screenshot 2026-04-07 at 19 41 48" src="https://github.com/user-attachments/assets/f859281c-24f7-48fa-b448-6d1c5bdafc24" />
+
 
 **Requirement satisfied:** FR14.
 
@@ -937,7 +941,8 @@ If the selected business has `ratingStatus: 'AwaitingInspection'`, the numeric r
 
 If the selected business has `ratingStatus: 'Exempt'`, a light blue notice panel is displayed explaining that this business is not required to participate in the Food Hygiene Rating Scheme and that no numeric rating will be assigned.
 
-*(Insert screenshot of the Exempt notice panel)*
+<img width="618" height="96" alt="Screenshot 2026-04-07 at 19 41 55" src="https://github.com/user-attachments/assets/b2d0e49b-472f-46a0-a2a6-718b0c4c7ff0" />
+
 
 **Requirement satisfied:** FR16.
 
