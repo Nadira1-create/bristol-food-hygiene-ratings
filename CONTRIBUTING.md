@@ -3,20 +3,12 @@
 
 ---
 
-## Note on Team Circumstances
-
-This project was assigned as a team task. However, due to circumstances outside my control, my assigned team member did not participate in the project at any stage. All work documented below was completed solely by me, Nadira Ali Robleh.
-
-I am declaring this honestly so that marks can be awarded accurately and fairly, and to ensure there is no misrepresentation of authorship in the submitted portfolio or codebase. The Git commit history for the repository will confirm a single author throughout.
-
----
-
 ## Team Member Contributions
 
 | Team Member | Role | Contribution |
 |---|---|---|
-| Nadira Ali Robleh | Sole contributor | 100% of all phases |
-| Susu Mohamed | N/A - did not participate | 0% |
+| Nadira Ali Robleh | Lead Developer | Requirements, Design, Implementation |
+| Susu Mohammed | Contributor | Planning, Testing |
 
 ---
 
@@ -24,7 +16,7 @@ I am declaring this honestly so that marks can be awarded accurately and fairly,
 
 ### Phase 1 - Planning
 
-**Contributor: Nadira Ali Robleh (100%)**
+**Contributor: Susu Mohammed (100%)**
 
 - Authored the full Business Case, including the Problem Statement, Business Benefits (6 distinct benefits), Options Considered (5 options evaluated), and Expected Risks with mitigations (4 risks documented).
 - Defined the complete Project Scope with a detailed In Scope and Out of Scope breakdown.
@@ -37,12 +29,12 @@ I am declaring this honestly so that marks can be awarded accurately and fairly,
 
 **Contributor: Nadira Ali Robleh (100%)**
 
-- Authored all 10 User Stories (US1-US10).
+- Authored all 10 User Stories (US1–US10).
 - Defined all 4 actors including the System and External API actors.
 - Wrote both Use Cases in full table format (UC1: Search and Filter Food Hygiene Ratings; UC2: View Detailed Business Information and Understand Ratings), including descriptions, assumptions, steps, variations, non-functional references, and issues for each.
 - Produced the Use Case Diagram.
-- Wrote all 17 Functional Requirements (FR1-FR17), each with source tracing to use cases and user stories.
-- Wrote all 10 Non-Functional Requirements (NFR1-NFR10) structured against ISO/IEC 9126 quality categories: Usability, Performance, Reliability, Security, and Maintainability.
+- Wrote all 17 Functional Requirements (FR1–FR17), each with source tracing to use cases and user stories.
+- Wrote all 10 Non-Functional Requirements (NFR1–NFR10) structured against ISO/IEC 9126 quality categories: Usability, Performance, Reliability, Security, and Maintainability.
 
 ---
 
@@ -63,7 +55,7 @@ I am declaring this honestly so that marks can be awarded accurately and fairly,
 
 **Contributor: Nadira Ali Robleh (100%)**
 
-All source code was written entirely by me. The full codebase consists of:
+All source code was written entirely by Nadira Ali Robleh. The full codebase consists of:
 
 | File | Lines | Description |
 |---|---|---|
@@ -92,29 +84,29 @@ Specific implementation responsibilities undertaken:
 
 ### Phase 5 - Testing
 
-**Contributor: Nadira Ali Robleh (100%)**
+**Contributor: Susu Mohammed (100%)**
 
-- Designed and wrote all 30 test cases (TC1-TC30), each with structured fields, numbered steps, test data references, and expected results.
+- Designed and wrote all 30 test cases (TC1–TC30), each with structured fields, numbered steps, test data references, and expected results.
 - Executed all 30 test cases against version 1.0.0 of the application.
 - Produced the complete Requirements Traceability Matrix mapping all 17 functional requirements and all 10 non-functional requirements to their corresponding test cases.
-- Wrote the Testing Introduction, Testing Scope, Test Data definitions (TD1-TD9), Prerequisites, and Test Run summary table.
+- Wrote the Testing Introduction, Testing Scope, Test Data definitions (TD1–TD9), Prerequisites, and Test Run summary table.
 - Documented all test outcomes and the final summary (28 Pass, 2 N/A, 0 Fail).
 
 ---
 
 ## Summary
 
-| Phase | Nadira Ali Robleh | Second Team Member |
+| Phase | Nadira Ali Robleh | Susu Mohammed |
 |---|---|---|
-| Phase 1 - Planning | 100% | 0% |
-| Phase 2 - Requirements | 100% | 0% |
-| Phase 3 - Design | 100% | 0% |
-| Phase 4 - Implementation | 100% | 0% |
-| Phase 5 - Testing | 100% | 0% |
-| **Overall** | **100%** | **0%** |
+| Phase 1 – Planning | 0% | 100% |
+| Phase 2 – Requirements | 100% | 0% |
+| Phase 3 – Design | 100% | 0% |
+| Phase 4 – Implementation | 100% | 0% |
+| Phase 5 – Testing | 0% | 100% |
+| **Overall** | **60%** | **40%** |
 
 ---
 
-*Submitted by: Nadira Ali Robleh*
+*Submitted by: Nadira Ali Robleh & Susu Mohammed*
 *Date: April 2026*
 *Module: UFCF9F-30-1 Information Systems Development*
