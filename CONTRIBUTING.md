@@ -7,8 +7,8 @@
 
 | Team Member | Role | Contribution |
 |---|---|---|
-| Nadira Ali Robleh | Lead Developer | Requirements, Design, Implementation |
-| Susu Mohammed | Contributor | Planning, Testing |
+| Nadira Ali Robleh | Lead Developer | Requirements, Design, Implementation, Planning |
+| Susu Mohammed | Contributor | Testing |
 
 ---
 
@@ -16,7 +16,7 @@
 
 ### Phase 1 - Planning
 
-**Contributor: Susu Mohammed (100%)**
+**Contributor: Nadira Ali Robleh (100%)**
 
 - Authored the full Business Case, including the Problem Statement, Business Benefits (6 distinct benefits), Options Considered (5 options evaluated), and Expected Risks with mitigations (4 risks documented).
 - Defined the complete Project Scope with a detailed In Scope and Out of Scope breakdown.
@@ -29,12 +29,12 @@
 
 **Contributor: Nadira Ali Robleh (100%)**
 
-- Authored all 10 User Stories (US1–US10).
+- Authored all 10 User Stories (US1-US10).
 - Defined all 4 actors including the System and External API actors.
 - Wrote both Use Cases in full table format (UC1: Search and Filter Food Hygiene Ratings; UC2: View Detailed Business Information and Understand Ratings), including descriptions, assumptions, steps, variations, non-functional references, and issues for each.
 - Produced the Use Case Diagram.
-- Wrote all 17 Functional Requirements (FR1–FR17), each with source tracing to use cases and user stories.
-- Wrote all 10 Non-Functional Requirements (NFR1–NFR10) structured against ISO/IEC 9126 quality categories: Usability, Performance, Reliability, Security, and Maintainability.
+- Wrote all 17 Functional Requirements (FR1-FR17), each with source tracing to use cases and user stories.
+- Wrote all 10 Non-Functional Requirements (NFR1-NFR10) structured against ISO/IEC 9126 quality categories: Usability, Performance, Reliability, Security, and Maintainability.
 
 ---
 
@@ -86,10 +86,10 @@ Specific implementation responsibilities undertaken:
 
 **Contributor: Susu Mohammed (100%)**
 
-- Designed and wrote all 30 test cases (TC1–TC30), each with structured fields, numbered steps, test data references, and expected results.
+- Designed and wrote all 30 test cases (TC1-TC30), each with structured fields, numbered steps, test data references, and expected results.
 - Executed all 30 test cases against version 1.0.0 of the application.
 - Produced the complete Requirements Traceability Matrix mapping all 17 functional requirements and all 10 non-functional requirements to their corresponding test cases.
-- Wrote the Testing Introduction, Testing Scope, Test Data definitions (TD1–TD9), Prerequisites, and Test Run summary table.
+- Wrote the Testing Introduction, Testing Scope, Test Data definitions (TD1-TD9), Prerequisites, and Test Run summary table.
 - Documented all test outcomes and the final summary (28 Pass, 2 N/A, 0 Fail).
 
 ---
@@ -98,12 +98,12 @@ Specific implementation responsibilities undertaken:
 
 | Phase | Nadira Ali Robleh | Susu Mohammed |
 |---|---|---|
-| Phase 1 – Planning | 0% | 100% |
-| Phase 2 – Requirements | 100% | 0% |
-| Phase 3 – Design | 100% | 0% |
-| Phase 4 – Implementation | 100% | 0% |
-| Phase 5 – Testing | 0% | 100% |
-| **Overall** | **60%** | **40%** |
+| Phase 1 - Planning | 100% | 0% |
+| Phase 2 - Requirements | 100% | 0% |
+| Phase 3 - Design | 100% | 0% |
+| Phase 4 - Implementation | 100% | 0% |
+| Phase 5 - Testing | 0% | 100% |
+| **Overall** | **80%** | **20%** |
 
 ---
 
