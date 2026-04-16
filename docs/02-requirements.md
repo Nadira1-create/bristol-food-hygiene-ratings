@@ -63,7 +63,8 @@ The external data source that supplies all food hygiene rating information used 
 
 ### Use Case Diagram
 
-![Use Case Diagram](images/use-case.png)
+<img width="1536" height="1024" alt="33568661-cb33-4e94-92d5-697910190a7c" src="https://github.com/user-attachments/assets/0e9226e1-dec0-4264-9e85-70b599eb5efc" />
+
 
 ## Software Requirements Specification
 
