@@ -224,8 +224,7 @@ The configuration layer consists of two JSON files that configure the local deve
 
 ### Component Diagram
 
-- [ ] <img width="1470" height="487" alt="Screenshot 2026-03-25 at 00 24 34" src="https://github.com/user-attachments/assets/381b8237-1e0c-4e0d-8d6e-4385a497f984" />
-- [ ] Here is a link aswell: https://www.figma.com/board/dgB3ASTaaUlMJOzYjqT7Zp/Bristol-Food-Hygiene-Ratings-%E2%80%94-Component-Diagram?node-id=1-32&t=wxooYZ87ZipmGeC9-1
+
 
 The diagram above illustrates the five major components and how they relate to one another at runtime. The HTML pages sit at the top of the hierarchy as the view layer. Each page loads `data.js` and `Main.js` via `<script>` tags at the end of the `<body>`. When the HTML document finishes parsing, `data.js` fires its `DOMContentLoaded` listener, calls `detectPage()` to identify the current page, and routes to the appropriate initialiser (`initHomepage`, `initSearchPage`, or `initDetailPage`). Each initialiser reads from `ALL_BUSINESSES` and writes rendered HTML directly into the DOM containers provided by the page. `Style.css` is linked by all four pages and applies presentation rules to every element, both the static HTML structure and the dynamically generated content from `data.js`. `Main.js` runs its IIFE in parallel after parsing, initialising the mobile navigation independently of the data layer. The configuration layer (`serve.json` and `launch.json`) sits entirely outside the runtime flow and is used only during local development.
 
