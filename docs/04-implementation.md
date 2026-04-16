@@ -1,6 +1,3 @@
-<img width="1536" height="1024" alt="214204eb-88e0-43cd-8eb6-e8c630ac512f" src="https://github.com/user-attachments/assets/03289297-ff27-41e4-806d-4f685b77f8fa" />
-# Implementation
-
 ## Table of Contents
 
 - [Introduction](#introduction)
