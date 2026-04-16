@@ -1,3 +1,4 @@
+<img width="1536" height="1024" alt="214204eb-88e0-43cd-8eb6-e8c630ac512f" src="https://github.com/user-attachments/assets/03289297-ff27-41e4-806d-4f685b77f8fa" />
 # Implementation
 
 ## Table of Contents
@@ -224,6 +225,7 @@ The configuration layer consists of two JSON files that configure the local deve
 
 ### Component Diagram
 
+<img width="1536" height="1024" alt="214204eb-88e0-43cd-8eb6-e8c630ac512f" src="https://github.com/user-attachments/assets/bcaf42fc-2f0a-49a6-93b6-f289f9333ea2" />
 
 
 The diagram above illustrates the five major components and how they relate to one another at runtime. The HTML pages sit at the top of the hierarchy as the view layer. Each page loads `data.js` and `Main.js` via `<script>` tags at the end of the `<body>`. When the HTML document finishes parsing, `data.js` fires its `DOMContentLoaded` listener, calls `detectPage()` to identify the current page, and routes to the appropriate initialiser (`initHomepage`, `initSearchPage`, or `initDetailPage`). Each initialiser reads from `ALL_BUSINESSES` and writes rendered HTML directly into the DOM containers provided by the page. `Style.css` is linked by all four pages and applies presentation rules to every element, both the static HTML structure and the dynamically generated content from `data.js`. `Main.js` runs its IIFE in parallel after parsing, initialising the mobile navigation independently of the data layer. The configuration layer (`serve.json` and `launch.json`) sits entirely outside the runtime flow and is used only during local development.
