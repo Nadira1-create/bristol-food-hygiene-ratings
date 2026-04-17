@@ -400,7 +400,7 @@ function initDetailPage() {
 
 ### UML Class Diagram
 
-- [ ] <img width="1121" height="363" alt="Screenshot 2026-03-25 at 10 55 12" src="https://github.com/user-attachments/assets/a7b666b1-047c-43d6-b385-cb4cf314fb16" />
+<img width="903" height="535" alt="Screenshot 2026-04-17 at 00 49 01" src="https://github.com/user-attachments/assets/6943031f-f2d3-4c2a-9276-58b5958ac353" />
 
 The UML class diagram above represents the structure of the JavaScript objects used throughout the application. The `DataModule` class encapsulates the embedded dataset (`ALL_BUSINESSES`) and all query and rendering logic, exposing three public page initialisers. The `NavigationModule` class (represented by `Main.js`) operates independently, with no dependency on `DataModule`. Each `FoodBusinessRecord` object conforms to the nine-field structure documented in the Dataset Description section.
 
