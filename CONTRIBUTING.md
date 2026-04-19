@@ -7,8 +7,8 @@
 
 | Team Member | Role | Contribution |
 |---|---|---|
-| Nadira Ali Robleh | Lead Developer | Requirements, Design, Implementation, Planning |
-| Susu Mohammed | Contributor | Testing |
+| Nadira Ali Robleh | Lead Developer | Requirements, Design, Implementation, Planning, Testing |
+| Susu Mohammed | Contributor | None |
 
 ---
 
@@ -84,7 +84,7 @@ Specific implementation responsibilities undertaken:
 
 ### Phase 5 - Testing
 
-**Contributor: Susu Mohammed (100%)**
+**Contributor: Nadira Ali Robleh(100%)**
 
 - Designed and wrote all 30 test cases (TC1-TC30), each with structured fields, numbered steps, test data references, and expected results.
 - Executed all 30 test cases against version 1.0.0 of the application.
@@ -102,8 +102,8 @@ Specific implementation responsibilities undertaken:
 | Phase 2 - Requirements | 100% | 0% |
 | Phase 3 - Design | 100% | 0% |
 | Phase 4 - Implementation | 100% | 0% |
-| Phase 5 - Testing | 0% | 100% |
-| **Overall** | **80%** | **20%** |
+| Phase 5 - Testing | 100% | 0% |
+| **Overall** | **100%** | **0%** |
 
 ---
 
