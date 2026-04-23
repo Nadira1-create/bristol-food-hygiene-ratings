@@ -55,7 +55,7 @@
 
 **Contributor: Susu Mohammed (100%)**
 
-All source code was written entirely by Susu Mohammed. The full codebase consists of:
+All source code was written entirely by Susu Mohammed and Nadira Robleh. The full codebase consists of:
 
 | File | Lines | Description |
 |---|---|---|
