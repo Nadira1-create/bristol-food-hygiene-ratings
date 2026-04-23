@@ -7,8 +7,8 @@
 
 | Team Member | Role | Contribution |
 |---|---|---|
-| Nadira Ali Robleh | Lead Developer | Requirements, Design, Implementation, Planning, Testing |
-| Susu Mohammed | Contributor | None |
+| Nadira Ali Robleh | Lead Developer | Design, Planning, Testing |
+| Susu Mohammed | Contributor | None |Requirements, Implementation
 
 ---
 
@@ -27,7 +27,7 @@
 
 ### Phase 2 - Requirements
 
-**Contributor: Nadira Ali Robleh (100%)**
+**Contributor: Susu Mohammed (100%)**
 
 - Authored all 10 User Stories (US1-US10).
 - Defined all 4 actors including the System and External API actors.
@@ -53,7 +53,7 @@
 
 ### Phase 4 - Implementation
 
-**Contributor: Nadira Ali Robleh (100%)**
+**Contributor: Susu Mohammed (100%)**
 
 All source code was written entirely by Nadira Ali Robleh. The full codebase consists of:
 
@@ -99,11 +99,11 @@ Specific implementation responsibilities undertaken:
 | Phase | Nadira Ali Robleh | Susu Mohammed |
 |---|---|---|
 | Phase 1 - Planning | 100% | 0% |
-| Phase 2 - Requirements | 100% | 0% |
+| Phase 2 - Requirements | 0% | 100% |
 | Phase 3 - Design | 100% | 0% |
-| Phase 4 - Implementation | 100% | 0% |
+| Phase 4 - Implementation | 0% | 100% |
 | Phase 5 - Testing | 100% | 0% |
-| **Overall** | **100%** | **0%** |
+| **Overall** | **100%** | **40%** |
 
 ---
 
