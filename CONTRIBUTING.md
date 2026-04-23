@@ -8,7 +8,7 @@
 | Team Member | Role | Contribution |
 |---|---|---|
 | Nadira Ali Robleh | Lead Developer | Design, Planning, Testing |
-| Susu Mohammed | Contributor | None |Requirements, Implementation
+| Susu Mohammed | Contributor |Requirements, Implementation
 
 ---
 
