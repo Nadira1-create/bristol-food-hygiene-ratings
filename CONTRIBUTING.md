@@ -101,9 +101,9 @@ Specific implementation responsibilities undertaken:
 | Phase 1 - Planning | 100% | 0% |
 | Phase 2 - Requirements | 0% | 100% |
 | Phase 3 - Design | 100% | 0% |
-| Phase 4 - Implementation | 0% | 100% |
+| Phase 4 - Implementation | 5% | 95% |
 | Phase 5 - Testing | 100% | 0% |
-| **Overall** | **60%** | **40%** |
+| **Overall** | **65%** | **35%** |
 
 ---
 
