@@ -8,7 +8,7 @@
 | Team Member | Role | Contribution |
 |---|---|---|
 | Nadira Ali Robleh | Lead Developer | Design, Planning, Testing |
-| Susu Mohammed | Contributor |Requirements, Implementation
+| Susu Mohammed | Contributor | Requirements, Implementation |
 
 ---
 
@@ -55,7 +55,7 @@
 
 **Contributor: Susu Mohammed (100%)**
 
-All source code was written entirely by Nadira Ali Robleh. The full codebase consists of:
+All source code was written entirely by Susu Mohammed. The full codebase consists of:
 
 | File | Lines | Description |
 |---|---|---|
@@ -84,7 +84,7 @@ Specific implementation responsibilities undertaken:
 
 ### Phase 5 - Testing
 
-**Contributor: Nadira Ali Robleh(100%)**
+**Contributor: Nadira Ali Robleh (100%)**
 
 - Designed and wrote all 30 test cases (TC1-TC30), each with structured fields, numbered steps, test data references, and expected results.
 - Executed all 30 test cases against version 1.0.0 of the application.
@@ -103,7 +103,7 @@ Specific implementation responsibilities undertaken:
 | Phase 3 - Design | 100% | 0% |
 | Phase 4 - Implementation | 0% | 100% |
 | Phase 5 - Testing | 100% | 0% |
-| **Overall** | **100%** | **40%** |
+| **Overall** | **60%** | **40%** |
 
 ---
 
