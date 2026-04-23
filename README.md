@@ -491,7 +491,7 @@ Rating sticker graphics are provided by the **Food Standards Agency (FSA)** and 
 | Field | Detail |
 |---|---|
 | Module | UFCF9F-30-1 Information Systems Development |
-| Author | Nadira Ali Robleh|
+| Author | Nadira Ali Robleh and Susu Mohammed|
 | Version | 1.0.0 |
 | Application | Bristol Food Hygiene Ratings Web Application |
 | Date | 06 April 2026 |
